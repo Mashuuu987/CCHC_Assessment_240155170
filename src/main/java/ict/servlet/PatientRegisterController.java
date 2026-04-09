@@ -4,6 +4,10 @@
  */
 package ict.servlet;
 
+import java.io.IOException;
+
+import ict.bean.PatientProfileBean;
+import ict.bean.UserInfoBean;
 import ict.db.PatientDB;
 import ict.db.UserDB;
 import jakarta.servlet.ServletException;
@@ -11,7 +15,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  *
@@ -79,9 +82,108 @@ public class PatientRegisterController extends HttpServlet {
             request.setAttribute("address", address);
             request.setAttribute("emergencyContactFullName", ecName);
             request.setAttribute("emergencyContact", ecPhone);
-            
+
             request.getRequestDispatcher("/login-Process/patientRegister.jsp").forward(request, response);
             return;
+        }
+
+        UserInfoBean user_name_existing = userDb.getUserByUsername(username);
+        if (user_name_existing != null) {
+            error = "Username already exists.";
+        }
+
+        if (error != null) {
+            request.setAttribute("registerError", error);
+            request.setAttribute("username", username);
+            request.setAttribute("hkid", hkid);
+            request.setAttribute("firstName", firstName);
+            request.setAttribute("lastName", lastName);
+            request.setAttribute("gender", gender);
+            request.setAttribute("dob", dob);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.setAttribute("address", address);
+            request.setAttribute("emergencyContactFullName", ecName);
+            request.setAttribute("emergencyContact", ecPhone);
+
+            request.getRequestDispatcher("/login-Process/patientRegister.jsp").forward(request, response);
+            return;
+        }
+        
+        PatientProfileBean HKID_OR_ID_existing = patientDb.getPatientByHKIdOrID(hkid);
+        if (HKID_OR_ID_existing != null) {
+            error = "HKID/ID already exists.";
+        }
+
+        if (error != null) {
+            request.setAttribute("registerError", error);
+            request.setAttribute("username", username);
+            request.setAttribute("hkid", hkid);
+            request.setAttribute("firstName", firstName);
+            request.setAttribute("lastName", lastName);
+            request.setAttribute("gender", gender);
+            request.setAttribute("dob", dob);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.setAttribute("address", address);
+            request.setAttribute("emergencyContactFullName", ecName);
+            request.setAttribute("emergencyContact", ecPhone);
+
+            request.getRequestDispatcher("/login-Process/patientRegister.jsp").forward(request, response);
+            return;
+        }
+
+        int userId = -1;
+        userId = userDb.createUser(username, password, "PATIENT");
+        if (userId == -1) {
+            error = "Failed to create user account. Please try again.";
+        }
+
+        int patientId = -1;
+        if (error == null) {
+            patientId = patientDb.createPatientProfile(
+                    userId,
+                    hkid,
+                    firstName,
+                    lastName,
+                    gender,
+                    dob,
+                    phone,
+                    email,
+                    address,
+                    ecName,
+                    ecPhone
+            );
+            if (patientId == -1) {
+                try {
+                    userDb.delUser(userId);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                error = "Failed to create patient profile. Please try again.";
+            }
+        }
+
+        if (error != null) {
+            request.setAttribute("registerError", error);
+            request.setAttribute("username", username);
+            request.setAttribute("hkid", hkid);
+            request.setAttribute("firstName", firstName);
+            request.setAttribute("lastName", lastName);
+            request.setAttribute("gender", gender);
+            request.setAttribute("dob", dob);
+            request.setAttribute("phone", phone);
+            request.setAttribute("email", email);
+            request.setAttribute("address", address);
+            request.setAttribute("emergencyContactFullName", ecName);
+            request.setAttribute("emergencyContact", ecPhone);
+
+            request.getRequestDispatcher("/login-Process/patientRegister.jsp").forward(request, response);
+        } else {
+            request.setAttribute("selectedRole", "PATIENT");
+            request.setAttribute("enteredUsername", username);
+            request.setAttribute("registerSuccess", "Registration successful. Please login.");
+            request.getRequestDispatcher("/login-Process/login.jsp").forward(request, response);
         }
     }
 }

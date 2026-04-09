@@ -44,7 +44,7 @@ public class PatientDB {
             String sql = "CREATE TABLE IF NOT EXISTS patient_profile ("
                     + "patientId INT AUTO_INCREMENT, "
                     + "userId INT NOT NULL, "
-                    + "hkid VARCHAR(15) NOT NULL UNIQUE, "
+                    + "hkid_id VARCHAR(15) NOT NULL UNIQUE, "
                     + "firstName VARCHAR(50) NOT NULL, "
                     + "lastName VARCHAR(50) NOT NULL, "
                     + "gender ENUM('M','F') NOT NULL, "
@@ -66,7 +66,7 @@ public class PatientDB {
     }
 
     public int createPatientProfile(int userId,
-            String HKID,
+            String HKIDorID,
             String firstName,
             String lastName,
             String gender,
@@ -78,12 +78,12 @@ public class PatientDB {
             String emergencyContact) {
         int patientId = -1;
         String sql = "INSERT INTO patient_profile "
-                + "(userId, hkid, firstName, lastName, gender, dob, phone, email, address, "
+            + "(userId, hkid_id, firstName, lastName, gender, dob, phone, email, address, "
                 + " emergencyContactFullName, emergencyContact) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, userId);
-            ps.setString(2, HKID);
+            ps.setString(2, HKIDorID);
             ps.setString(3, firstName);
             ps.setString(4, lastName);
             ps.setString(5, gender);
@@ -118,12 +118,7 @@ public class PatientDB {
             }
 
             if (count == 0) {
-                String insertSql = "INSERT INTO patient_profile (userId, hkid, firstName, lastName, gender, dob, phone, email, address, "
-                + " emergencyContactFullName, emergencyContact) VALUES "
-                        + "('1', 'B1234567', 'Banana', 'Skin', 'M', '2000-12-25', '12345678', 'Banana@banana.com', 'Banana house', NULL, NULL)";
-                try (PreparedStatement psInsert = c.prepareStatement(insertSql)) {
-                    psInsert.executeUpdate();
-                }
+                createPatientProfile(1, "B1234567", "Banana", "Skin", "M", "2000-12-25", "12345678", "Banana@banana.com", "Banana house", "NULL", "NULL");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -138,7 +133,7 @@ public class PatientDB {
             while (rs.next()) {
                 int patientId = rs.getInt("patientId");
                 int userId = rs.getInt("userId");
-                String HKID = rs.getString("hkid");
+                String HKIDorID = rs.getString("hkid_id");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
                 String gender = rs.getString("gender");
@@ -150,7 +145,7 @@ public class PatientDB {
                 String ecPhone = rs.getString("emergencyContact");
 
                 PatientProfileBean bean = new PatientProfileBean(
-                        patientId, userId, HKID, firstName, lastName, gender, DOB,
+                        patientId, userId, HKIDorID, firstName, lastName, gender, DOB,
                         phone, email, address, ecName, ecPhone);
                 list.add(bean);
             }
@@ -170,7 +165,7 @@ public class PatientDB {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int userId = rs.getInt("userId");
-                    String HKID = rs.getString("hkid");
+                    String HKIDorID = rs.getString("hkid_id");
                     String firstName = rs.getString("firstName");
                     String lastName = rs.getString("lastName");
                     String gender = rs.getString("gender");
@@ -182,7 +177,7 @@ public class PatientDB {
                     String ecPhone = rs.getString("emergencyContact");
 
                     bean = new PatientProfileBean(
-                            patientId, userId, HKID, firstName, lastName, gender, DOB,
+                            patientId, userId, HKIDorID, firstName, lastName, gender, DOB,
                             phone, email, address, ecName, ecPhone);
                 }
             }
@@ -202,7 +197,7 @@ public class PatientDB {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int patientId = rs.getInt("patientId");
-                    String HKID = rs.getString("hkid");
+                    String HKIDorID = rs.getString("hkid_id");
                     String firstName = rs.getString("firstName");
                     String lastName = rs.getString("lastName");
                     String gender = rs.getString("gender");
@@ -214,7 +209,7 @@ public class PatientDB {
                     String ecPhone = rs.getString("emergencyContact");
 
                     bean = new PatientProfileBean(
-                            patientId, userId, HKID, firstName, lastName, gender, DOB,
+                            patientId, userId, HKIDorID, firstName, lastName, gender, DOB,
                             phone, email, address, ecName, ecPhone);
                 }
             }
@@ -236,7 +231,7 @@ public class PatientDB {
                 while (rs.next()) {
                     int patientId = rs.getInt("patientId");
                     int userId = rs.getInt("userId");
-                    String HKID = rs.getString("hkid");
+                    String HKIDorID = rs.getString("hkid_id");
                     String firstName = rs.getString("firstName");
                     String lastName = rs.getString("lastName");;
                     String gender = rs.getString("gender");
@@ -248,7 +243,7 @@ public class PatientDB {
                     String ecPhone = rs.getString("emergencyContact");
 
                     PatientProfileBean bean = new PatientProfileBean(
-                            patientId, userId, HKID, firstName, lastName, gender, DOB,
+                            patientId, userId, HKIDorID, firstName, lastName, gender, DOB,
                             phone, email, address, ecName, ecPhone);
                     list.add(bean);
                 }
@@ -257,6 +252,38 @@ public class PatientDB {
             e.printStackTrace();
         }
         return list;
+    }
+    
+       public PatientProfileBean getPatientByHKIdOrID(String HKIDorID) {
+        PatientProfileBean bean = null;
+        String sql = "SELECT * FROM patient_profile WHERE hkid_id = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setString(1, HKIDorID);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int patientId = rs.getInt("patientId");
+                    int userId = rs.getInt("userId");
+                    String firstName = rs.getString("firstName");
+                    String lastName = rs.getString("lastName");;
+                    String gender = rs.getString("gender");
+                    String DOB = rs.getString("dob");
+                    String phone = rs.getString("phone");
+                    String email = rs.getString("email");
+                    String address = rs.getString("address");
+                    String ecName = rs.getString("emergencyContactFullName");
+                    String ecPhone = rs.getString("emergencyContact");
+
+                    bean = new PatientProfileBean(
+                            patientId, userId, HKIDorID, firstName, lastName, gender, DOB,
+                            phone, email, address, ecName, ecPhone);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
     }
 
     public boolean delPatient(int patientId) {

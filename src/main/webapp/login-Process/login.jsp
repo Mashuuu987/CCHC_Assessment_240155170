@@ -128,13 +128,22 @@
             if (enteredUsername == null) {
                 enteredUsername = "";
             }
+            String registerSuccess = (String)request.getAttribute("registerSuccess");
         %>
         <%@ include file="/heading.jsp" %>
         <div class="login-wrapper">
             <div class="login-card">
                 <div class="login-title">Sign in to CCHC</div>
 
-                <%                
+                <% 
+                    if (registerSuccess != null) {
+                %>
+                <div style="color:#27ae60;font-size:13px;margin-bottom:12px;text-align:center;">
+                    <%= registerSuccess %>
+                </div>
+                <%
+                    }
+
                     String loginError = (String) request.getAttribute("loginError");
                     if (loginError != null) {
                 %>

@@ -44,7 +44,7 @@ public class StaffDB {
             String sql = "CREATE TABLE IF NOT EXISTS staff_profile ("
                     + "staffId INT AUTO_INCREMENT, "
                     + "userId INT NOT NULL, "
-                    + "hkid VARCHAR(15) NOT NULL UNIQUE, "
+                    + "hkid_id VARCHAR(15) NOT NULL UNIQUE, "
                     + "firstName VARCHAR(50) NOT NULL, "
                     + "lastName VARCHAR(50) NOT NULL, "
                     + "gender ENUM('M','F') NOT NULL, "
@@ -63,7 +63,7 @@ public class StaffDB {
     }
 
     public int createStaffProfile(int userId,
-            String HKID,
+            String HKIDorID,
             String firstName,
             String lastName,
             String gender,
@@ -72,11 +72,11 @@ public class StaffDB {
             String position) {
 
         int staffId = -1;
-        String sql = "INSERT INTO staff_profile (userId, hkid, firstName, lastName, gender, dob, clinicId, position) "
+        String sql = "INSERT INTO staff_profile (userId, hkid_id, firstName, lastName, gender, dob, clinicId, position) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setInt(1, userId);
-            ps.setString(2, HKID);
+            ps.setString(2, HKIDorID);
             ps.setString(3, firstName);
             ps.setString(4, lastName);
             ps.setString(5, gender);
@@ -112,7 +112,7 @@ public class StaffDB {
             }
 
             if (count == 0) {
-                String insertSql = "INSERT INTO staff_profile (userId, hkid, firstName, lastName, gender, dob, clinicId, position) VALUES "
+                String insertSql = "INSERT INTO staff_profile (userId, hkid_id, firstName, lastName, gender, dob, clinicId, position) VALUES "
                         + "('2', 'A1234567', 'Apple','Wong','F','1993-12-10',1,'Nurse'),"
                         + "('3', 'O1234567', 'Orange','Hui','M','1996-06-03',NULL ,'Administrator')";
                 try (PreparedStatement psInsert = c.prepareStatement(insertSql)) {
@@ -132,7 +132,7 @@ public class StaffDB {
             while (rs.next()) {
                 int staffId = rs.getInt("staffId");
                 int userId = rs.getInt("userId");
-                String HKID = rs.getString("hkid");
+                String HKIDorID = rs.getString("hkid_id");
                 String firstName = rs.getString("firstName");
                 String lastName = rs.getString("lastName");
                 String gender = rs.getString("gender");
@@ -141,7 +141,7 @@ public class StaffDB {
                 String position = rs.getString("position");
 
                 StaffProfileBean bean = new StaffProfileBean(
-                        staffId, userId, HKID, firstName, lastName, gender, DOB, clinicId, position);
+                        staffId, userId, HKIDorID, firstName, lastName, gender, DOB, clinicId, position);
                 list.add(bean);
             }
         } catch (Exception e) {
@@ -160,7 +160,7 @@ public class StaffDB {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int userId = rs.getInt("userId");
-                    String HKID = rs.getString("hkid");
+                    String HKIDorID = rs.getString("hkid_id");
                     String firstName = rs.getString("firstName");
                     String lastName = rs.getString("lastName");
                     String gender = rs.getString("gender");
@@ -169,7 +169,7 @@ public class StaffDB {
                     String position = rs.getString("position");
 
                     bean = new StaffProfileBean(
-                            staffId, userId, HKID, firstName, lastName, gender, DOB, clinicId, position);
+                            staffId, userId, HKIDorID, firstName, lastName, gender, DOB, clinicId, position);
                 }
             }
         } catch (Exception e) {
@@ -188,7 +188,7 @@ public class StaffDB {
             try (ResultSet rs = ps.executeQuery()) {
                 if (rs.next()) {
                     int staffId = rs.getInt("staffId");
-                    String HKID = rs.getString("hkid");
+                    String HKIDorID = rs.getString("hkid_id");
                     String firstName = rs.getString("firstName");
                     String lastName = rs.getString("lastName");
                     String gender = rs.getString("gender");
@@ -197,7 +197,7 @@ public class StaffDB {
                     String position = rs.getString("position");
 
                     bean = new StaffProfileBean(
-                            staffId, userId, HKID, firstName, lastName, gender, DOB, clinicId, position);
+                            staffId, userId, HKIDorID, firstName, lastName, gender, DOB, clinicId, position);
                 }
             }
         } catch (Exception e) {
@@ -218,7 +218,7 @@ public class StaffDB {
                 while (rs.next()) {
                     int staffId = rs.getInt("staffId");
                     int userId = rs.getInt("userId");
-                    String HKID = rs.getString("hkid");
+                    String HKIDorID = rs.getString("hkid_id");
                     String firstName = rs.getString("firstName");
                     String lastName = rs.getString("lastName");
                     String gender = rs.getString("gender");
@@ -227,7 +227,7 @@ public class StaffDB {
                     String position = rs.getString("position");
 
                     StaffProfileBean bean = new StaffProfileBean(
-                            staffId, userId, HKID, firstName, lastName, gender, DOB, clinicId, position);
+                            staffId, userId, HKIDorID, firstName, lastName, gender, DOB, clinicId, position);
                     list.add(bean);
                 }
             }
@@ -235,6 +235,34 @@ public class StaffDB {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    public StaffProfileBean getStaffByHKIdOrID(String HKIDorID) {
+        StaffProfileBean bean = null;
+        String sql = "SELECT * FROM staff_profile WHERE hkid_id = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setString(1, HKIDorID);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    int staffId = rs.getInt("staffId");
+                    int userId = rs.getInt("userId");
+                    String firstName = rs.getString("firstName");
+                    String lastName = rs.getString("lastName");
+                    String gender = rs.getString("gender");
+                    String DOB = rs.getString("dob");
+                    Integer clinicId = (Integer) rs.getObject("clinicId");
+                    String position = rs.getString("position");
+
+                    bean = new StaffProfileBean(
+                            staffId, userId, HKIDorID, firstName, lastName, gender, DOB, clinicId, position);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
     }
 
     public boolean delStaff(int staffId) {
