@@ -1,0 +1,148 @@
+.notif-container {
+    max-width: 1000px;
+    margin: 30px auto 40px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 20px;
+}
+
+.notif-list-panel {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 16px 16px 12px 16px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.notif-detail-panel {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 18px 20px;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    min-height: 260px;
+}
+
+.notif-panel-title {
+    margin: 0 0 4px 0;
+    font-size: 20px;
+    color: #111827;
+}
+
+.notif-panel-subtitle {
+    margin: 0 0 12px 0;
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.notif-empty {
+    margin: 8px 0 0 0;
+    font-size: 13px;
+    color: #9ca3af;
+}
+
+.notif-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    max-height: 420px;
+    overflow-y: auto;
+}
+
+.notif-item {
+    border-radius: 6px;
+    margin-bottom: 6px;
+}
+
+.notif-item-link {
+    display: flex;
+    align-items: center;
+    padding: 8px 8px;
+    text-decoration: none;
+    color: inherit;
+}
+
+.notif-item-unread .notif-item-title {
+    color: #111827;
+    font-weight: 600;
+}
+
+.notif-item-read .notif-item-title {
+    color: #6b7280;
+    font-weight: 400;
+}
+
+.notif-item-active {
+    background-color: #e5edff;
+}
+
+.notif-badge {
+    width: 12px;
+    height: 12px;
+    border-radius: 999px;
+    margin-right: 8px;
+}
+
+.notif-badge-normal {
+    background-color: #16a34a;
+}
+
+.notif-badge-important {
+    background-color: #eab308;
+}
+
+.notif-badge-urgent {
+    background-color: #dc2626;
+}
+
+.notif-item-main {
+    flex: 1;
+    min-width: 0;
+}
+
+.notif-item-title {
+    margin: 0;
+    font-size: 14px;
+}
+
+.notif-item-meta {
+    margin-top: 2px;
+    font-size: 11px;
+    color: #9ca3af;
+    display: flex;
+    justify-content: space-between;
+}
+
+.notif-detail-title {
+    margin: 0 0 6px 0;
+    font-size: 20px;
+    color: #111827;
+}
+
+.notif-detail-meta {
+    margin: 0 0 12px 0;
+    font-size: 12px;
+    color: #6b7280;
+    display: flex;
+    gap: 12px;
+}
+
+.notif-detail-body {
+    font-size: 14px;
+    color: #111827;
+    line-height: 1.5;
+}
+
+.notif-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    font-size: 16px;
+    color: #9ca3af;
+}
+
+@media (max-width: 768px) {
+    .notif-container {
+        grid-template-columns: 1fr;
+    }
+}

@@ -133,8 +133,18 @@ public class LoginController extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            String ctx = request.getContextPath();
+            String role = bean.getRole();
 
-            response.sendRedirect(request.getContextPath() + "/index.jsp");
+            if ("ADMIN".equalsIgnoreCase(role)) {
+                response.sendRedirect(ctx + "/AdminHomeController");
+            } else if ("STAFF".equalsIgnoreCase(role)) {
+                response.sendRedirect(ctx + "/StaffHomeController");
+            } else if ("PATIENT".equalsIgnoreCase(role)) {
+                response.sendRedirect(ctx + "/index.jsp");
+            } else {
+                response.sendRedirect(ctx + "/index.jsp");
+            }
         } else {
             request.setAttribute("loginError", "Invalid username or password.");
             request.setAttribute("selectedRole", selectedRole);

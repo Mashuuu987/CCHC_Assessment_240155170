@@ -96,6 +96,10 @@ public class NotificationDB {
 
             if (count == 0) {
                 createNotification(1, "NORMAL", "Hello Banana", "Yo Banana ! YO ! YO !");
+                createNotification(1, "URGENT", "Bye Banana", "Ya Banana ! YA ! YA !");
+                createNotification(1, "IMPORTANT", "GG Banana", "Ho Banana ! HO ! HO !");
+                createNotification(1, "NORMAL", "Joe Banana", "Wa Banana ! WA ! WA !");
+                createNotification(1, "NORMAL", "HAHA Banana", "HA Banana ! HA ! HA !");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -191,5 +195,15 @@ public class NotificationDB {
             e.printStackTrace();
         }
         return isRead;
+    }
+
+    public void markAsRead(int notificationId) {
+        String sql = "UPDATE notification SET isRead = TRUE WHERE notificationId = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, notificationId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

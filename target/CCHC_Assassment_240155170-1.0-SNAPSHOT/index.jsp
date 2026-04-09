@@ -18,8 +18,6 @@
            boolean loggedIn = (user != null);
            String role = loggedIn ? user.getRole() : null;
            boolean isPatient = "PATIENT".equalsIgnoreCase(role);
-           boolean isStaff = "STAFF".equalsIgnoreCase(role);
-           boolean isAdmin = "ADMIN".equalsIgnoreCase(role);
            String ctx = request.getContextPath();
 
                 int notifUnreadCount = 0;
@@ -99,7 +97,7 @@
                    <p class="feature-card-text">瀏覽各社區診所、開診時間及提供的服務。</p>
                </a>
 
-               <a class="feature-card notification-card" href="<%= ctx + "/LoginController" %>">
+               <a class="feature-card notification-card" href="<%= loggedIn ? ctx + "/NotificationController" : ctx + "/LoginController" %>">
                    <% if (notifUnreadCount > 0 && notifBadgeClass != null) { %>
                        <div class="notification-badge <%= notifBadgeClass %>"><%= notifUnreadCount %></div>
                    <% } %>
