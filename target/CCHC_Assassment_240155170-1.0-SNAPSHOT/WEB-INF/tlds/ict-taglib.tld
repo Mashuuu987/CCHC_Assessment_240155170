@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<taglib 
+    xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd"
+    version="2.0"
+>
+
+    <tlib-version>1.0</tlib-version>
+    <jsp-version>2.0</jsp-version>
+    <short-name>ict</short-name>
+    <uri>/WEB-INF/tlds/ict-taglib.tld</uri>
+
+    <tag>
+        <name>heading</name>
+        <tag-class>ict.tag.HeadingTag</tag-class>
+        <body-content>scriptless</body-content>
+        <attribute>
+            <name>bgColor</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>color</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>align</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>fontSize</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>fontList</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>border</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+        <attribute>
+            <name>width</name>
+            <required>false</required>
+            <type>java.lang.String</type>
+        </attribute>
+    </tag>
+
+</taglib>
