@@ -4,7 +4,6 @@
  */
 package ict.db;
 
-import ict.bean.NotificationBean;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import ict.bean.NotificationBean;
 
 /**
  *
@@ -42,15 +43,60 @@ public class NotificationDB {
         String sql = "CREATE TABLE IF NOT EXISTS notification ("
                 + "notificationId INT AUTO_INCREMENT, "
                 + "userId INT NOT NULL, "
-                + "type VARCHAR(50) NOT NULL, "
+                + "type ENUM('NORMAL','URGENT','IMPORTANT') NOT NULL, "
                 + "title VARCHAR(100), "
                 + "message VARCHAR(255) NOT NULL,"
                 + "createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
+                + "isRead BOOLEAN NOT NULL DEFAULT FALSE,"
                 + "PRIMARY KEY (notificationId),"
                 + "CONSTRAINT fk_notif_user FOREIGN KEY (userId) REFERENCES userInfo(userId)"
                 + ")";
         try (Connection c = getConnection(); Statement s = c.createStatement()) {
             s.execute(sql);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public int createNotification(int userId,
+            String type,
+            String title,
+            String message) {
+
+        int notificationId = -1;
+        String sql = "INSERT INTO notification (userId, type, title, message) "
+                + "VALUES (?, ?, ?, ?)";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, userId);
+            ps.setString(2, type);
+            ps.setString(3, title);
+            ps.setString(4, message);
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        notificationId = rs.getInt(1);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return notificationId;
+    }
+    
+    public void insertDefaultNotificationIfEmpty() {
+        String countSql = "SELECT COUNT(*) FROM notification";
+        try (Connection c = getConnection(); PreparedStatement psCount = c.prepareStatement(countSql); ResultSet rs = psCount.executeQuery()) {
+
+            int count = 0;
+            if (rs.next()) {
+                count = rs.getInt(1);
+            }
+
+            if (count == 0) {
+                createNotification(1, "NORMAL", "Hello Banana", "Yo Banana ! YO ! YO !");
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -73,9 +119,39 @@ public class NotificationDB {
                     String title = rs.getString("title");
                     String message = rs.getString("message");
                     String createdAt = rs.getString("createdAt");
+                    Boolean read = rs.getBoolean("isRead");
 
                     NotificationBean bean = new NotificationBean(
-                            notificationId, userId, type, title, message, createdAt);
+                            notificationId, userId, type, title, message, createdAt,read);
+                    list.add(bean);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public List<NotificationBean> getNotificationsByNotificationsId(int notificationId) {
+        List<NotificationBean> list = new ArrayList<>();
+        String sql = "SELECT * FROM notification "
+                + "WHERE notificationId = ? ";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, notificationId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int userId = rs.getInt("userId");
+                    String type = rs.getString("type");
+                    String title = rs.getString("title");
+                    String message = rs.getString("message");
+                    String createdAt = rs.getString("createdAt");
+                    Boolean read = rs.getBoolean("isRead");
+
+                    NotificationBean bean = new NotificationBean(
+                            notificationId, userId, type, title, message, createdAt,read);
                     list.add(bean);
                 }
             }
@@ -95,5 +171,25 @@ public class NotificationDB {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public boolean isRead(int notificationId){
+        boolean isRead = false;
+        String sql = "SELECT * FROM notification "
+                + "WHERE notificationId = ? ";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, notificationId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    isRead = rs.getBoolean("isRead");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return isRead;
     }
 }

@@ -74,6 +74,7 @@ public class LoginController extends HttpServlet {
 
         notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
         notifDb.createNotificationTable();
+        notifDb.insertDefaultNotificationIfEmpty();
         
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
         capDb.createServiceCapacityTable();
@@ -164,7 +165,6 @@ public class LoginController extends HttpServlet {
 
     public void showWelcome(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // 已登入時訪問 LoginController，直接帶回首頁
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }
 

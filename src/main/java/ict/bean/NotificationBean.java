@@ -18,17 +18,19 @@ public class NotificationBean implements Serializable {
     private String title;
     private String message;
     private String createdAt;
+    private boolean read;
 
     public NotificationBean() {
     }
 
-    public NotificationBean(int notificationId, int userId, String type, String title, String message, String createdAt) {
+    public NotificationBean(int notificationId, int userId, String type, String title, String message, String createdAt, Boolean read) {
         this.notificationId = notificationId;
         this.userId = userId;
         this.type = type;
         this.title = title;
         this.message = message;
         this.createdAt = createdAt;
+        this.read = (read != null) ? read : false;
     }
 
     public int getNotificationId() {
@@ -78,6 +80,12 @@ public class NotificationBean implements Serializable {
     public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
-    
-    
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
+    }
 }

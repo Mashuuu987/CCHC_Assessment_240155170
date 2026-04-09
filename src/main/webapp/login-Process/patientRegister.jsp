@@ -10,71 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Patient Registration</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f5f7fb;
-                margin: 0;
-            }
-
-            .register-wrapper {
-                display: flex;
-                justify-content: center;
-                align-items: flex-start;
-                padding-top: 40px;
-            }
-
-            .register-card {
-                background-color: #ffffff;
-                padding: 24px 32px;
-                border-radius: 8px;
-                box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-                width: 520px;
-            }
-
-            .register-title {
-                font-size: 20px;
-                font-weight: 600;
-                margin-bottom: 16px;
-                color: #1f3d5a;
-                text-align: center;
-            }
-
-            .field-group {
-                margin-bottom: 12px;
-            }
-
-            .field-label {
-                display: block;
-                margin-bottom: 4px;
-                font-size: 14px;
-                color: #444;
-            }
-
-            .field-input {
-                width: 100%;
-                padding: 8px 10px;
-                border-radius: 4px;
-                border: 1px solid #ccd4e0;
-                font-size: 14px;
-                box-sizing: border-box;
-            }
-
-            .btn-primary {
-                padding: 10px 0;
-                width: 100%;
-                border-radius: 4px;
-                border: none;
-                background-color: #1982c4;
-                color: #fff;
-                font-size: 15px;
-                cursor: pointer;
-            }
-
-            .btn-primary:hover {
-                opacity: 0.95;
-            }
-        </style>
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/patientRegister.css" />
     </head>
     <body>
         <%
