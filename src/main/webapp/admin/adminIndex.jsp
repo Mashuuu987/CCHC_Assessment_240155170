@@ -83,57 +83,57 @@
 
            <div class="feature-grid">
                <a class="feature-card" href="<%= isAdmin ? ctx + "/AdminHomeController" : ctx + "/LoginController" %>">
-                   <h2 class="feature-card-title">預約服務</h2>
-                   <p class="feature-card-text">預約門診或檢查時段，管理未來預約。</p>
+                   <h2 class="feature-card-title">Appointment Service</h2>
+                   <p class="feature-card-text">Schedule appointments for outpatient visits or examinations, and manage future appointments.</p>
                </a>
 
                <a class="feature-card" href="<%= ctx + "/LoginController" %>">
-                   <h2 class="feature-card-title">候診隊列</h2>
-                   <p class="feature-card-text">查看現時候診隊列及自己的排隊號碼。</p>
+                   <h2 class="feature-card-title">Waiting Queue</h2>
+                   <p class="feature-card-text">View the current waiting list and your own queue number.</p>
                </a>
 
                <a class="feature-card" href="<%= ctx + "/LoginController" %>">
-                   <h2 class="feature-card-title">診所與服務資訊</h2>
-                   <p class="feature-card-text">瀏覽各社區診所、開診時間及提供的服務。</p>
+                   <h2 class="feature-card-title">Clinic and Service Information</h2>
+                   <p class="feature-card-text">Browse the various community clinics, their opening hours, and the services they offer.</p>
                </a>
 
                <a class="feature-card notification-card" href="<%= loggedIn ? ctx + "/NotificationController" : ctx + "/LoginController" %>">
                    <% if (notifUnreadCount > 0 && notifBadgeClass != null) { %>
                        <div class="notification-badge <%= notifBadgeClass %>"><%= notifUnreadCount %></div>
                    <% } %>
-                   <h2 class="feature-card-title">通知中心</h2>
-                   <p class="feature-card-text">查看系統發出的預約提醒及一般通知。</p>
+                   <h2 class="feature-card-title">Notification Center</h2>
+                   <p class="feature-card-text">View appointment reminders and general notifications sent by the system.</p>
                </a>
 
                <a class="feature-card" href="<%= ctx + "/LoginController" %>">
-                   <h2 class="feature-card-title">個人資料</h2>
-                   <p class="feature-card-text">檢視及更新個人基本資料與聯絡方式。</p>
+                   <h2 class="feature-card-title">Personal information</h2>
+                   <p class="feature-card-text">Review and update your personal information and contact details.</p>
                </a>
 
                <a class="feature-card" href="<%= ctx + "/LoginController" %>">
-                   <h2 class="feature-card-title">預約及就診紀錄</h2>
-                   <p class="feature-card-text">查看過去預約及就診歷史，方便跟進。</p>
+                   <h2 class="feature-card-title">Appointment and medical records</h2>
+                   <p class="feature-card-text">Viewing past appointments and medical records makes it easier to follow up.</p>
                </a>
            </div>
 
            <div class="section">
-               <h2 class="section-title">公告與最新消息</h2>
-               <p class="section-subtitle">以下為示範內容，日後可由通知功能自動顯示。</p>
+               <h2 class="section-title">Announcements and Latest News</h2>
+               <p class="section-subtitle">Click to view details.</p>
                <ul class="announcement-list">
                    <li class="announcement-item">
-                       <div class="announcement-meta">2026-04-01 · 系統公告</div>
-                       <p class="announcement-title">流感疫苗加開接種名額</p>
-                       <p class="announcement-text">本月將於部分診所加開流感疫苗接種時段，請於「預約服務」中選擇相關服務。</p>
+                       <div class="announcement-meta">2026-04-01 - System Announcement</div>
+                       <p class="announcement-title">System Announcement!</p>
+                       <p class="announcement-text">Hello ! System Announcement !</p>
                    </li>
                    <li class="announcement-item">
-                       <div class="announcement-meta">2026-03-20 · 特別通告</div>
-                       <p class="announcement-title">復活節期間診所開診安排</p>
-                       <p class="announcement-text">復活節假期期間部分診所服務時間有所調整，建議預約前先查看診所開診時間。</p>
+                       <div class="announcement-meta">2026-03-20 - Special Announcement</div>
+                       <p class="announcement-title">Special Announcement !</p>
+                       <p class="announcement-text">Hello ! Special Announcement !</p>
                    </li>
                    <li class="announcement-item">
-                       <div class="announcement-meta">2026-03-05 · 系統維護</div>
-                       <p class="announcement-title">系統維護通知</p>
-                       <p class="announcement-text">系統將於每晚 02:00–03:00 進行例行維護，期間可能短暫影響登入及預約功能。</p>
+                       <div class="announcement-meta">2026-03-05 - System Maintenance</div>
+                       <p class="announcement-title">System Maintenance!</p>
+                       <p class="announcement-text">Hello ! System Maintenance !</p>
                    </li>
                </ul>
            </div>
