@@ -106,7 +106,7 @@
                </a>
 
                <a class="feature-card" href="<%= isStaff ? ctx + "/Profile" : ctx + "/Login" %>">
-                   <h2 class="feature-card-title">Personal information</h2>
+                   <h2 class="feature-card-title">Profile</h2>
                    <p class="feature-card-text">Review and update your personal information and contact details.</p>
                </a>
 
