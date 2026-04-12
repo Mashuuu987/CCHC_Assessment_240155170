@@ -105,7 +105,7 @@
                    <p class="feature-card-text">View appointment reminders and general notifications sent by the system.</p>
                </a>
 
-               <a class="feature-card" href="<%= ctx + "/Login" %>">
+               <a class="feature-card" href="<%= isStaff ? ctx + "/Profile" : ctx + "/Login" %>">
                    <h2 class="feature-card-title">Personal information</h2>
                    <p class="feature-card-text">Review and update your personal information and contact details.</p>
                </a>

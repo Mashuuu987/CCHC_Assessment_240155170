@@ -73,7 +73,7 @@ public class NotificationController extends HttpServlet{
         List<NotificationBean> notifications = notificationDb.getNotificationsByUserId(userId);
         request.setAttribute("notifications", notifications);
 
-        request.getRequestDispatcher("/notification/notificationCenter.jsp")
+        request.getRequestDispatcher("/common/notificationCenter.jsp")
                .forward(request, response);
     }
 }
