@@ -39,7 +39,7 @@
                 </div>
                 <% }%>
 
-                <form method="post" action="<%= request.getContextPath()%>/PatientRegisterController">
+                <form method="post" action="<%= request.getContextPath()%>/PatientRegister">
                     <div class="field-group">
                         <label class="field-label" for="username">Username</label>
                         <input class="field-input" type="text" id="username" name="username"  value="<%= rUsername != null ? rUsername : "" %>"required>

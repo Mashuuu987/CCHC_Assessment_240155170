@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
  *
  * @author amzte
  */
-@WebServlet(name = "PatientRegisterController", urlPatterns = {"/PatientRegisterController"})
+@WebServlet(name = "PatientRegisterController", urlPatterns = {"/PatientRegister"})
 public class PatientRegisterController extends HttpServlet {
 
     private UserDB userDb;

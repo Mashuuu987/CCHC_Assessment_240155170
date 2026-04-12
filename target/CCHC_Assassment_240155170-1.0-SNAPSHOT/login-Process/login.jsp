@@ -58,7 +58,7 @@
                     }
                 %>
 
-                <form method="post" action="<%= request.getContextPath()%>/LoginController">
+                <form method="post" action="<%= request.getContextPath()%>/Login">
                     <input type="hidden" name="action" value="authenticate" />
 
                     <div class="role-options">

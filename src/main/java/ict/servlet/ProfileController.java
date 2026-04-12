@@ -4,10 +4,13 @@
  */
 package ict.servlet;
 
+import jakarta.servlet.annotation.WebServlet;
+
 /**
  *
  * @author amzte
  */
+@WebServlet(name = "ProfileController", urlPatterns = {"/Profile"})
 public class ProfileController {
     
 }

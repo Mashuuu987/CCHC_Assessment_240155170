@@ -82,22 +82,22 @@
            <p class="page-subtitle">Please choose commonly used patient features. (Some function need to login first)</p>
 
            <div class="feature-grid">
-               <a class="feature-card" href="<%= isPatient ? ctx + "/PatientHomeController" : ctx + "/LoginController" %>">
+               <a class="feature-card" href="<%= isPatient ? ctx + "/PatientHome" : ctx + "/Login" %>">
                    <h2 class="feature-card-title">Appointment Service</h2>
                    <p class="feature-card-text">Schedule appointments for outpatient visits or examinations, and manage future appointments.</p>
                </a>
 
-               <a class="feature-card" href="<%= ctx + "/LoginController" %>">
+               <a class="feature-card" href="<%= ctx + "/Login" %>">
                    <h2 class="feature-card-title">Waiting Queue</h2>
                    <p class="feature-card-text">View the current waiting list and your own queue number.</p>
                </a>
 
-               <a class="feature-card" href="<%= ctx + "/LoginController" %>">
+               <a class="feature-card" href="<%= ctx + "/Login" %>">
                    <h2 class="feature-card-title">Clinic and Service Information</h2>
                    <p class="feature-card-text">Browse the various community clinics, their opening hours, and the services they offer.</p>
                </a>
 
-               <a class="feature-card notification-card" href="<%= loggedIn ? ctx + "/NotificationController" : ctx + "/LoginController" %>">
+               <a class="feature-card notification-card" href="<%= loggedIn ? ctx + "/Notification" : ctx + "/Login" %>">
                    <% if (notifUnreadCount > 0 && notifBadgeClass != null) { %>
                        <div class="notification-badge <%= notifBadgeClass %>"><%= notifUnreadCount %></div>
                    <% } %>
@@ -105,12 +105,12 @@
                    <p class="feature-card-text">View appointment reminders and general notifications sent by the system.</p>
                </a>
 
-               <a class="feature-card" href="<%= ctx + "/LoginController" %>">
+               <a class="feature-card" href="<%= ctx + "/Login" %>">
                    <h2 class="feature-card-title">Personal information</h2>
                    <p class="feature-card-text">Review and update your personal information and contact details.</p>
                </a>
 
-               <a class="feature-card" href="<%= ctx + "/LoginController" %>">
+               <a class="feature-card" href="<%= ctx + "/Login" %>">
                    <h2 class="feature-card-title">Appointment and medical records</h2>
                    <p class="feature-card-text">Viewing past appointments and medical records makes it easier to follow up.</p>
                </a>

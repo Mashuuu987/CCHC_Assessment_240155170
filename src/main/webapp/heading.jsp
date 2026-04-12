@@ -34,13 +34,13 @@
                     </c:choose>
                     (${currentUser.role})
                     &nbsp;|&nbsp;
-                    <form action="${pageContext.request.contextPath}/LoginController" method="post">
+                    <form action="${pageContext.request.contextPath}/Login" method="post">
                         <input type="hidden" name="action" value="logout" />
                         <button type="submit" class="btn">Logout</button>
                     </form>
                 </c:when>
                 <c:otherwise>
-                    <form action="${pageContext.request.contextPath}/LoginController" method="post">
+                    <form action="${pageContext.request.contextPath}/Login" method="post">
                         <input type="hidden" name="action" value="login" />
                         <button type="submit" class="btn btn-outline">Login</button>
                     </form>

@@ -49,7 +49,7 @@
                                 }
                         %>
                             <li class="<%= itemClasses %>">
-                                <a class="notif-item-link" href="<%= request.getContextPath() %>/NotificationController?notificationId=<%= n.getNotificationId() %>">
+                                <a class="notif-item-link" href="<%= request.getContextPath() %>/Notification?notificationId=<%= n.getNotificationId() %>">
                                     <span class="notif-badge <%= badgeClass %>"></span>
                                     <div class="notif-item-main">
                                         <div class="notif-item-title"><%= n.getTitle() %></div>

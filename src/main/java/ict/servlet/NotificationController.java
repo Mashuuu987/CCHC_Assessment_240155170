@@ -22,7 +22,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author amzte
  */
-@WebServlet(name = "NotificationController", urlPatterns = {"/NotificationController"})
+@WebServlet(name = "NotificationController", urlPatterns = {"/Notification"})
 public class NotificationController extends HttpServlet{
     
     private UserDB db;
@@ -48,7 +48,7 @@ public class NotificationController extends HttpServlet{
                 : null;
 
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/LoginController");
+            response.sendRedirect(request.getContextPath() + "/Login");
             return;
         }
 

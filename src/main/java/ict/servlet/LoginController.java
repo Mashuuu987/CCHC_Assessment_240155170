@@ -27,7 +27,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author amzte
  */
-@WebServlet(name = "LoginController", urlPatterns = {"/LoginController"})
+@WebServlet(name = "LoginController", urlPatterns = {"/Login"})
 public class LoginController extends HttpServlet {
 
     private UserDB db;
@@ -137,9 +137,9 @@ public class LoginController extends HttpServlet {
             String role = bean.getRole();
 
             if ("ADMIN".equalsIgnoreCase(role)) {
-                response.sendRedirect(ctx + "/AdminHomeController");
+                response.sendRedirect(ctx + "/AdminHome");
             } else if ("STAFF".equalsIgnoreCase(role)) {
-                response.sendRedirect(ctx + "/StaffHomeController");
+                response.sendRedirect(ctx + "/StaffHome");
             } else if ("PATIENT".equalsIgnoreCase(role)) {
                 response.sendRedirect(ctx + "/index.jsp");
             } else {

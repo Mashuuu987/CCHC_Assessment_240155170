@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author amzte
  */
-@WebServlet(name = "PatientHomeController", urlPatterns = {"/PatientHomeController"})
+@WebServlet(name = "PatientHomeController", urlPatterns = {"/PatientHome"})
 public class PatientHomeController extends HttpServlet {
 
     private ClinicDB clinicDb;
@@ -46,7 +46,7 @@ public class PatientHomeController extends HttpServlet {
         UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
 
         if (user == null || user.getRole() == null || !"PATIENT".equalsIgnoreCase(user.getRole())) {
-            response.sendRedirect(request.getContextPath() + "/LoginController");
+            response.sendRedirect(request.getContextPath() + "/Login");
             return;
         }
 

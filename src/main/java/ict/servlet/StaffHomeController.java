@@ -23,7 +23,7 @@ import jakarta.servlet.http.HttpSession;
  *
  * @author amzte
  */
-@WebServlet(name = "StaffHomeController", urlPatterns = {"/StaffHomeController"})
+@WebServlet(name = "StaffHomeController", urlPatterns = {"/StaffHome"})
 public class StaffHomeController extends HttpServlet {
 
     private ClinicDB clinicDb;
@@ -47,7 +47,7 @@ public class StaffHomeController extends HttpServlet {
         UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
 
         if (user == null || user.getRole() == null || !"STAFF".equalsIgnoreCase(user.getRole())) {
-            response.sendRedirect(request.getContextPath() + "/LoginController");
+            response.sendRedirect(request.getContextPath() + "/Login");
             return;
         }
 
