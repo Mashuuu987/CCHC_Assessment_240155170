@@ -42,6 +42,12 @@
                 <h2 class="profile-title">Patient Profile</h2>
 
                 <div class="profile-row">
+                    <label class="profile-label">Patient ID</label>
+                    <input class="profile-input" type="text" name="pid"
+                           value="<%= patient.getPatientId()%>" readonly />
+                </div>
+
+                <div class="profile-row">
                     <label class="profile-label">HKID / ID</label>
                     <input class="profile-input" type="text" name="hkid"
                            value="<%= patient.getHKID()%>" readonly />
@@ -112,11 +118,23 @@
 
                 <div class="profile-actions">
                     <button type="submit" class="btn-primary">Save Changes</button>
+
+                </div>
+                <div class="profile-actions">
+                    <button type="button" class="btn-back" onclick="window.location.href = '<%= ctx%>/Settings';">
+                        Back to settings
+                    </button>
                 </div>
             </form>
             <% } else if (staff != null) {%>
             <form method="post" action="<%= ctx%>/Profile" class="profile-form">
                 <h2 class="profile-title">Staff Profile</h2>
+
+                <div class="profile-row">
+                    <label class="profile-label">Staff ID</label>
+                    <input class="profile-input" type="text" name="sid"
+                           value="<%= staff.getStaffId()%>" readonly />
+                </div>
 
                 <div class="profile-row">
                     <label class="profile-label">HKID / ID</label>
@@ -172,6 +190,9 @@
 
                 <div class="profile-actions">
                     <button type="submit" class="btn-primary">Save Changes</button>
+                    <button type="button" class="btn-back" onclick="window.location.href = '<%= ctx%>/Settings';">
+                        Back to settings
+                    </button>
                 </div>
             </form>
 

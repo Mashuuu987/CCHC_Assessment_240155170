@@ -46,6 +46,7 @@ public class ProfileController extends HttpServlet {
 
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/Login");
+            return;
         }
 
         String role = user.getRole();

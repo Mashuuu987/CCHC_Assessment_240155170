@@ -1,0 +1,49 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2026/04/13, 13:42:15
+    Author     : amzte
+*/
+
+.main-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px 40px 20px;
+}
+
+.page-title {
+    font-size: 28px;
+    margin: 10px 0 4px 0;
+    color: #1f2937;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+}
+
+.feature-card {
+    display: block;
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 16px 18px;
+    text-decoration: none;
+    color: #111827;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+    transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.feature-card-title {
+    margin: 0 0 6px 0;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.feature-card-text {
+    margin: 0;
+    font-size: 14px;
+    color: #6b7280;
+}

@@ -10,14 +10,25 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/heading.css" />
 
 <ict:heading bgColor="#ffffff" width="100%">
+    <c:set var="currentUser" value="${sessionScope.userInfo}" />
+    <c:set var="role" value="${currentUser.role}" />
+
+    <c:set var="homeUrl" value="${pageContext.request.contextPath}/index.jsp" />
+
+    <c:if test="${role == 'STAFF'}">
+        <c:set var="homeUrl" value="${pageContext.request.contextPath}/StaffHome" />
+    </c:if>
+    <c:if test="${role == 'ADMIN'}">
+        <c:set var="homeUrl" value="${pageContext.request.contextPath}/AdminHome" />
+    </c:if>
+    
     <div class="head-header">
-        <a href="${pageContext.request.contextPath}/index.jsp" class="head-title">
+        <a href="${homeUrl}" class="head-title">
             <img src="${pageContext.request.contextPath}/img/CCHC.png" class="head-logo" alt="CCHC Logo">
             CCHC Community Clinic Appointment &amp; Queue System
         </a>
 
         <div class="head-actions">
-            <c:set var="currentUser" value="${sessionScope.userInfo}" />
             <c:choose>
                 <c:when test="${not empty currentUser and not empty currentUser.username}">
                     <c:set var="firstName" value="${sessionScope.displayFirstName}" />

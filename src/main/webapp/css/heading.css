@@ -62,3 +62,52 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .btn:hover {
     opacity: 0.9;
 }
+
+.settings-menu {
+    display: inline-block;
+    position: relative;
+    margin-left: 8px;
+}
+
+.settings-btn {
+    border-radius: 999px;
+    padding: 4px 8px;
+    border: 1px solid rgba(25, 130, 196, 0.2);
+    background-color: #ffffff;
+    color: #1f3d5a;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.settings-btn:hover {
+    background-color: #e7f1ff;
+}
+
+.settings-dropdown {
+    position: absolute;
+    top: 130%;
+    right: 0;
+    min-width: 160px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(15, 23, 42, 0.15);
+    padding: 6px 0;
+    display: none;
+    z-index: 1000;
+}
+
+.settings-dropdown.open {
+    display: block;
+}
+
+.settings-dropdown a {
+    display: block;
+    padding: 8px 14px;
+    font-size: 14px;
+    color: #1f2933;
+    text-decoration: none;
+}
+
+.settings-dropdown a:hover {
+    background-color: #f3f8ff;
+}
