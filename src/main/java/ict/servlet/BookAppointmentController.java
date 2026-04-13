@@ -11,6 +11,7 @@ import ict.bean.ServiceCapacityBean;
 import ict.bean.UserInfoBean;
 import ict.db.AppointmentDB;
 import ict.db.ClinicDB;
+import ict.db.NotificationDB;
 import ict.db.PatientDB;
 import ict.db.ServiceCapacityDB;
 import ict.db.ServiceDB;
@@ -20,6 +21,9 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  *
@@ -33,6 +37,7 @@ public class BookAppointmentController extends HttpServlet {
     private PatientDB patientDb;
     private AppointmentDB apptDb;
     private ServiceCapacityDB capDb;
+    private NotificationDB notifDb;
 
     @Override
     public void init() {
@@ -45,6 +50,7 @@ public class BookAppointmentController extends HttpServlet {
         patientDb = new PatientDB(dbUrl, dbUser, dbPassword);
         apptDb = new AppointmentDB(dbUrl, dbUser, dbPassword);
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
+        notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
 
         capDb.insertDefaultCapacitiesIfEmpty();
     }
@@ -123,7 +129,20 @@ public class BookAppointmentController extends HttpServlet {
                 return;
             }
 
-            request.setAttribute("capacityList", capDb.getCapacityByClinicService(clinicId, serviceId));
+            List<ServiceCapacityBean> capList = capDb.getCapacityByClinicService(clinicId, serviceId);
+            Set<String> fullSlots = new HashSet<>();
+
+            if (capList != null) {
+                for (ServiceCapacityBean sc : capList) {
+                    int used = apptDb.countAppointments(clinicId, serviceId, date, sc.getTimeSlot());
+                    if (used >= sc.getQuota()) {
+                        fullSlots.add(sc.getTimeSlot());
+                    }
+                }
+            }
+
+            request.setAttribute("capacityList", capList);
+            request.setAttribute("fullTimeSlots", fullSlots);
             request.setAttribute("currentStep", 2);
             request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
             return;
@@ -138,7 +157,20 @@ public class BookAppointmentController extends HttpServlet {
                 return;
             }
 
-            request.setAttribute("capacityList", capDb.getCapacityByClinicService(clinicId, serviceId));
+            java.util.List<ict.bean.ServiceCapacityBean> capList = capDb.getCapacityByClinicService(clinicId, serviceId);
+            java.util.Set<String> fullSlots = new java.util.HashSet<>();
+
+            if (capList != null) {
+                for (ServiceCapacityBean sc : capList) {
+                    int used = apptDb.countAppointments(clinicId, serviceId, date, sc.getTimeSlot());
+                    if (used >= sc.getQuota()) {
+                        fullSlots.add(sc.getTimeSlot());
+                    }
+                }
+            }
+
+            request.setAttribute("capacityList", capList);
+            request.setAttribute("fullTimeSlots", fullSlots);
 
             if (timeSlot == null || timeSlot.isEmpty()) {
                 request.setAttribute("error", "Please select a timeslot.");
@@ -196,7 +228,20 @@ public class BookAppointmentController extends HttpServlet {
 
             int used = apptDb.countAppointments(clinicId, serviceId, date, timeSlot);
             if (used >= cap.getQuota()) {
-                request.setAttribute("capacityList", capDb.getCapacityByClinicService(clinicId, serviceId));
+                List<ServiceCapacityBean> capList = capDb.getCapacityByClinicService(clinicId, serviceId);
+                Set<String> fullSlots = new HashSet<>();
+
+                if (capList != null) {
+                    for (ServiceCapacityBean sc : capList) {
+                        int usedSlot = apptDb.countAppointments(clinicId, serviceId, date, sc.getTimeSlot());
+                        if (usedSlot >= sc.getQuota()) {
+                            fullSlots.add(sc.getTimeSlot());
+                        }
+                    }
+                }
+
+                request.setAttribute("capacityList", capList);
+                request.setAttribute("fullTimeSlots", fullSlots);
                 request.setAttribute("error", "Selected timeslot is full. Please choose another one.");
                 request.setAttribute("currentStep", 2);
                 request.setAttribute("selectedTimeSlot", timeSlot);
@@ -212,11 +257,25 @@ public class BookAppointmentController extends HttpServlet {
                 return;
             }
 
-            int apptId = apptDb.createAppointment(patient.getPatientId(), clinicId, serviceId, date, timeSlot, "CONFIRMED");
+            int apptId = apptDb.createAppointment(patient.getPatientId(), clinicId, serviceId, date, timeSlot, "REQUESTED");
             if (apptId <= 0) {
                 request.setAttribute("error", "Failed to create appointment. Please try again.");
             } else {
-                request.setAttribute("success", "Appointment Requested (ID: " + apptId + "), pending confirmation.");
+                request.setAttribute("success", "Appointment Requested (ID: " + apptId + "), pending confirmation. You will receive a notification once the appointment is confirmed or if there are any updates.");
+
+                String title = "Appointment request submitted";
+                StringBuilder msg = new StringBuilder();
+                msg.append("Clinic ID: ").append(clinicId)
+                   .append(", \nService ID: ").append(serviceId)
+                   .append(", \nDate: ").append(date)
+                   .append(", \nTimeslot: ").append(timeSlot)
+                   .append("\nWe have received your appointment and will process it as soon as possible and reply to you via message.");
+
+                try {
+                    notifDb.createNotification(user.getUserId(), "IMPORTANT", title, msg.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
             request.setAttribute("selectedTimeSlot", timeSlot);

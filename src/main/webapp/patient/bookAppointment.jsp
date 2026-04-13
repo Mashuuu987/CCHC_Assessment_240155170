@@ -174,7 +174,9 @@
             <% } %>
 
             <%-- Step 2: choose timeslot --%>
-            <% if (currentStep == 2 && capList != null && selectedClinicId != null && selectedServiceId != null && selectedDate != null) { %>
+            <% if (currentStep == 2 && capList != null && selectedClinicId != null && selectedServiceId != null && selectedDate != null) { 
+                   java.util.Set<String> fullSlots = (java.util.Set<String>) request.getAttribute("fullTimeSlots");
+               %>
             <form method="post" action="<%= ctx%>/BookAppointment" class="bookAppointment-form">
                 <input type="hidden" name="step" value="2" />
                 <input type="hidden" name="clinicId" value="<%= selectedClinicId%>" />
@@ -207,11 +209,13 @@
                     <label class="bookAppointment-label">Available timeslots on <%= selectedDate%></label>
                     <% if (capList != null && !capList.isEmpty()) { %>
                     <div class="timeslot-list">
-                        <% for (ServiceCapacityBean cap : capList) { %>
-                        <div class="timeslot-item">
+                        <% for (ServiceCapacityBean cap : capList) { 
+                               boolean isFull = (fullSlots != null && fullSlots.contains(cap.getTimeSlot()));
+                           %>
+                        <div class="timeslot-item <%= isFull ? "timeslot-disabled" : "" %>">
                             <label>
-                                <input type="radio" name="timeSlot" value="<%= cap.getTimeSlot()%>" <%= (selectedTimeSlot != null && selectedTimeSlot.equals(cap.getTimeSlot())) ? "checked" : ""%> />
-                                <span><%= cap.getTimeSlot()%></span>
+                                <input type="radio" name="timeSlot" value="<%= cap.getTimeSlot()%>" <%= (selectedTimeSlot != null && selectedTimeSlot.equals(cap.getTimeSlot())) ? "checked" : ""%> <%= isFull ? "disabled" : "" %> />
+                                <span><%= cap.getTimeSlot()%><%= isFull ? " (Full)" : "" %></span>
                             </label>
                         </div>
                         <% } %>
