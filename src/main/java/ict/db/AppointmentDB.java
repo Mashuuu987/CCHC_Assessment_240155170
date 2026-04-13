@@ -89,6 +89,36 @@ public class AppointmentDB {
         }
         return list;
     }
+    
+    public List<AppointmentBean> getAppointmentsById(int appointmentsId) {
+        List<AppointmentBean> list = new ArrayList<>();
+        String sql = "SELECT * FROM appointment WHERE appointmentId = ? ORDER BY appointmentDate, timeSlot";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+
+            ps.setInt(1, appointmentsId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    int appointmentId = rs.getInt("appointmentId");
+                    int clinicId = rs.getInt("clinicId");
+                    int serviceId = rs.getInt("serviceId");
+                    String date = rs.getString("appointmentDate");
+                    String timeSlot = rs.getString("timeSlot");
+                    String status = rs.getString("status");
+                    String createdAt = rs.getString("createdAt");
+
+                    AppointmentBean bean = new AppointmentBean(
+                            appointmentId, appointmentsId, clinicId, serviceId,
+                            date, timeSlot, status, createdAt);
+                    list.add(bean);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 
     // For admin
     public boolean delAppointment(int appointmentId) {
@@ -128,5 +158,53 @@ public class AppointmentDB {
             e.printStackTrace();
         }
         return false;
+    }
+    
+    public int countAppointments(int clinicId, int serviceId, String date, String timeSlot){
+        String sql = "SELECT COUNT(*) FROM appointment "
+                + "WHERE clinicId = ? AND serviceId = ? "
+                + "AND appointmentDate = ? AND timeSlot = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)){
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, date);
+            ps.setString(4, timeSlot);
+            try (ResultSet rs = ps.executeQuery()){
+                if (rs.next()){
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return 0;
+    }
+    
+    public int createAppointment(int patientId, int clinicId, int serviceId, String date, String timeSlot, String status){
+        int appointmentId = -1;
+        String sql = "INSERT INTO appointment "
+                + "(patientId, clinicId, serviceId, appointmentDate, timeSlot, status) "
+                + "VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)){
+            ps.setInt(1, patientId);
+            ps.setInt(2, clinicId);
+            ps.setInt(3, serviceId);
+            ps.setString(4, date);
+            ps.setString(5, timeSlot);
+            ps.setString(6, status);
+            
+            int rows = ps.executeUpdate();
+            if (rows > 0){
+                try (ResultSet rs = ps.getGeneratedKeys()){
+                    if (rs.next()){
+                        appointmentId = rs.getInt(1);
+                    }
+                }
+            }
+            
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return appointmentId;
     }
 }

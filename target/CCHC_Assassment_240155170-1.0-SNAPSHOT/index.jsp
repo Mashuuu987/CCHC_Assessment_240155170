@@ -82,9 +82,9 @@
             <p class="page-subtitle">Please choose commonly used patient features. (Some function need to login first)</p>
 
             <div class="feature-grid">
-                <a class="feature-card" href="<%= isPatient ? ctx + "/PatientHome" : ctx + "/Login"%>">
+                <a class="feature-card" href="<%= isPatient ? ctx + "/BookAppointment" : ctx + "/Login"%>">
                     <h2 class="feature-card-title">Appointment Service</h2>
-                    <p class="feature-card-text">Schedule appointments for outpatient visits or examinations, and manage future appointments.</p>
+                    <p class="feature-card-text">Schedule appointments for visits or examinations, and manage appointments.</p>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/Login"%>">
@@ -94,7 +94,7 @@
 
                 <a class="feature-card" href="<%= ctx + "/Login"%>">
                     <h2 class="feature-card-title">Clinic and Service Information</h2>
-                    <p class="feature-card-text">Browse the various community clinics, their opening hours, and the services they offer.</p>
+                    <p class="feature-card-text">Browse the clinics, their opening hours, and the services they offer.</p>
                 </a>
 
                 <a class="feature-card notification-card" href="<%= isPatient ? ctx + "/Notification" : ctx + "/Login"%>">
@@ -102,12 +102,12 @@
                     <div class="notification-badge <%= notifBadgeClass%>"><%= notifUnreadCount%></div>
                     <% }%>
                     <h2 class="feature-card-title">Notification Center</h2>
-                    <p class="feature-card-text">View appointment reminders and general notifications sent by the system.</p>
+                    <p class="feature-card-text">View appointment reminders and general notifications.</p>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/Login"%>">
                     <h2 class="feature-card-title">Appointment and medical records</h2>
-                    <p class="feature-card-text">Viewing past appointments and medical records makes it easier to follow up.</p>
+                    <p class="feature-card-text">Viewing past appointments and medical records.</p>
                 </a>
 
                 <a class="feature-card" href="<%= loggedIn ? ctx + "/Settings" : ctx + "/Login"%>">

@@ -1,0 +1,250 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2026/04/13, 20:02:30
+    Author     : amzte
+*/
+.main-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px 40px 20px;
+}
+
+.page-title {
+    font-size: 28px;
+    margin: 10px 0 4px 0;
+    color: #1f2937;
+}
+
+.bookAppointment-message {
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background-color: #e6f4ea;
+    color: #1e7a3b;
+    font-size: 0.95rem;
+}
+
+.bookAppointment-form {
+    max-width: 640px;
+    margin: 0 auto 40px auto;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.bookAppointment-title {
+    margin-top: 0;
+    margin-bottom: 16px;
+    font-size: 1.3rem;
+}
+
+.bookAppointment-row {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+}
+
+.bookAppointment-label {
+    font-weight: 600;
+    margin-bottom: 4px;
+    font-size: 0.95rem;
+}
+
+.bookAppointment-input,
+.bookAppointment-textarea {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #d0d7de;
+    border-radius: 6px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+}
+
+.bookAppointment-input:focus,
+.bookAppointment-textarea:focus {
+    outline: none;
+    border-color: #0969da;
+    box-shadow: 0 0 0 2px rgba(9, 105, 218, 0.15);
+}
+
+
+.bookAppointment-actions {
+    margin-top: 16px;
+    text-align: right;
+}
+
+.main-container {
+    max-width: 1000px;
+    margin: 40px auto;
+    padding: 0 20px 40px 20px;
+}
+
+.page-title {
+    font-size: 28px;
+    margin: 10px 0 4px 0;
+    color: #1f2937;
+}
+
+.btn-primary {
+    width: 100%;
+    padding: 10px 0;
+    margin: 6px 0;
+    border-radius: 4px;
+    border: none;
+    background-color: #1982c4;
+    color: #fff;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btn-primary:hover {
+    opacity: 0.95;
+}
+
+.btn-back {
+    width: 100%;
+    padding: 10px 0;
+    border-radius: 4px;
+    border: none;
+    background-color: #16a34a;
+    color: #ffffff;
+    font-size: 15px;
+    cursor: pointer;
+}
+.btn-back:hover {
+    opacity: 0.95;
+}
+
+.step-indicator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 12px 0 24px 0;
+}
+
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #6b7280;
+    font-size: 0.9rem;
+}
+
+.step-number {
+    width: 22px;
+    height: 22px;
+    border-radius: 999px;
+    border: 2px solid #d1d5db;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8rem;
+    background-color: #f9fafb;
+}
+
+.step-label {
+    white-space: nowrap;
+}
+
+.step-line {
+    flex: 1;
+    height: 2px;
+    background-color: #e5e7eb;
+}
+
+.step-item-active {
+    color: #0f766e;
+}
+
+.step-item-active .step-number {
+    border-color: #0f766e;
+    background-color: #ccfbf1;
+}
+
+.clinic-info {
+    margin-top: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    background-color: #f9fafb;
+    border: 1px solid #e5e7eb;
+    font-size: 0.9rem;
+    color: #374151;
+}
+
+.clinic-info-name {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.clinic-info-line {
+    margin-bottom: 2px;
+}
+
+.clinic-info-label {
+    font-weight: 500;
+    margin-right: 4px;
+}
+
+.clinic-list {
+    max-width: 960px;
+    margin: 0 auto 40px auto;
+}
+
+.clinic-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e5e7eb;
+    margin-bottom: 16px;
+}
+
+.clinic-card:hover {
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.section-title {
+    font-size: 1.1rem;
+    margin: 0 0 12px 0;
+    color: #111827;
+}
+
+.review-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+    margin-top: 8px;
+}
+
+.review-section {
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid #e5e7eb;
+    background-color: #f9fafb;
+    font-size: 0.9rem;
+}
+
+.review-section h3 {
+    margin: 0 0 6px 0;
+    font-size: 0.95rem;
+    color: #111827;
+}
+
+.review-main {
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.timeslot-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.timeslot-item {
+    margin: 2px 6px 2px 0;
+}
