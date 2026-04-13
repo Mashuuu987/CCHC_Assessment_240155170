@@ -67,6 +67,8 @@ public class PatientRegisterController extends HttpServlet {
             error = "Please fill in all required fields!";
         } else if (!password.equals(confirm)) {
             error = "Password and confirm password do not match!";
+        } else if (password.length() < 6) {
+            error = "New password must be at least 6 characters.";
         }
 
         if (error != null) {

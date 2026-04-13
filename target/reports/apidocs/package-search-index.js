@@ -1,1 +1,0 @@
-packageSearchIndex = [{"l":"All Packages","u":"allpackages-index.html"},{"l":"ict.bean"},{"l":"ict.db"},{"l":"ict.servlet"},{"l":"ict.tag"},{"l":"ict.util"}];updateSearchResults();
