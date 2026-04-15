@@ -15,7 +15,7 @@ public class UserInfoBean implements Serializable{
     private int userId;
     private String username;
     private String password;
-    private String role;
+    private String role; // ENUM('PATIENT','STAFF','ADMIN')
     
     public UserInfoBean(){
     }

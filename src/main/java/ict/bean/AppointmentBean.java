@@ -18,7 +18,7 @@ public class AppointmentBean implements Serializable{
     private int serviceId;
     private String appointmentDate;
     private String timeSlot;
-    private String status;
+    private String status; // ENUM('REQUESTED','CONFIRMED','COMPLETED','NO_SHOW','CANCELLED_BY_PATIENT','CANCELLED_BY_CLINIC')
     private String createdAt;
 
     public AppointmentBean() {

@@ -17,7 +17,7 @@ public class PatientProfileBean implements Serializable {
     private String HKID;
     private String firstName;
     private String lastName;
-    private String gender;
+    private String gender; //ENUM('M','F')
     private String DOB;
     private String phone;
     private String email;

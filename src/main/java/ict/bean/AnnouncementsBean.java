@@ -10,10 +10,11 @@ package ict.bean;
  */
 public class AnnouncementsBean {
     
+    private int announcementId;
     private String title;
     private String content;
-    private String type;
-    private String status;
+    private String type; //ENUM('NORMAL','URGENT','IMPORTANT')
+    private String status; // ENUM('PUBLISHED','DRAFT')
     private String publishTime;
     private String createdAt;
     private String updatedAt;
@@ -21,7 +22,8 @@ public class AnnouncementsBean {
     public AnnouncementsBean() {
     }
 
-    public AnnouncementsBean(String title, String content, String type, String status, String publishTime, String createdAt, String updatedAt) {
+    public AnnouncementsBean(int announcementId, String title, String content, String type, String status, String publishTime, String createdAt, String updatedAt) {
+        this.announcementId = announcementId;
         this.title = title;
         this.content = content;
         this.type = type;
@@ -29,6 +31,14 @@ public class AnnouncementsBean {
         this.publishTime = publishTime;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+    }
+
+    public int getAnnouncementId() {
+        return announcementId;
+    }
+
+    public void setAnnouncementId(int announcementId) {
+        this.announcementId = announcementId;
     }
 
     public String getTitle() {

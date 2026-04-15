@@ -7,6 +7,7 @@ package ict.servlet.common;
 import java.io.IOException;
 
 import ict.bean.UserInfoBean;
+import ict.db.AnnouncementsDB;
 import ict.db.AppointmentDB;
 import ict.db.ClinicDB;
 import ict.db.NotificationDB;
@@ -39,6 +40,7 @@ public class LoginController extends HttpServlet {
     private QueueTicketDB queueDb;
     private NotificationDB notifDb;
     private ServiceCapacityDB capDb;
+    private AnnouncementsDB annDb;
 
     @Override
     public void init() {
@@ -79,6 +81,10 @@ public class LoginController extends HttpServlet {
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
         capDb.createServiceCapacityTable();
         capDb.insertDefaultCapacitiesIfEmpty();
+        
+        annDb = new AnnouncementsDB(dbUrl, dbUser, dbPassword);
+        annDb.createAnnouncementTable();
+        annDb.insertDefaultAnnouncementsIfEmpty();
     }
 
     private void doAuthenticate(HttpServletRequest request, HttpServletResponse response)

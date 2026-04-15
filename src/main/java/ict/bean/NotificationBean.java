@@ -14,7 +14,7 @@ public class NotificationBean implements Serializable {
     
     private int notificationId;
     private int userId;
-    private String type;
+    private String type; // ENUM('NORMAL','URGENT','IMPORTANT')
     private String title;
     private String message;
     private String createdAt;
