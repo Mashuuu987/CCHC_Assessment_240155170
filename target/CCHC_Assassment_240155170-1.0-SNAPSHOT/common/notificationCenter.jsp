@@ -6,6 +6,7 @@
     <head>
         <title>Notification Center</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/css/notification.css" />
     </head>
     <body>

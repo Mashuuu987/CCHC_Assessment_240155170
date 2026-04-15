@@ -10,6 +10,7 @@
     <head>
         <title>CCHC</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/index.css">
     </head>
     <body>
@@ -53,7 +54,7 @@
                     <p class="feature-card-text">View the current waiting list and your own queue number.</p>
                 </a>
 
-                <a class="feature-card" href="<%= ctx + "/Login"%>">
+                <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInformation"%>">
                     <h2 class="feature-card-title">Clinic and Service Information</h2>
                     <p class="feature-card-text">Browse the clinics, their opening hours, and the services they offer.</p>
                 </a>

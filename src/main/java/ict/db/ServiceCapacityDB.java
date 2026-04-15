@@ -178,4 +178,27 @@ public class ServiceCapacityDB {
         }
         return list;
     }
+    
+    public List<ServiceCapacityBean> getAllServiceCapacity() {
+        List<ServiceCapacityBean> list = new ArrayList<>();
+        String sql = "SELECT * FROM service_capacity";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                int capacityId = rs.getInt("capacityId");
+                int clinicId = rs.getInt("clinicId");
+                int serviceId = rs.getInt("serviceId");
+                String timeSlot = rs.getString("timeSlot");
+                int quota = rs.getInt("quota");
+
+                ServiceCapacityBean bean = new ServiceCapacityBean(
+                        capacityId, clinicId, serviceId, timeSlot, quota);
+                list.add(bean);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

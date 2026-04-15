@@ -6,17 +6,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 2026/04/10, 0:18:24
     Author     : amzte
 */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f7fb;
-    margin: 0;
-}
-
-.main-container {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 0 20px 40px 20px;
-}
 
 .hero {
     background: linear-gradient(135deg, #2563eb, #4f46e5);

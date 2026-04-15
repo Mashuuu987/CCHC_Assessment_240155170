@@ -1,0 +1,58 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2026/04/16, 2:35:11
+    Author     : amzte
+*/
+.page-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.clinic-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 0;
+    margin-bottom: 16px;
+    background-color: #fff;
+}
+
+.clinic-card > summary {
+    cursor: pointer;
+    padding: 12px 16px;
+    font-weight: bold;
+    font-size: 18px;
+    list-style: none;
+}
+
+.clinic-card > summary::-webkit-details-marker {
+    display: none;
+}
+
+.clinic-details-body {
+    padding: 0 16px 16px 16px;
+    border-top: 1px solid #eee;
+}
+
+.clinic-basic-info p {
+    margin: 4px 0;
+}
+
+.service-capacity-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+
+.service-capacity-table th,
+.service-capacity-table td {
+    border: 1px solid #ddd;
+    padding: 6px 8px;
+    font-size: 14px;
+}
+
+.service-capacity-table th {
+    background-color: #f5f5f5;
+}

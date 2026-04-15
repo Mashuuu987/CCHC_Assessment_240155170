@@ -13,6 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Book Appointment</title>
+        <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/bookAppointment.css">
     </head>
     <body>

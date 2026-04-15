@@ -6,11 +6,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 2026/04/13, 20:02:30
     Author     : amzte
 */
-.main-container {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 0 20px 40px 20px;
-}
 
 .page-title {
     font-size: 28px;
@@ -84,18 +79,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .bookAppointment-actions {
     margin-top: 16px;
     text-align: right;
-}
-
-.main-container {
-    max-width: 1000px;
-    margin: 40px auto;
-    padding: 0 20px 40px 20px;
-}
-
-.page-title {
-    font-size: 28px;
-    margin: 10px 0 4px 0;
-    color: #1f2937;
 }
 
 .btn-primary {

@@ -6,11 +6,6 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     Created on : 2026/04/10, 0:19:18
     Author     : amzte
 */
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f5f7fb;
-    margin: 0;
-}
 
 .register-wrapper {
     display: flex;

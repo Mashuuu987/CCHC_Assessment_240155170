@@ -10,7 +10,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Patient Registration</title>
-            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/patientRegister.css" />
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/common.css">
+        <link rel="stylesheet" href="${pageContext.request.contextPath}/css/patientRegister.css" />
     </head>
     <body>
         <%
@@ -42,7 +43,7 @@
                 <form method="post" action="<%= request.getContextPath()%>/PatientRegister">
                     <div class="field-group">
                         <label class="field-label" for="username">Username</label>
-                        <input class="field-input" type="text" id="username" name="username"  value="<%= rUsername != null ? rUsername : "" %>"required>
+                        <input class="field-input" type="text" id="username" name="username"  value="<%= rUsername != null ? rUsername : ""%>"required>
                     </div>
 
                     <div class="field-group">
@@ -57,56 +58,56 @@
 
                     <div class="field-group">
                         <label class="field-label" for="hkid">HKID / ID number</label>
-                        <input class="field-input" type="text" id="hkid" name="hkid" value="<%= rHkid != null ? rHkid : "" %>" required>
+                        <input class="field-input" type="text" id="hkid" name="hkid" value="<%= rHkid != null ? rHkid : ""%>" required>
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="firstName">First name</label>
-                        <input class="field-input" type="text" id="firstName" name="firstName" value="<%= rFirstName != null ? rFirstName : "" %>" required>
+                        <input class="field-input" type="text" id="firstName" name="firstName" value="<%= rFirstName != null ? rFirstName : ""%>" required>
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="lastName">Last name</label>
-                        <input class="field-input" type="text" id="lastName" name="lastName" value="<%= rLastName != null ? rLastName : "" %>" required>
+                        <input class="field-input" type="text" id="lastName" name="lastName" value="<%= rLastName != null ? rLastName : ""%>" required>
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="gender">Gender</label>
                         <select class="field-input" id="gender" name="gender" required>
                             <option value="">-- Please select --</option>
-                            <option value="M" <%= "M".equals(rGender) ? "selected" : "" %> >Male</option>
-                            <option value="F" <%= "F".equals(rGender) ? "selected" : "" %> >Female</option>
+                            <option value="M" <%= "M".equals(rGender) ? "selected" : ""%> >Male</option>
+                            <option value="F" <%= "F".equals(rGender) ? "selected" : ""%> >Female</option>
                         </select>
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="dob">Date of birth</label>
-                        <input class="field-input" type="date" id="dob" name="dob" value="<%= rDob != null ? rDob : "" %>" required>
+                        <input class="field-input" type="date" id="dob" name="dob" value="<%= rDob != null ? rDob : ""%>" required>
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="phone">Phone</label>
-                        <input class="field-input" type="text" id="phone" name="phone" value="<%= rPhone != null ? rPhone : "" %>" required>
+                        <input class="field-input" type="text" id="phone" name="phone" value="<%= rPhone != null ? rPhone : ""%>" required>
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="email">Email (optional)</label>
-                        <input class="field-input" type="email" id="email" name="email" value="<%= rEmail != null ? rEmail : "" %>" >
+                        <input class="field-input" type="email" id="email" name="email" value="<%= rEmail != null ? rEmail : ""%>" >
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="address">Address (optional)</label>
-                        <textarea class="field-input" id="address" name="address" rows="2" value="<%= rAddress != null ? rAddress : "" %>" ></textarea>
+                        <textarea class="field-input" id="address" name="address" rows="2" value="<%= rAddress != null ? rAddress : ""%>" ></textarea>
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="emergencyContactFullName">Emergency contact full name (optional)</label>
-                        <input class="field-input" type="text" id="emergencyContactFullName" name="emergencyContactFullName" value="<%= rEcName != null ? rEcName : "" %>" >
+                        <input class="field-input" type="text" id="emergencyContactFullName" name="emergencyContactFullName" value="<%= rEcName != null ? rEcName : ""%>" >
                     </div>
 
                     <div class="field-group">
                         <label class="field-label" for="emergencyContact">Emergency contact phone (optional)</label>
-                        <input class="field-input" type="text" id="emergencyContact" name="emergencyContact" value="<%= rEcPhone != null ? rEcPhone : "" %>" >
+                        <input class="field-input" type="text" id="emergencyContact" name="emergencyContact" value="<%= rEcPhone != null ? rEcPhone : ""%>" >
                     </div>
 
                     <div class="field-group">
