@@ -4,13 +4,16 @@
  */
 package ict.servlet.common;
 
+import java.io.IOException;
+import java.util.List;
+
+import ict.bean.AnnouncementsBean;
 import ict.db.AnnouncementsDB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  *
@@ -28,13 +31,15 @@ public class AnnouncementsController extends HttpServlet {
         String dbPassword = getServletContext().getInitParameter("dbPassword");
 
         annDb = new AnnouncementsDB(dbUrl, dbUser, dbPassword);
+        annDb.createAnnouncementTable();
     }
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("announcements", annDb.getLatestVisibleAnnouncements(20));
+        List<AnnouncementsBean> list = annDb.getLatestVisibleAnnouncements(20);
+        request.setAttribute("announcements", list);
         request.getRequestDispatcher("/common/Announcements.jsp").forward(request, response);
     }
 }

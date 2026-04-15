@@ -4,10 +4,14 @@
  */
 package ict.servlet.patient;
 
+import java.io.IOException;
+import java.util.List;
+
 import ict.bean.ClinicBean;
 import ict.bean.NotificationBean;
 import ict.bean.ServiceBean;
 import ict.bean.UserInfoBean;
+import ict.db.AnnouncementsDB;
 import ict.db.ClinicDB;
 import ict.db.NotificationDB;
 import ict.db.ServiceDB;
@@ -17,8 +21,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.List;
 
 /**
  *
@@ -30,6 +32,7 @@ public class PatientHomeController extends HttpServlet {
     private ClinicDB clinicDb;
     private ServiceDB serviceDb;
     private NotificationDB notifDb;
+    private AnnouncementsDB annDb;
 
     @Override
     public void init() {
@@ -40,6 +43,7 @@ public class PatientHomeController extends HttpServlet {
         clinicDb = new ClinicDB(dbUrl, dbUser, dbPassword);
         serviceDb = new ServiceDB(dbUrl, dbUser, dbPassword);
         notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
+        annDb = new AnnouncementsDB(dbUrl, dbUser, dbPassword);
     }
 
     @Override
@@ -99,6 +103,7 @@ public class PatientHomeController extends HttpServlet {
 
         request.setAttribute("notifUnreadCount", notifUnreadCount);
         request.setAttribute("notifBadgeClass", notifBadgeClass);
+        request.setAttribute("announcements", annDb.getLatestVisibleAnnouncements(3));
 
         request.getRequestDispatcher("/index.jsp").forward(request, response);
     }

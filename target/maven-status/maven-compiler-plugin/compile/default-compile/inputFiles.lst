@@ -2,6 +2,7 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\ClinicAndServiceInfomationController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\NotificationDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\patient\BookAppointmentController.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\AnnouncementsBean.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\tag\HeadingTag.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\PatientProfileBean.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\AppointmentDB.java
@@ -16,8 +17,10 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\PatientDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\ClinicBean.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\NotificationBean.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\AnnouncementsController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\NotificationController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\ServiceBean.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\AnnouncementsDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\patient\PatientHomeController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\StaffHomeController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\ClinicDB.java

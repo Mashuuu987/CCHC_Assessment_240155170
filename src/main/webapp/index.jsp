@@ -3,14 +3,15 @@
     Created on : 2026/04/07, 19:25:16
     Author     : amzte
 --%>
-<%@page import="ict.bean.UserInfoBean" %>
+<%@page import="java.util.List"%>
+<%@page import="ict.bean.UserInfoBean, ict.bean.AnnouncementsBean" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
         <title>CCHC</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/common.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/index.css">
     </head>
     <body>
@@ -23,6 +24,7 @@
 
             Integer notifUnreadCount = (Integer) request.getAttribute("notifUnreadCount");
             String notifBadgeClass = (String) request.getAttribute("notifBadgeClass");
+            List<AnnouncementsBean> list = (List<AnnouncementsBean>) request.getAttribute("announcements");
         %>
 
         <%@ include file="/heading.jsp" %>
@@ -60,9 +62,9 @@
                 </a>
 
                 <a class="feature-card notification-card" href="<%= isPatient ? ctx + "/Notification" : ctx + "/Login"%>">
-                    <% if (notifUnreadCount != null && notifUnreadCount > 0 && notifBadgeClass != null) { %>
-                    <div class="notification-badge <%= notifBadgeClass %>"><%= notifUnreadCount %></div>
-                    <% } %>
+                    <% if (notifUnreadCount != null && notifUnreadCount > 0 && notifBadgeClass != null) {%>
+                    <div class="notification-badge <%= notifBadgeClass%>"><%= notifUnreadCount%></div>
+                    <% }%>
                     <h2 class="feature-card-title">Notification Center</h2>
                     <p class="feature-card-text">View appointment reminders and general notifications.</p>
                 </a>
@@ -79,25 +81,46 @@
             </div>
 
             <div class="section">
-                <h2 class="section-title">Announcements and Latest News</h2>
-                <p class="section-subtitle">Click to view details.</p>
-                <ul class="announcement-list">
-                    <li class="announcement-item">
-                        <div class="announcement-meta">2026-04-01 - System Announcement</div>
-                        <p class="announcement-title">System Announcement!</p>
-                        <p class="announcement-text">Hello ! System Announcement !</p>
-                    </li>
-                    <li class="announcement-item">
-                        <div class="announcement-meta">2026-03-20 - Special Announcement</div>
-                        <p class="announcement-title">System Maintenance!</p>
-                        <p class="announcement-text">Hello ! Special Announcement !</p>
-                    </li>
-                    <li class="announcement-item">
-                        <div class="announcement-meta">2026-03-05 - System Maintenance</div>
-                        <p class="announcement-title">System Maintenance!</p>
-                        <p class="announcement-text">Hello ! System Maintenance !</p>
-                    </li>
-                </ul>
+                <h2 class="section-title">Announcements</h2>
+
+                <%
+                    if (list == null || list.isEmpty()) {
+                %>
+                <p>No announcements yet.</p>
+                <%
+                } else {
+                    for (AnnouncementsBean ann : list) {
+                        String badgeClass = "notification-badge-normal";
+                        if ("IMPORTANT".equalsIgnoreCase(ann.getType())) {
+                            badgeClass = "notification-badge-important";
+                        } else if ("URGENT".equalsIgnoreCase(ann.getType())) {
+                            badgeClass = "notification-badge-urgent";
+                        }
+                        String timeText = ann.getPublishTime();
+                        if (timeText == null || timeText.isEmpty() || "null".equalsIgnoreCase(timeText)) {
+                            timeText = ann.getCreatedAt();
+                        }
+                %>
+                <details class="announcement-item announcement-card">
+                    <summary class="announcement-summary">
+                        <div class="announcement-summary-main">
+                            <strong class="announcement-title"><%= ann.getTitle()%></strong>
+                            <span class="announcement-time"><%= timeText%></span>
+                        </div>
+                        <span class="announcement-type-dot <%= badgeClass%>" title="<%= ann.getType()%>"><%= ann.getType()%></span>
+                    </summary>
+                    <div class="announcement-content">
+                        <p class="announcement-text"><%= ann.getContent()%></p>
+                    </div>
+                </details>
+                <%
+                        }
+                    }
+                %>
+
+                <div class="announcements-more-wrap">
+                    <a href="<%= ctx + "/Announcements"%>" class="announcements-more-btn">View more</a>
+                </div>
             </div>
 
             <div class="section">

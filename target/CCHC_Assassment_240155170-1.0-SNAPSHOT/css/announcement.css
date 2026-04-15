@@ -1,0 +1,111 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2026/04/16, 5:56:58
+    Author     : amzte
+*/
+.announcement-list,
+.faq-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.announcement-item,
+.faq-item {
+    background-color: #ffffff;
+    border-radius: 8px;
+    padding: 10px 12px;
+    margin-bottom: 8px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
+    font-size: 13px;
+}
+
+.announcement-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.announcement-summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+}
+
+.announcement-summary::-webkit-details-marker {
+    display: none;
+}
+
+.announcement-summary-main {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-width: 0;
+}
+
+.announcement-title {
+    margin: 0;
+    font-weight: 600;
+    color: #111827;
+}
+
+.announcement-time {
+    font-size: 11px;
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+.announcement-type-dot {
+    min-width: 64px;
+    min-height: 24px;
+    border-radius: 6px;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    box-shadow: 0 0 0 2px #ffffff;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1;
+}
+
+.announcement-type-dot.notification-badge-normal {
+    background-color: #16a34a;
+}
+
+.announcement-type-dot.notification-badge-important {
+    background-color: #eab308;
+}
+
+.announcement-type-dot.notification-badge-urgent {
+    background-color: #dc2626;
+}
+
+.announcement-content {
+    border-top: 1px solid #e5e7eb;
+    padding: 12px 14px 14px 14px;
+    background-color: #f9fafb;
+}
+
+.announcement-text {
+    margin: 0;
+    white-space: pre-line;
+    color: #374151;
+}
+
+.announcement-meta {
+    font-size: 11px;
+    color: #9ca3af;
+    margin-bottom: 2px;
+}

@@ -8,7 +8,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 */
 
 .hero {
-    background: linear-gradient(135deg, #2563eb, #4f46e5);
+    background: linear-gradient(135deg, #4a6dc0, #6a63ce);
     color: #ffffff;
     border-radius: 16px;
     padding: 26px 28px 24px 28px;
@@ -190,20 +190,124 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     font-size: 13px;
 }
 
+.announcement-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+.announcement-summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 14px;
+}
+
+.announcement-summary::-webkit-details-marker {
+    display: none;
+}
+
+.announcement-summary-main {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    min-width: 0;
+}
+
+.announcement-title {
+    margin: 0;
+    font-weight: 600;
+    color: #111827;
+}
+
+.announcement-time {
+    font-size: 11px;
+    color: #9ca3af;
+    white-space: nowrap;
+}
+
+.announcement-type-dot {
+    min-width: 64px;
+    min-height: 24px;
+    border-radius: 6px;
+    padding: 4px 10px;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    box-shadow: 0 0 0 2px #ffffff;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    line-height: 1;
+}
+
+.announcement-type-dot.notification-badge-normal {
+    background-color: #16a34a;
+}
+
+.announcement-type-dot.notification-badge-important {
+    background-color: #eab308;
+}
+
+.announcement-type-dot.notification-badge-urgent {
+    background-color: #dc2626;
+}
+
+.announcement-content {
+    border-top: 1px solid #e5e7eb;
+    padding: 12px 14px 14px 14px;
+    background-color: #f9fafb;
+}
+
+.announcement-text {
+    margin: 0;
+    white-space: pre-line;
+    color: #374151;
+}
+
 .announcement-meta {
     font-size: 11px;
     color: #9ca3af;
     margin-bottom: 2px;
 }
 
-.announcement-title {
-    margin: 0;
-    font-weight: 600;
+.announcements-more-wrap {
+    text-align: right;
+    margin-top: 14px;
 }
 
-.announcement-text {
-    margin: 2px 0 0 0;
-    color: #6b7280;
+.announcements-more-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 112px;
+    height: 38px;
+    padding: 0 16px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #1f3061, #183064);
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    box-shadow: 0 6px 14px rgba(37, 99, 235, 0.25);
+    transition: transform 0.15s ease, box-shadow 0.15s ease, filter 0.15s ease;
+}
+
+.announcements-more-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 20px rgba(37, 99, 235, 0.28);
+    filter: brightness(1.03);
+}
+
+.announcements-more-btn:active {
+    transform: translateY(0);
 }
 
 .faq-question {

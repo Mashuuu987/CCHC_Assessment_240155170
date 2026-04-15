@@ -4,7 +4,6 @@
  */
 package ict.db;
 
-import ict.bean.AnnouncementsBean;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,6 +13,8 @@ import java.sql.Statement;
 import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
+
+import ict.bean.AnnouncementsBean;
 
 /**
  *
@@ -45,7 +46,7 @@ public class AnnouncementsDB {
                 + "title VARCHAR(200) NOT NULL, "
                 + "content TEXT NOT NULL, "
                 + "type ENUM('NORMAL','URGENT','IMPORTANT') NOT NULL, "
-                + "status ENUM('PUBLISHED','DRAFT') NOT NULL,DEFAULT 'DRAFT'"
+                + "status ENUM('PUBLISHED','DRAFT') NOT NULL DEFAULT 'DRAFT',"
                 + "publishTime DATETIME NULL,"
                 + "createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,"
                 + "updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,"
@@ -61,7 +62,7 @@ public class AnnouncementsDB {
      public int createAnnouncement(String title,String content,String type,String status,String publishTime) {
 
         int announcementId = -1;
-        String sql = "INSERT INTO announcement (title, content, type, status, publishTime, createdAt, updatedAt) "
+        String sql = "INSERT INTO announcement (title, content, type, status, publishTime) "
                 + "VALUES (?, ?, ?, ?, ?)";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, title);

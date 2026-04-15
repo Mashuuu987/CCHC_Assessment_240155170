@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
         String dbUrl = getServletContext().getInitParameter("dbUrl");
         String dbUser = getServletContext().getInitParameter("dbUser");
         String dbPassword = getServletContext().getInitParameter("dbPassword");
-        
+
         db = new UserDB(dbUrl, dbUser, dbPassword);
         db.createUserInfoTable();
         db.insertDefaultUserIfEmpty();
@@ -68,23 +68,24 @@ public class LoginController extends HttpServlet {
         serviceDb.createServiceTable();
         serviceDb.insertDefaultServicesIfEmpty();
 
+        annDb = new AnnouncementsDB(dbUrl, dbUser, dbPassword);
+        annDb.createAnnouncementTable();
+        annDb.insertDefaultAnnouncementsIfEmpty();
+
+        notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
+        notifDb.createNotificationTable();
+        notifDb.insertDefaultNotificationIfEmpty();
+
         apptDb = new AppointmentDB(dbUrl, dbUser, dbPassword);
         apptDb.createAppointmentTable();
 
         queueDb = new QueueTicketDB(dbUrl, dbUser, dbPassword);
         queueDb.createQueueTicketTable();
 
-        notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
-        notifDb.createNotificationTable();
-        notifDb.insertDefaultNotificationIfEmpty();
-        
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
         capDb.createServiceCapacityTable();
         capDb.insertDefaultCapacitiesIfEmpty();
-        
-        annDb = new AnnouncementsDB(dbUrl, dbUser, dbPassword);
-        annDb.createAnnouncementTable();
-        annDb.insertDefaultAnnouncementsIfEmpty();
+
     }
 
     private void doAuthenticate(HttpServletRequest request, HttpServletResponse response)
@@ -104,7 +105,7 @@ public class LoginController extends HttpServlet {
                     success = "PATIENT".equalsIgnoreCase(Role);
                 } else if ("STAFF".equalsIgnoreCase(selectedRole)) {
                     success = "STAFF".equalsIgnoreCase(Role)
-                              || "ADMIN".equalsIgnoreCase(Role);
+                            || "ADMIN".equalsIgnoreCase(Role);
                 }
 
                 if (!success) {
