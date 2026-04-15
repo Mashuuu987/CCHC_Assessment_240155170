@@ -54,7 +54,7 @@
                     <p class="feature-card-text">View the current waiting list and your own queue number.</p>
                 </a>
 
-                <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInformation"%>">
+                <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInfomation"%>">
                     <h2 class="feature-card-title">Clinic and Service Information</h2>
                     <p class="feature-card-text">Browse the clinics, their opening hours, and the services they offer.</p>
                 </a>
