@@ -25,7 +25,6 @@ ict\db\QueueTicketDB.class
 ict\bean\PatientProfileBean.class
 ict\bean\QueueTicketBean.class
 ict\db\ClinicDB.class
-ict\servlet\PatientHomeController.class
 ict\bean\IncidentLogBean.class
 ict\bean\UserInfoBean.class
 ict\db\StaffDB.class

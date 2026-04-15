@@ -12,7 +12,6 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\IncidentLogDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\QueueTicketDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\ServiceDB.java
-C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\PatientHomeController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\util\PasswordUtil.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\UserInfoBean.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\ServiceCapacityBean.java
@@ -21,6 +20,7 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\NotificationBean.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\LoginController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\ServiceBean.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\patient\PatientHomeController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\ClinicDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\AppointmentBean.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\BookAppointmentController.java

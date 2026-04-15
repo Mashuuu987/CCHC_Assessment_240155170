@@ -15,6 +15,9 @@
 
     <c:set var="homeUrl" value="${pageContext.request.contextPath}/index.jsp" />
 
+    <c:if test="${role == 'PATIENT'}">
+        <c:set var="homeUrl" value="${pageContext.request.contextPath}/PatientHome" />
+    </c:if>
     <c:if test="${role == 'STAFF'}">
         <c:set var="homeUrl" value="${pageContext.request.contextPath}/StaffHome" />
     </c:if>

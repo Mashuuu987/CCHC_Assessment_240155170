@@ -3,6 +3,9 @@
     Created on : 2026/04/13, 20:00:27
     Author     : amzte
 --%>
+<%@page import="java.time.LocalTime"%>
+<%@page import="java.time.LocalDate"%>
+<%@page import="java.util.Set"%>
 <%@page import="ict.bean.UserInfoBean, ict.bean.ServiceCapacityBean, java.util.List, ict.bean.ClinicBean, ict.bean.ServiceBean, ict.bean.PatientProfileBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -14,13 +17,9 @@
     </head>
     <body>
         <%
-            UserInfoBean user = (UserInfoBean) session.getAttribute("userInfo");
-            if (user == null || !"PATIENT".equalsIgnoreCase(user.getRole())) {
-                response.sendRedirect(request.getContextPath() + "/Login");
-                return;
-            }
-
             String ctx = request.getContextPath();
+            LocalDate todayLocalDate = LocalDate.now();
+            String minDate = todayLocalDate.toString();
             List<ClinicBean> clinics = (List<ClinicBean>) request.getAttribute("clinics");
             List<ServiceBean> services = (List<ServiceBean>) request.getAttribute("services");
             List<ServiceCapacityBean> capList = (List<ServiceCapacityBean>) request.getAttribute("capacityList");
@@ -37,11 +36,7 @@
 
             Integer stepAttr = (Integer) request.getAttribute("currentStep");
             int currentStep = 1;
-            if (patient != null && selectedTimeSlot != null) {
-                currentStep = 3;
-            } else if (capList != null && selectedClinicId != null && selectedServiceId != null && selectedDate != null) {
-                currentStep = 2;
-            } else if (stepAttr != null) {
+            if (stepAttr != null) {
                 currentStep = stepAttr;
             }
 
@@ -94,8 +89,8 @@
             <div class ="bookAppointment-message"><%= success%></div>
             <div style="font-size:64px; text-align:center; color:#28a745; margin-top:20px;">&#10004;</div>
             <div class="bookAppointment-actions">
-                    <button type="button" class="btn-back" onclick="window.location='<%= ctx%>/index.jsp'">Back to homepage</button>
-                </div>
+                <button type="button" class="btn-back" onclick="window.location='<%= ctx%>/PatientHome'">Back to homepage</button>
+            </div>
             <% }%>
 
             <%-- Step 1: clinic / service / date --%>
@@ -136,7 +131,7 @@
                 </div>
                 <div class="bookAppointment-row">
                     <label class="bookAppointment-label">Date</label>
-                    <input type="date" name="appointmentDate" class="bookAppointment-input" value="<%= (selectedDate != null) ? selectedDate : ""%>" />
+                    <input type="date" name="appointmentDate" class="bookAppointment-input" min="<%= minDate %>" value="<%= (selectedDate != null) ? selectedDate : ""%>" />
                 </div>
 
                 <div class="bookAppointment-actions">
@@ -175,7 +170,11 @@
 
             <%-- Step 2: choose timeslot --%>
             <% if (currentStep == 2 && capList != null && selectedClinicId != null && selectedServiceId != null && selectedDate != null) { 
-                   java.util.Set<String> fullSlots = (java.util.Set<String>) request.getAttribute("fullTimeSlots");
+                   Set<String> fullSlots = (Set<String>) request.getAttribute("fullTimeSlots");
+                   LocalDate selectedDateLocal = LocalDate.parse(selectedDate);
+                   LocalDate todayForTime = LocalDate.now();
+                   boolean isToday = selectedDateLocal.equals(todayForTime);
+                   LocalTime nowTime = LocalTime.now();
                %>
             <form method="post" action="<%= ctx%>/BookAppointment" class="bookAppointment-form">
                 <input type="hidden" name="step" value="2" />
@@ -211,11 +210,21 @@
                     <div class="timeslot-list">
                         <% for (ServiceCapacityBean cap : capList) { 
                                boolean isFull = (fullSlots != null && fullSlots.contains(cap.getTimeSlot()));
+                               boolean isPastForToday = false;
+                               if (isToday) {
+                                   try {
+                                       LocalTime slotTime = LocalTime.parse(cap.getTimeSlot());
+                                       isPastForToday = slotTime.isBefore(nowTime);
+                                   } catch (Exception e) {
+                                       // ignore parse errors here; controller will validate
+                                   }
+                               }
+                               boolean isDisabled = isFull || isPastForToday;
                            %>
-                        <div class="timeslot-item <%= isFull ? "timeslot-disabled" : "" %>">
+                        <div class="timeslot-item <%= isDisabled ? "timeslot-disabled" : "" %>">
                             <label>
-                                <input type="radio" name="timeSlot" value="<%= cap.getTimeSlot()%>" <%= (selectedTimeSlot != null && selectedTimeSlot.equals(cap.getTimeSlot())) ? "checked" : ""%> <%= isFull ? "disabled" : "" %> />
-                                <span><%= cap.getTimeSlot()%><%= isFull ? " (Full)" : "" %></span>
+                                <input type="radio" name="timeSlot" value="<%= cap.getTimeSlot()%>" <%= (selectedTimeSlot != null && selectedTimeSlot.equals(cap.getTimeSlot())) ? "checked" : ""%> <%= isDisabled ? "disabled" : "" %> />
+                                <span><%= cap.getTimeSlot()%><%= isFull ? " (Full)" : (isPastForToday ? " (Past)" : "") %></span>
                             </label>
                         </div>
                         <% } %>

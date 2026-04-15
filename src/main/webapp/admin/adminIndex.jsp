@@ -3,7 +3,6 @@
     Created on : 2026/04/07, 19:25:16
     Author     : amzte
 --%>
-<%@page import="ict.bean.UserInfoBean, ict.db.NotificationDB, ict.bean.NotificationBean, java.util.List"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -14,55 +13,9 @@
     </head>
     <body>
         <%
-            UserInfoBean user = (UserInfoBean) session.getAttribute("userInfo");
-            boolean loggedIn = (user != null);
-            String role = loggedIn ? user.getRole() : null;
-            boolean isAdmin = "ADMIN".equalsIgnoreCase(role);
             String ctx = request.getContextPath();
-
-            int notifUnreadCount = 0;
-            String notifBadgeClass = null;
-
-            if (loggedIn) {
-                try {
-                    String dbUrl = application.getInitParameter("dbUrl");
-                    String dbUser = application.getInitParameter("dbUser");
-                    String dbPassword = application.getInitParameter("dbPassword");
-
-                    NotificationDB notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
-                    List<NotificationBean> notifList = notifDb.getNotificationsByUserId(user.getUserId());
-
-                    boolean hasUrgent = false;
-                    boolean hasImportant = false;
-
-                    for (NotificationBean n : notifList) {
-                        if (n != null && !n.isRead()) {
-                            notifUnreadCount++;
-                            String t = n.getType();
-                            if (t != null) {
-                                String upper = t.toUpperCase();
-                                if ("URGENT".equals(upper)) {
-                                    hasUrgent = true;
-                                } else if ("IMPORTANT".equals(upper)) {
-                                    hasImportant = true;
-                                }
-                            }
-                        }
-                    }
-
-                    if (notifUnreadCount > 0) {
-                        notifBadgeClass = "notification-badge-normal";
-                        if (hasImportant) {
-                            notifBadgeClass = "notification-badge-important";
-                        }
-                        if (hasUrgent) {
-                            notifBadgeClass = "notification-badge-urgent";
-                        }
-                    }
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                }
-            }
+            Integer notifUnreadCount = (Integer) request.getAttribute("notifUnreadCount");
+            String notifBadgeClass = (String) request.getAttribute("notifBadgeClass");
         %>
         <%@ include file="/heading.jsp" %>
         <div class="main-container">
@@ -82,7 +35,7 @@
             <p class="page-subtitle">Please choose commonly used patient features. (Some function need to login first)</p>
 
             <div class="feature-grid">
-                <a class="feature-card" href="<%= isAdmin ? ctx + "/AdminHome" : ctx + "/Login"%>">
+                <a class="feature-card" href="<%= ctx + "/AdminHome"%>">
                     <h2 class="feature-card-title">Appointment Service</h2>
                     <p class="feature-card-text">Schedule appointments for outpatient visits or examinations, and manage future appointments.</p>
                 </a>
@@ -97,9 +50,9 @@
                     <p class="feature-card-text">Browse the various community clinics, their opening hours, and the services they offer.</p>
                 </a>
 
-                <a class="feature-card notification-card" href="<%= loggedIn ? ctx + "/Notification" : ctx + "/Login"%>">
-                    <% if (notifUnreadCount > 0 && notifBadgeClass != null) {%>
-                    <div class="notification-badge <%= notifBadgeClass%>"><%= notifUnreadCount%></div>
+                <a class="feature-card notification-card" href="<%= ctx + "/Notification"%>">
+                    <% if (notifUnreadCount != null && notifUnreadCount > 0 && notifBadgeClass != null) { %>
+                    <div class="notification-badge <%= notifBadgeClass %>"><%= notifUnreadCount %></div>
                     <% }%>
                     <h2 class="feature-card-title">Notification Center</h2>
                     <p class="feature-card-text">View appointment reminders and general notifications sent by the system.</p>
@@ -110,7 +63,7 @@
                     <p class="feature-card-text">Viewing past appointments and medical records makes it easier to follow up.</p>
                 </a>
 
-                <a class="feature-card" href="<%= isAdmin ? ctx + "/Settings" : ctx + "/Login"%>">
+                <a class="feature-card" href="<%= ctx + "/Settings"%>">
                     <h2 class="feature-card-title">Settings</h2>
                     <p class="feature-card-text">Manage profile and change your password.</p>
                 </a>

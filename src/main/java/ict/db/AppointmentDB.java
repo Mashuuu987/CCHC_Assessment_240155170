@@ -4,7 +4,6 @@
  */
 package ict.db;
 
-import ict.bean.AppointmentBean;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -13,6 +12,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+
+import ict.bean.AppointmentBean;
 
 /**
  *
@@ -206,5 +207,30 @@ public class AppointmentDB {
             e.printStackTrace();
         }
         return appointmentId;
+    }
+
+    public int findExistingAppointmentId(int patientId, int clinicId, int serviceId, String date, String timeSlot) {
+        String sql = "SELECT appointmentId FROM appointment "
+                + "WHERE patientId = ? AND clinicId = ? AND serviceId = ? "
+                + "AND appointmentDate = ? AND timeSlot = ? "
+                + "AND status NOT IN ('CANCELLED_BY_PATIENT','CANCELLED_BY_CLINIC') "
+                + "ORDER BY createdAt ASC LIMIT 1";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, patientId);
+            ps.setInt(2, clinicId);
+            ps.setInt(3, serviceId);
+            ps.setString(4, date);
+            ps.setString(5, timeSlot);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("appointmentId");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
 }

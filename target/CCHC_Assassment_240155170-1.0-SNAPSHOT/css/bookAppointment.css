@@ -27,6 +27,15 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     font-size: 0.95rem;
 }
 
+.bookAppointment-message-error {
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    border-radius: 6px;
+    background-color: #fee2e2;
+    color: #b91c1c;
+    font-size: 0.95rem;
+}
+
 .bookAppointment-form {
     max-width: 640px;
     margin: 0 auto 40px auto;

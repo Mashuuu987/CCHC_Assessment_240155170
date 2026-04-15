@@ -141,7 +141,7 @@ public class LoginController extends HttpServlet {
             } else if ("STAFF".equalsIgnoreCase(role)) {
                 response.sendRedirect(ctx + "/StaffHome");
             } else if ("PATIENT".equalsIgnoreCase(role)) {
-                response.sendRedirect(ctx + "/index.jsp");
+                response.sendRedirect(ctx + "/PatientHome");
             } else {
                 response.sendRedirect(ctx + "/index.jsp");
             }
@@ -175,7 +175,26 @@ public class LoginController extends HttpServlet {
 
     public void showWelcome(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("/index.jsp").forward(request, response);
+        HttpSession session = request.getSession(false);
+        UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
+
+        String ctx = request.getContextPath();
+
+        if (user == null || user.getRole() == null) {
+            response.sendRedirect(ctx + "/index.jsp");
+            return;
+        }
+
+        String role = user.getRole();
+        if ("ADMIN".equalsIgnoreCase(role)) {
+            response.sendRedirect(ctx + "/AdminHome");
+        } else if ("STAFF".equalsIgnoreCase(role)) {
+            response.sendRedirect(ctx + "/StaffHome");
+        } else if ("PATIENT".equalsIgnoreCase(role)) {
+            response.sendRedirect(ctx + "/PatientHome");
+        } else {
+            response.sendRedirect(ctx + "/index.jsp");
+        }
     }
 
     @Override
