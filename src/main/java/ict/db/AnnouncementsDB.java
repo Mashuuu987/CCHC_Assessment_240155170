@@ -10,6 +10,5 @@ package ict.db;
  */
 public class AnnouncementsDB {
     
-    private String title;
 
 }
