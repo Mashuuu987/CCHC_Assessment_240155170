@@ -4,6 +4,8 @@
  */
 package ict.servlet.common;
 
+import java.io.IOException;
+
 import ict.bean.UserInfoBean;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -11,7 +13,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.io.IOException;
 
 /**
  *
@@ -28,7 +29,7 @@ public class SettingsController extends HttpServlet {
         UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
 
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/Login");
+            response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
 

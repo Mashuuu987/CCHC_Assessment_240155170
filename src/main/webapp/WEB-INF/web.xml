@@ -17,6 +17,10 @@
         <param-value></param-value>
     </context-param>
 
+    <welcome-file-list>
+    <welcome-file>PublicHome</welcome-file>
+</welcome-file-list>
+
     <session-config>
         <session-timeout>
             30

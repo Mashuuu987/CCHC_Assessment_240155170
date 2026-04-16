@@ -13,7 +13,7 @@
     <c:set var="currentUser" value="${sessionScope.userInfo}" />
     <c:set var="role" value="${currentUser.role}" />
 
-    <c:set var="homeUrl" value="${pageContext.request.contextPath}/index.jsp" />
+    <c:set var="homeUrl" value="${pageContext.request.contextPath}/PublicHome" />
 
     <c:if test="${role == 'PATIENT'}">
         <c:set var="homeUrl" value="${pageContext.request.contextPath}/PatientHome" />

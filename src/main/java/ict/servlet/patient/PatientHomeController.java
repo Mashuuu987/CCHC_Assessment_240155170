@@ -54,7 +54,7 @@ public class PatientHomeController extends HttpServlet {
         UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
 
         if (user == null || user.getRole() == null || !"PATIENT".equalsIgnoreCase(user.getRole())) {
-            response.sendRedirect(request.getContextPath() + "/Login");
+            response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
 

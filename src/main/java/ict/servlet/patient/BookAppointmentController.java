@@ -75,7 +75,7 @@ public class BookAppointmentController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         UserInfoBean user = getLoginPatient(request);
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/Login");
+            response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
 
@@ -110,7 +110,7 @@ public class BookAppointmentController extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         UserInfoBean user = getLoginPatient(request);
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/Login");
+            response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
 
@@ -195,7 +195,7 @@ public class BookAppointmentController extends HttpServlet {
                 return;
             }
 
-            java.util.List<ict.bean.ServiceCapacityBean> capList = capDb.getCapacityByClinicService(clinicId, serviceId);
+            java.util.List<ServiceCapacityBean> capList = capDb.getCapacityByClinicService(clinicId, serviceId);
             java.util.Set<String> fullSlots = new java.util.HashSet<>();
 
             if (capList != null) {
@@ -260,8 +260,8 @@ public class BookAppointmentController extends HttpServlet {
                 request.setAttribute("error", "Selected timeslot is already in the past. Please go back and choose a later timeslot.");
                 request.setAttribute("currentStep", 2);
 
-                java.util.List<ict.bean.ServiceCapacityBean> capList = capDb.getCapacityByClinicService(clinicId, serviceId);
-                java.util.Set<String> fullSlots = new java.util.HashSet<>();
+                java.util.List<ServiceCapacityBean> capList = capDb.getCapacityByClinicService(clinicId, serviceId);
+                java.util.Set<String> fullSlots = new HashSet<>();
                 if (capList != null) {
                     for (ServiceCapacityBean sc : capList) {
                         int usedSlot = apptDb.countAppointments(clinicId, serviceId, date, sc.getTimeSlot());

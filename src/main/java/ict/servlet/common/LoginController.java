@@ -6,15 +6,10 @@ package ict.servlet.common;
 
 import java.io.IOException;
 
+import ict.bean.PatientProfileBean;
+import ict.bean.StaffProfileBean;
 import ict.bean.UserInfoBean;
-import ict.db.AnnouncementsDB;
-import ict.db.AppointmentDB;
-import ict.db.ClinicDB;
-import ict.db.NotificationDB;
 import ict.db.PatientDB;
-import ict.db.QueueTicketDB;
-import ict.db.ServiceCapacityDB;
-import ict.db.ServiceDB;
 import ict.db.StaffDB;
 import ict.db.UserDB;
 import jakarta.servlet.ServletException;
@@ -34,13 +29,6 @@ public class LoginController extends HttpServlet {
     private UserDB db;
     private PatientDB patientDb;
     private StaffDB staffDb;
-    private ClinicDB clinicDb;
-    private ServiceDB serviceDb;
-    private AppointmentDB apptDb;
-    private QueueTicketDB queueDb;
-    private NotificationDB notifDb;
-    private ServiceCapacityDB capDb;
-    private AnnouncementsDB annDb;
 
     @Override
     public void init() {
@@ -49,43 +37,8 @@ public class LoginController extends HttpServlet {
         String dbPassword = getServletContext().getInitParameter("dbPassword");
 
         db = new UserDB(dbUrl, dbUser, dbPassword);
-        db.createUserInfoTable();
-        db.insertDefaultUserIfEmpty();
-
         patientDb = new PatientDB(dbUrl, dbUser, dbPassword);
-        patientDb.createPatientProfileTable();
-        patientDb.insertDefaultPatientIfEmpty();
-
         staffDb = new StaffDB(dbUrl, dbUser, dbPassword);
-        staffDb.createStaffProfileTable();
-        staffDb.insertDefaultStaffIfEmpty();
-
-        clinicDb = new ClinicDB(dbUrl, dbUser, dbPassword);
-        clinicDb.createClinicTable();
-        clinicDb.insertDefaultClinicsIfEmpty();
-
-        serviceDb = new ServiceDB(dbUrl, dbUser, dbPassword);
-        serviceDb.createServiceTable();
-        serviceDb.insertDefaultServicesIfEmpty();
-
-        annDb = new AnnouncementsDB(dbUrl, dbUser, dbPassword);
-        annDb.createAnnouncementTable();
-        annDb.insertDefaultAnnouncementsIfEmpty();
-
-        notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
-        notifDb.createNotificationTable();
-        notifDb.insertDefaultNotificationIfEmpty();
-
-        apptDb = new AppointmentDB(dbUrl, dbUser, dbPassword);
-        apptDb.createAppointmentTable();
-
-        queueDb = new QueueTicketDB(dbUrl, dbUser, dbPassword);
-        queueDb.createQueueTicketTable();
-
-        capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
-        capDb.createServiceCapacityTable();
-        capDb.insertDefaultCapacitiesIfEmpty();
-
     }
 
     private void doAuthenticate(HttpServletRequest request, HttpServletResponse response)
@@ -122,13 +75,13 @@ public class LoginController extends HttpServlet {
 
             try {
                 if ("PATIENT".equalsIgnoreCase(bean.getRole())) {
-                    ict.bean.PatientProfileBean p = patientDb.getPatientByUserId(bean.getUserId());
+                    PatientProfileBean p = patientDb.getPatientByUserId(bean.getUserId());
                     if (p != null) {
                         session.setAttribute("displayFirstName", p.getFirstName());
                         session.setAttribute("displayLastName", p.getLastName());
                     }
                 } else if ("STAFF".equalsIgnoreCase(bean.getRole())) {
-                    ict.bean.StaffProfileBean s = staffDb.getStaffByUserId(bean.getUserId());
+                    StaffProfileBean s = staffDb.getStaffByUserId(bean.getUserId());
                     if (s != null) {
                         session.setAttribute("displayFirstName", s.getFirstName());
                         session.setAttribute("displayLastName", s.getLastName());
@@ -150,7 +103,7 @@ public class LoginController extends HttpServlet {
             } else if ("PATIENT".equalsIgnoreCase(role)) {
                 response.sendRedirect(ctx + "/PatientHome");
             } else {
-                response.sendRedirect(ctx + "/index.jsp");
+                response.sendRedirect(ctx + "/PublicHome");
             }
         } else {
             request.setAttribute("loginError", "Invalid username or password.");
@@ -188,7 +141,7 @@ public class LoginController extends HttpServlet {
         String ctx = request.getContextPath();
 
         if (user == null || user.getRole() == null) {
-            response.sendRedirect(ctx + "/index.jsp");
+            response.sendRedirect(ctx + "/PublicHome");
             return;
         }
 
@@ -200,7 +153,7 @@ public class LoginController extends HttpServlet {
         } else if ("PATIENT".equalsIgnoreCase(role)) {
             response.sendRedirect(ctx + "/PatientHome");
         } else {
-            response.sendRedirect(ctx + "/index.jsp");
+            response.sendRedirect(ctx + "/PublicHome");
         }
     }
 

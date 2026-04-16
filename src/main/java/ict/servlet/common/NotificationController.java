@@ -10,7 +10,6 @@ import java.util.List;
 import ict.bean.NotificationBean;
 import ict.bean.UserInfoBean;
 import ict.db.NotificationDB;
-import ict.db.UserDB;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -25,7 +24,6 @@ import jakarta.servlet.http.HttpSession;
 @WebServlet(name = "NotificationController", urlPatterns = {"/Notification"})
 public class NotificationController extends HttpServlet{
     
-    private UserDB db;
     private NotificationDB notificationDb;
     
     @Override
@@ -34,7 +32,6 @@ public class NotificationController extends HttpServlet{
         String dbUser = getServletContext().getInitParameter("dbUser");
         String dbPassword = getServletContext().getInitParameter("dbPassword");
 
-        db = new UserDB(dbUrl, dbUser, dbPassword);
         notificationDb = new NotificationDB(dbUrl, dbUser, dbPassword);
     }
 
@@ -48,7 +45,7 @@ public class NotificationController extends HttpServlet{
                 : null;
 
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/Login");
+            response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
 

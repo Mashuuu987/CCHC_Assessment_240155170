@@ -11,6 +11,7 @@ import ict.bean.ClinicBean;
 import ict.bean.NotificationBean;
 import ict.bean.ServiceBean;
 import ict.bean.UserInfoBean;
+import ict.db.AnnouncementsDB;
 import ict.db.ClinicDB;
 import ict.db.NotificationDB;
 import ict.db.ServiceDB;
@@ -31,6 +32,7 @@ public class StaffHomeController extends HttpServlet {
     private ClinicDB clinicDb;
     private ServiceDB serviceDb;
     private NotificationDB notifDb;
+    private AnnouncementsDB annDb;
 
     @Override
     public void init() {
@@ -41,6 +43,7 @@ public class StaffHomeController extends HttpServlet {
         clinicDb = new ClinicDB(dbUrl, dbUser, dbPassword);
         serviceDb = new ServiceDB(dbUrl, dbUser, dbPassword);
         notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
+        annDb = new AnnouncementsDB(dbUrl, dbUser, dbPassword);
     }
 
     @Override
@@ -51,7 +54,7 @@ public class StaffHomeController extends HttpServlet {
         UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
 
         if (user == null || user.getRole() == null || !"STAFF".equalsIgnoreCase(user.getRole())) {
-            response.sendRedirect(request.getContextPath() + "/Login");
+            response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
 
@@ -100,6 +103,7 @@ public class StaffHomeController extends HttpServlet {
 
         request.setAttribute("notifUnreadCount", notifUnreadCount);
         request.setAttribute("notifBadgeClass", notifBadgeClass);
+        request.setAttribute("announcements", annDb.getLatestVisibleAnnouncements(3));
 
         request.getRequestDispatcher("/staff/staffIndex.jsp").forward(request, response);
     }
