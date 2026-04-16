@@ -42,6 +42,12 @@
                 }
             }
 
+            function resetAnnouncementFilter() {
+                document.getElementById("annTypeFilter").value = "ALL";
+                document.getElementById("annTitleFilter").value = "";
+                filterAnnouncements();
+            }
+
             document.addEventListener("DOMContentLoaded", function() {
                 const typeFilter = document.getElementById("annTypeFilter");
                 const titleFilter = document.getElementById("annTitleFilter");
@@ -71,6 +77,7 @@
                     <option value="URGENT">URGENT</option>
                 </select>
                 <input id="annTitleFilter" class="announcement-filter-input" type="text" placeholder="Search title..." aria-label="Search announcement title" />
+                <button type="button" class="announcement-filter-reset" onclick="resetAnnouncementFilter()">Reset</button>
             </div>
 
             <%
