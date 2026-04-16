@@ -22,6 +22,7 @@ import ict.db.NotificationDB;
 import ict.db.PatientDB;
 import ict.db.ServiceCapacityDB;
 import ict.db.ServiceDB;
+import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -59,23 +60,14 @@ public class BookAppointmentController extends HttpServlet {
         capDb.insertDefaultCapacitiesIfEmpty();
     }
 
-    private UserInfoBean getLoginPatient(HttpServletRequest request) {
-        HttpSession session = request.getSession(false);
-        UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
-        if (user == null || user.getRole() == null || !"PATIENT".equalsIgnoreCase(user.getRole())) {
-            return null;
-        }
-        return user;
-    }
-
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        UserInfoBean user = getLoginPatient(request);
+        UserInfoBean user = UserCheckUtil.requireRole(request, response, "PATIENT");
+
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
 
@@ -108,9 +100,9 @@ public class BookAppointmentController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-        UserInfoBean user = getLoginPatient(request);
+        UserInfoBean user = UserCheckUtil.requireRole(request, response, "PATIENT");
+
         if (user == null) {
-            response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
 

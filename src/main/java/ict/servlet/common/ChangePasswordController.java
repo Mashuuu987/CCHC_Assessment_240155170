@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import ict.bean.UserInfoBean;
 import ict.db.UserDB;
+import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -37,9 +38,7 @@ public class ChangePasswordController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
-
+        UserInfoBean user = UserCheckUtil.getLoginUser(request);
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
@@ -54,9 +53,7 @@ public class ChangePasswordController extends HttpServlet {
 
         request.setCharacterEncoding("UTF-8");
 
-        HttpSession session = request.getSession(false);
-        UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
-
+        UserInfoBean user = UserCheckUtil.getLoginUser(request);
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;

@@ -15,6 +15,7 @@ import ict.db.AnnouncementsDB;
 import ict.db.ClinicDB;
 import ict.db.NotificationDB;
 import ict.db.ServiceDB;
+import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -50,11 +51,9 @@ public class PatientHomeController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
+        UserInfoBean user = UserCheckUtil.requireRole(request, response, "PATIENT");
 
-        if (user == null || user.getRole() == null || !"PATIENT".equalsIgnoreCase(user.getRole())) {
-            response.sendRedirect(request.getContextPath() + "/PublicHome");
+        if (user == null) {
             return;
         }
 

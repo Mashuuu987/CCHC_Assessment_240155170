@@ -37,6 +37,12 @@ public class PatientRegisterController extends HttpServlet {
     }
 
     @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        request.getRequestDispatcher("/login-Process/patientRegister.jsp").forward(request, response);
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -135,15 +141,13 @@ public class PatientRegisterController extends HttpServlet {
             return;
         }
 
-        int userId = -1;
-        userId = userDb.createUser(username, password, "PATIENT");
+        int userId = userDb.createUser(username, password, "PATIENT");
         if (userId == -1) {
             error = "Failed to create user account. Please try again.";
         }
 
-        int patientId = -1;
         if (error == null) {
-            patientId = patientDb.createPatientProfile(
+            int patientId = patientDb.createPatientProfile(
                     userId,
                     hkid,
                     firstName,
@@ -160,7 +164,7 @@ public class PatientRegisterController extends HttpServlet {
                 try {
                     userDb.delUser(userId);
                 } catch (Exception e) {
-                    e.printStackTrace();
+        
                 }
                 error = "Failed to create patient profile. Please try again.";
             }

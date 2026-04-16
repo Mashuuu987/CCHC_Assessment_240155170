@@ -7,6 +7,7 @@ package ict.servlet.common;
 import java.io.IOException;
 
 import ict.bean.UserInfoBean;
+import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -20,17 +21,23 @@ import jakarta.servlet.http.HttpSession;
  */
 @WebServlet(name = "SettingsController", urlPatterns = {"/Settings"})
 public class SettingsController extends HttpServlet {
-    
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
-
+        UserInfoBean user = UserCheckUtil.getLoginUser(request);
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
+        }
+
+        if (UserCheckUtil.hasRole(user, "PATIENT")) {
+            // 
+        } else if (UserCheckUtil.hasRole(user, "STAFF")) {
+            //
+        } else if (UserCheckUtil.hasRole(user, "ADMIN")) {
+            //
         }
 
         request.getRequestDispatcher("/common/settings.jsp").forward(request, response);

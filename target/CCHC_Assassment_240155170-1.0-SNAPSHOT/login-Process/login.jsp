@@ -96,7 +96,7 @@
                     <div class="register-note">
                         Visitors need to register as patients in order to use the various functions.
                     </div>
-                    <form method="get" action="login-Process/patientRegister.jsp">
+                    <form method="get" action="<%= request.getContextPath()%>/PatientRegister">
                         <input type="submit" class="btn-primary" value="Register as Patient" />
                     </form>
                 </div>

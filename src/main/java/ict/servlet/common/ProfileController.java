@@ -11,6 +11,7 @@ import ict.bean.StaffProfileBean;
 import ict.bean.UserInfoBean;
 import ict.db.PatientDB;
 import ict.db.StaffDB;
+import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -42,9 +43,7 @@ public class ProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
-
+        UserInfoBean user = UserCheckUtil.getLoginUser(request);
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
@@ -67,17 +66,17 @@ public class ProfileController extends HttpServlet {
             throws ServletException, IOException {
 
         request.setCharacterEncoding("UTF-8");
-
         HttpSession session = request.getSession(false);
-        UserInfoBean user = (session != null) ? (UserInfoBean) session.getAttribute("userInfo") : null;
 
+        UserInfoBean user = UserCheckUtil.getLoginUser(request);
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
+        
         String role = user.getRole();
         boolean success = false;
-        
+
         if (role != null && role.equalsIgnoreCase("PATIENT")) {
             PatientProfileBean patient = patientDb.getPatientByUserId(user.getUserId());
             if (patient != null) {
@@ -94,6 +93,11 @@ public class ProfileController extends HttpServlet {
                 success = patientDb.editPatient(patient);
                 request.setAttribute("patientProfile",
                         patientDb.getPatientByUserId(user.getUserId()));
+
+                if (success && session != null) {
+                    session.setAttribute("displayFirstName", patient.getFirstName());
+                    session.setAttribute("displayLastName", patient.getLastName());
+                }
             }
         } else {
             StaffProfileBean staff = staffDb.getStaffByUserId(user.getUserId());
@@ -107,7 +111,7 @@ public class ProfileController extends HttpServlet {
                 String clinicIdStr = request.getParameter("clinicId");
                 if (clinicIdStr != null && clinicIdStr.trim().length() > 0) {
                     try {
-                        staff.setClinicId(Integer.parseInt(clinicIdStr.trim()));
+                        staff.setClinicId(Integer.valueOf(clinicIdStr.trim()));
                     } catch (NumberFormatException e) {
                         staff.setClinicId(null);
                     }
@@ -118,6 +122,11 @@ public class ProfileController extends HttpServlet {
                 success = staffDb.editStaff(staff);
                 request.setAttribute("staffProfile",
                         staffDb.getStaffByUserId(user.getUserId()));
+
+                if (success && session != null) {
+                    session.setAttribute("displayFirstName", staff.getFirstName());
+                    session.setAttribute("displayLastName", staff.getLastName());
+                }
             }
         }
 

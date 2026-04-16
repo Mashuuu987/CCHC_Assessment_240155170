@@ -10,6 +10,7 @@ import java.util.List;
 import ict.bean.NotificationBean;
 import ict.bean.UserInfoBean;
 import ict.db.NotificationDB;
+import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -22,10 +23,10 @@ import jakarta.servlet.http.HttpSession;
  * @author amzte
  */
 @WebServlet(name = "NotificationController", urlPatterns = {"/Notification"})
-public class NotificationController extends HttpServlet{
-    
+public class NotificationController extends HttpServlet {
+
     private NotificationDB notificationDb;
-    
+
     @Override
     public void init() {
         String dbUrl = getServletContext().getInitParameter("dbUrl");
@@ -39,11 +40,7 @@ public class NotificationController extends HttpServlet{
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
-        UserInfoBean user = (session != null)
-                ? (UserInfoBean) session.getAttribute("userInfo")
-                : null;
-
+        UserInfoBean user = UserCheckUtil.getLoginUser(request);
         if (user == null) {
             response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
@@ -71,6 +68,6 @@ public class NotificationController extends HttpServlet{
         request.setAttribute("notifications", notifications);
 
         request.getRequestDispatcher("/common/notificationCenter.jsp")
-               .forward(request, response);
+                .forward(request, response);
     }
 }
