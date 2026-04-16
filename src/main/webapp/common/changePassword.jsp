@@ -29,8 +29,13 @@
         <div class="main-container">
             <h1 class="page-title">Change Password</h1>
 
-            <% if (message != null) {%>
-            <div class="changePassword-message <%= "error".equals(messageType) ? "profile-message-error" : ""%>">
+            <% if (message != null) {
+                String messageClass = "changePassword-message-success";
+                if ("error".equals(messageType)) {
+                    messageClass = "changePassword-message-error";
+                }
+            %>
+            <div class="changePassword-message <%= messageClass %>">
                 <%= message%>
             </div>
             <% }%>

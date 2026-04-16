@@ -69,8 +69,8 @@
                     <p class="feature-card-text">View appointment reminders and general notifications.</p>
                 </a>
 
-                <a class="feature-card" href="<%= ctx + "/Login"%>">
-                    <h2 class="feature-card-title">Appointment and medical records</h2>
+                <a class="feature-card" href="<%= isPatient ? ctx + "/AppointmentRecordsPatient" : ctx + "/Login"%>">
+                    <h2 class="feature-card-title">Appointment Records</h2>
                     <p class="feature-card-text">Viewing past appointments and medical records.</p>
                 </a>
 
