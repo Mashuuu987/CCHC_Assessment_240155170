@@ -91,3 +91,59 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     background: #f3f4f6;
     color: #4b5563;
 }
+
+.success-box {
+    background: #dcfce7;
+    color: #166534;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 16px;
+}
+
+.inline-form {
+    display: inline-block;
+}
+
+.reschedule-panel {
+    margin-top: 20px;
+    padding: 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    background: #f9fafb;
+}
+
+.reschedule-panel h3 {
+    margin: 0 0 12px 0;
+}
+
+.reschedule-date-form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.timeslot-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.timeslot-item {
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    padding: 8px 10px;
+    background: #fff;
+}
+
+.timeslot-disabled {
+    opacity: 0.55;
+}
+
+.records-filter-input:focus, .records-filter-select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
+}

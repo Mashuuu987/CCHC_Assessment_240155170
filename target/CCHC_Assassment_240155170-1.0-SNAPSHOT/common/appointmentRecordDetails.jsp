@@ -3,7 +3,8 @@
     Created on : 2026/04/16, 18:03:54
     Author     : amzte
 --%>
-<%@page import="ict.bean.AppointmentBean, ict.bean.PatientProfileBean, ict.bean.ClinicBean, ict.bean.ServiceBean, ict.bean.UserInfoBean"%>
+<%@page import="java.util.List,java.util.Set"%>
+<%@page import="ict.bean.AppointmentBean, ict.bean.PatientProfileBean, ict.bean.ClinicBean, ict.bean.ServiceBean, ict.bean.ServiceCapacityBean, ict.bean.UserInfoBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -12,6 +13,40 @@
         <title>Appointment Detail</title>
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/appointmentRecordDetails.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/common.css">
+        <script>
+            function hideRescheduleTimeslots() {
+                const section = document.getElementById('rescheduleTimeslotSection');
+                const confirmButton = document.getElementById('confirmRescheduleButton');
+                if (section) {
+                    section.style.display = 'none';
+                }
+                if (confirmButton) {
+                    confirmButton.disabled = true;
+                }
+                const radios = document.querySelectorAll('input[name="newTimeSlot"]');
+                radios.forEach(function(radio) {
+                    radio.checked = false;
+                });
+            }
+
+            function showRescheduleTimeslots() {
+                const section = document.getElementById('rescheduleTimeslotSection');
+                const confirmButton = document.getElementById('confirmRescheduleButton');
+                if (section) {
+                    section.style.display = 'block';
+                }
+                if (confirmButton) {
+                    confirmButton.disabled = false;
+                }
+            }
+
+            document.addEventListener('DOMContentLoaded', function() {
+                const dateInput = document.getElementById('rescheduleDateInput');
+                if (dateInput) {
+                    dateInput.addEventListener('change', hideRescheduleTimeslots);
+                }
+            });
+        </script>
     </head>
     <body>
         <%@ include file="/heading.jsp" %>
@@ -22,6 +57,13 @@
             PatientProfileBean patient = (PatientProfileBean) request.getAttribute("patient");
             String error = (String) request.getAttribute("error");
 
+            String success = (String) request.getAttribute("success");
+            Boolean showRescheduleForm = (Boolean) request.getAttribute("showRescheduleForm");
+            String selectedNewDate = (String) request.getAttribute("selectedNewDate");
+            String selectedNewTimeSlot = (String) request.getAttribute("selectedNewTimeSlot");
+            List<ServiceCapacityBean> capList = (List<ServiceCapacityBean>) request.getAttribute("capacityList");
+            Set<String> fullSlots = (Set<String>) request.getAttribute("fullTimeSlots");
+
             UserInfoBean currentUser = (UserInfoBean) session.getAttribute("userInfo");
             String userRole = currentUser != null ? currentUser.getRole() : "";
             boolean isPatient = "PATIENT".equalsIgnoreCase(userRole);
@@ -29,9 +71,15 @@
         <div class="detail-wrap">
             <h2>Appointment Detail</h2>
 
+            <% if (success != null) {%>
+            <div class="success-box"><%= success%></div>
+            <% } %>
+
             <% if (error != null) {%>
             <div class="error-box"><%= error%></div>
-            <% } else if (appointment == null) { %>
+            <% } %>
+
+            <% if (appointment == null) { %>
             <div class="error-box">No appointment data.</div>
             <% } else {
                 String status = appointment.getStatus();
@@ -89,14 +137,71 @@
                 </div>
 
                 <div class="btn-row">
-                    <% if (isPatient) { %>
-                    <a class="btn-action btn-reschedule" href="<%= request.getContextPath()%>/AppointmentReschedule?appointmentId=<%= appointment.getAppointmentId()%>">Reschedule</a>
-                    <a class="btn-action btn-cancel" href="<%= request.getContextPath()%>/AppointmentCancel?appointmentId=<%= appointment.getAppointmentId()%>">Cancel</a>
+                    <% if (isPatient) {%>
+                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordAction" class="inline-form">
+                        <input type="hidden" name="action" value="prepareReschedule" />
+                        <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
+                        <button type="submit" class="btn-action btn-reschedule">Reschedule</button>
+                    </form>
+
+                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordAction" class="inline-form"
+                          onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
+                        <input type="hidden" name="action" value="cancel" />
+                        <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
+                        <input type="hidden" name="confirmCancel" value="YES" />
+                        <button type="submit" class="btn-action btn-cancel">Cancel</button>
+                    </form>
+
                     <a class="btn-action btn-back" href="<%= request.getContextPath()%>/AppointmentRecordsPatient">Back</a>
-                    <% } else { %>
+                    <% } else {%>
                     <a class="btn-action btn-back" href="<%= request.getContextPath()%>/AppointmentRecordsStaff">Back</a>
-                    <% } %>
+                    <% }%>
                 </div>
+                <% if (isPatient && showRescheduleForm != null && showRescheduleForm) {%>
+                <div class="reschedule-panel">
+                    <h3>Reschedule Appointment</h3>
+
+                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordAction" class="reschedule-date-form">
+                        <input type="hidden" name="action" value="prepareReschedule" />
+                        <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
+
+                        <label class="status-pill <%= statusClass%>">New Date</label>
+                        <input id="rescheduleDateInput" class="records-filter-input" type="date" name="newDate" value="<%= selectedNewDate != null ? selectedNewDate : ""%>" required />
+                        <button type="submit" class="btn-action btn-reschedule">Load Times</button>
+                    </form>
+
+                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordAction"
+                          onsubmit="return confirm('Are you sure you want to reschedule this appointment?');">
+                        <input type="hidden" name="action" value="confirmReschedule" />
+                        <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
+                        <input type="hidden" name="newDate" value="<%= selectedNewDate != null ? selectedNewDate : ""%>" />
+                        <input type="hidden" name="confirmReschedule" value="YES" />
+
+                        <% if (selectedNewDate != null) { %>
+                        <div id="rescheduleTimeslotSection" class="timeslot-list">
+                        <% } else { %>
+                        <div id="rescheduleTimeslotSection" class="timeslot-list" style="display:none;">
+                        <% } %>
+                            <% if (capList != null && !capList.isEmpty()) {
+                                    for (ServiceCapacityBean cap : capList) {
+                                        boolean isFull = fullSlots != null && fullSlots.contains(cap.getTimeSlot());
+                                        boolean checked = selectedNewTimeSlot != null && selectedNewTimeSlot.equals(cap.getTimeSlot());
+                            %>
+                            <div class="timeslot-item <%= isFull ? "timeslot-disabled" : ""%>">
+                                <label>
+                                    <input type="radio" name="newTimeSlot" value="<%= cap.getTimeSlot()%>"
+                                           <%= checked ? "checked" : ""%> <%= isFull ? "disabled" : ""%> />
+                                    <span><%= cap.getTimeSlot()%> <%= isFull ? "(Full)" : ""%></span>
+                                </label>
+                            </div>
+                            <%   }
+                                } %>
+                        </div>
+
+                        <button id="confirmRescheduleButton" type="submit" class="btn-action btn-reschedule" <%= selectedNewDate != null ? "" : "disabled" %>>Confirm Reschedule</button>
+                    </form>
+                </div>
+                <% }%>
             </div>
             <% }%>
         </div>

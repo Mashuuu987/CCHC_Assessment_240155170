@@ -4,6 +4,8 @@
  */
 package ict.servlet.common;
 
+import java.io.IOException;
+
 import ict.bean.AppointmentBean;
 import ict.bean.ClinicBean;
 import ict.bean.PatientProfileBean;
@@ -19,7 +21,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 /**
  *
@@ -57,7 +58,7 @@ public class AppointmentRecordDetailsController extends HttpServlet {
         String idStr = request.getParameter("appointmentId");
         if(idStr == null || idStr.isEmpty()){
             request.setAttribute("error", "Missing appointment ID.");
-            request.getRequestDispatcher("/patient/appointmentRecordDetails.jsp").forward(request, response);
+            request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
             return;
         }
         
@@ -66,21 +67,21 @@ public class AppointmentRecordDetailsController extends HttpServlet {
             appointmentId = Integer.parseInt(idStr);
         }catch(NumberFormatException e){
             request.setAttribute("error", "Invalid appointment ID.");
-            request.getRequestDispatcher("/patient/appointmentRecordDetails.jsp").forward(request, response);
+            request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
             return;
         }
         
         AppointmentBean appt = apptDb.getAppointmentByAppointmentId(appointmentId);
         if (appt == null) {
             request.setAttribute("error", "Appointment not found.");
-            request.getRequestDispatcher("/patient/appointmentRecordDetails.jsp").forward(request, response);
+            request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
             return;
         }
         
         PatientProfileBean patient = patientDb.getPatientByUserId(user.getUserId());
         if (patient == null || appt.getPatientId() != patient.getPatientId()) {
             request.setAttribute("error", "You are not allowed to view this appointment.");
-            request.getRequestDispatcher("/patient/appointmentRecordDetails.jsp").forward(request, response);
+            request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
             return;
         }
         

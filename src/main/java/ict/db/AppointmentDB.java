@@ -165,7 +165,8 @@ public class AppointmentDB {
     public int countAppointments(int clinicId, int serviceId, String date, String timeSlot) {
         String sql = "SELECT COUNT(*) FROM appointment "
                 + "WHERE clinicId = ? AND serviceId = ? "
-                + "AND appointmentDate = ? AND timeSlot = ?";
+                + "AND appointmentDate = ? AND timeSlot = ? "
+                + "AND status NOT IN ('CANCELLED_BY_PATIENT','CANCELLED_BY_CLINIC')";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, clinicId);
             ps.setInt(2, serviceId);
