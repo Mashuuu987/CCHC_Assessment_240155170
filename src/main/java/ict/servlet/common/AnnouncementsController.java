@@ -40,6 +40,6 @@ public class AnnouncementsController extends HttpServlet {
 
         List<AnnouncementsBean> list = annDb.getLatestVisibleAnnouncements(20);
         request.setAttribute("announcements", list);
-        request.getRequestDispatcher("/common/Announcements.jsp").forward(request, response);
+        request.getRequestDispatcher("/common/announcements.jsp").forward(request, response);
     }
 }

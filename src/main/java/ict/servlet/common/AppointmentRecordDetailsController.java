@@ -53,6 +53,8 @@ public class AppointmentRecordDetailsController extends HttpServlet {
         UserInfoBean user = UserCheckUtil.requireRole(request, response, "PATIENT");
         if (user == null) {
             return;
+        }else{
+            request.setAttribute("isPatient", true);
         }
         
         String idStr = request.getParameter("appointmentId");

@@ -100,7 +100,11 @@ public class AnnouncementsDB {
             }
 
             if (count == 0) {
-                createAnnouncement("Do yo have any chicken?", "Chicken is so kawaii.", "NORMAL", "PUBLISHED", "");
+                createAnnouncement("Do yo have a chicken?", "Chicken is so kawaii.", "NORMAL", "PUBLISHED", "");
+                createAnnouncement("Do yo have a penguin?", "Penguin is so kawaii.", "NORMAL", "PUBLISHED", "");
+                createAnnouncement("Do yo have a owl?", "Owl is so kawaii.", "NORMAL", "PUBLISHED", "");
+                createAnnouncement("Do yo have a seal?", "Seal is so kawaii.", "NORMAL", "PUBLISHED", "");
+                createAnnouncement("Do yo have a duck?", "Duck is so kawaii.", "NORMAL", "DRAFT", "");
             }
         } catch (Exception e) {
             e.printStackTrace();

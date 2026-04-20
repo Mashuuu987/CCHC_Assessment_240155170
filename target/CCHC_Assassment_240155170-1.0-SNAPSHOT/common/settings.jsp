@@ -3,7 +3,6 @@
     Created on : 2026/04/13, 13:37:55
     Author     : amzte
 --%>
-<%@page import="ict.bean.UserInfoBean" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,11 +14,6 @@
     </head>
     <body>
         <%
-            UserInfoBean user = (UserInfoBean) session.getAttribute("userInfo");
-            if (user == null) {
-                response.sendRedirect(request.getContextPath() + "/Login");
-                return;
-            }
             String ctx = request.getContextPath();
         %>
 

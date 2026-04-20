@@ -50,7 +50,9 @@ public class ProfileController extends HttpServlet {
         }
 
         String role = user.getRole();
-        if (role != null && role.equalsIgnoreCase("PATIENT")) {
+        boolean isPatient = role != null && role.equalsIgnoreCase("PATIENT");
+        request.setAttribute("isPatient", isPatient);
+        if (isPatient) {
             PatientProfileBean patient = patientDb.getPatientByUserId(user.getUserId());
             request.setAttribute("patientProfile", patient);
         } else {
@@ -75,9 +77,11 @@ public class ProfileController extends HttpServlet {
         }
         
         String role = user.getRole();
+        boolean isPatient = role != null && role.equalsIgnoreCase("PATIENT");
+        request.setAttribute("isPatient", isPatient);
         boolean success = false;
 
-        if (role != null && role.equalsIgnoreCase("PATIENT")) {
+        if (isPatient) {
             PatientProfileBean patient = patientDb.getPatientByUserId(user.getUserId());
             if (patient != null) {
                 patient.setFirstName(request.getParameter("firstName"));

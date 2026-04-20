@@ -10,6 +10,7 @@ ict\db\UserDB.class
 ict\db\ServiceCapacityDB.class
 ict\util\PasswordUtil.class
 ict\db\AnnouncementsDB.class
+ict\servlet\patient\AppointmentRecordPatientActionController.class
 ict\servlet\PublicHomeController.class
 ict\servlet\admin\AdminHomeController.class
 ict\servlet\common\AppointmentRecordDetailsController.class
@@ -18,7 +19,6 @@ ict\db\PatientDB.class
 ict\bean\ServiceBean.class
 ict\db\ServiceDB.class
 ict\servlet\staff\StaffHomeController.class
-ict\servlet\patient\AppointmentRecordPatientAction.class
 ict\servlet\common\LoginController.class
 ict\tag\HeadingTag.class
 ict\bean\ServiceCapacityBean.class

@@ -64,9 +64,7 @@
             List<ServiceCapacityBean> capList = (List<ServiceCapacityBean>) request.getAttribute("capacityList");
             Set<String> fullSlots = (Set<String>) request.getAttribute("fullTimeSlots");
 
-            UserInfoBean currentUser = (UserInfoBean) session.getAttribute("userInfo");
-            String userRole = currentUser != null ? currentUser.getRole() : "";
-            boolean isPatient = "PATIENT".equalsIgnoreCase(userRole);
+            Boolean isPatient = (Boolean) request.getAttribute("isPatient");
         %>
         <div class="detail-wrap">
             <h2>Appointment Detail</h2>
@@ -138,13 +136,13 @@
 
                 <div class="btn-row">
                     <% if (isPatient) {%>
-                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordAction" class="inline-form">
+                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordPatientAction" class="inline-form">
                         <input type="hidden" name="action" value="prepareReschedule" />
                         <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
                         <button type="submit" class="btn-action btn-reschedule">Reschedule</button>
                     </form>
 
-                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordAction" class="inline-form"
+                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordPatientAction" class="inline-form"
                           onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
                         <input type="hidden" name="action" value="cancel" />
                         <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
@@ -161,7 +159,7 @@
                 <div class="reschedule-panel">
                     <h3>Reschedule Appointment</h3>
 
-                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordAction" class="reschedule-date-form">
+                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordPatientAction" class="reschedule-date-form">
                         <input type="hidden" name="action" value="prepareReschedule" />
                         <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
 
@@ -170,7 +168,7 @@
                         <button type="submit" class="btn-action btn-reschedule">Load Times</button>
                     </form>
 
-                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordAction"
+                    <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordPatientAction"
                           onsubmit="return confirm('Are you sure you want to reschedule this appointment?');">
                         <input type="hidden" name="action" value="confirmReschedule" />
                         <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />

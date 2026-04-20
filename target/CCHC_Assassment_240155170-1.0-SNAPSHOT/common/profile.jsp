@@ -4,7 +4,7 @@
     Author     : amzte
 --%>
 
-<%@page import="ict.bean.UserInfoBean, ict.bean.PatientProfileBean, ict.bean.StaffProfileBean"%>
+<%@page import="ict.bean.PatientProfileBean, ict.bean.StaffProfileBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -16,17 +16,12 @@
     </head>
     <body>
         <%
-            UserInfoBean user = (UserInfoBean) session.getAttribute("userInfo");
-            if (user == null) {
-                response.sendRedirect(request.getContextPath() + "/Login");
-                return;
-            }
-            String role = user.getRole();
             String ctx = request.getContextPath();
 
             PatientProfileBean patient = (PatientProfileBean) request.getAttribute("patientProfile");
             StaffProfileBean staff = (StaffProfileBean) request.getAttribute("staffProfile");
             String message = (String) request.getAttribute("message");
+            Boolean isPatient = (Boolean) request.getAttribute("isPatient");
         %>
 
         <%@ include file="/heading.jsp" %>
@@ -38,7 +33,7 @@
             <div class="profile-message"><%= message%></div>
             <% } %>
 
-            <% if (role != null && role.equalsIgnoreCase("PATIENT") && patient != null) {%>
+            <% if (Boolean.TRUE.equals(isPatient) && patient != null) {%>
             <form method="post" action="<%= ctx%>/Profile" class="profile-form">
                 <h2 class="profile-title">Patient Profile</h2>
 

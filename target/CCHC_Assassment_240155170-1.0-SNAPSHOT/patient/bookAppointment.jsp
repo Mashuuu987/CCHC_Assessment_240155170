@@ -88,7 +88,7 @@
             <div class="bookAppointment-title bookAppointment-message-error"><%= error%></div>
             <% } else if (success != null) {%>
             <div class ="bookAppointment-message"><%= success%></div>
-            <div style="font-size:64px; text-align:center; color:#28a745; margin-top:20px;">&#10004;</div>
+            <div class="OK">&#10004;</div>
             <div class="bookAppointment-actions">
                 <button type="button" class="btn-back" onclick="window.location='<%= ctx%>/PatientHome'">Back to homepage</button>
             </div>

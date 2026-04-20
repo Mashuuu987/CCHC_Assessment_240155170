@@ -248,3 +248,10 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 .timeslot-disabled input[type="radio"] {
     cursor: not-allowed;
 }
+
+.OK {
+    font-size:64px;
+    text-align:center;
+    color:#28a745;
+    margin-top:20px
+}

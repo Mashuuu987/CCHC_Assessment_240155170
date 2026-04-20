@@ -3,10 +3,8 @@
     Created on : 2026/04/16, 2:22:51
     Author     : amzte
 --%>
-<%@page import="java.util.ArrayList"%>
-<%@page import="java.util.HashSet"%>
-<%@page import="java.util.Set"%>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Map" %>
 <%@ page import="ict.bean.ClinicBean, ict.bean.ServiceBean, ict.bean.ServiceCapacityBean" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -62,31 +60,11 @@
             List<ClinicBean> clinics = (List<ClinicBean>) request.getAttribute("clinics");
             List<ServiceBean> services = (List<ServiceBean>) request.getAttribute("services");
             List<ServiceCapacityBean> capacities = (List<ServiceCapacityBean>) request.getAttribute("capacities");
-
-            Set<String> districtsSet = new HashSet<>();
-            Set<String> serviceTypesSet = new HashSet<>();
-
-            if (clinics != null) {
-                for (ClinicBean clinic : clinics) {
-                    if (clinic.getDistrict() != null && !clinic.getDistrict().isEmpty()) {
-                        districtsSet.add(clinic.getDistrict());
-                    }
-                }
-            }
-
-            if (services != null) {
-                for (ServiceBean service : services) {
-                    if (service.getServiceType() != null && !service.getServiceType().isEmpty()) {
-                        serviceTypesSet.add(service.getServiceType());
-                    }
-                }
-            }
-
-            List<String> districtsList = new ArrayList<>(districtsSet);
-            districtsList.sort(null);
-
-            List<String> serviceTypesList = new ArrayList<>(serviceTypesSet);
-            serviceTypesList.sort(null);
+            List<String> districtsList = (List<String>) request.getAttribute("districtsList");
+            List<String> serviceTypesList = (List<String>) request.getAttribute("serviceTypesList");
+            Map<Integer, ServiceBean> serviceById = (Map<Integer, ServiceBean>) request.getAttribute("serviceById");
+            Map<Integer, List<ServiceCapacityBean>> capacitiesByClinic = (Map<Integer, List<ServiceCapacityBean>>) request.getAttribute("capacitiesByClinic");
+            Map<Integer, String> clinicServiceTypesStrMap = (Map<Integer, String>) request.getAttribute("clinicServiceTypesStrMap");
         %>
 
         <%@ include file="/heading.jsp" %>
@@ -129,20 +107,10 @@
 
             <% if (clinics != null) {
                 for (ClinicBean clinic : clinics) {
-                    Set<String> clinicServiceTypes = new HashSet<>();
-                    if (capacities != null && services != null) {
-                        for (ServiceCapacityBean cap : capacities) {
-                            if (cap.getClinicId() == clinic.getClinicId()) {
-                                for (ServiceBean s : services) {
-                                    if (s.getServiceId() == cap.getServiceId()) {
-                                        clinicServiceTypes.add(s.getServiceType());
-                                        break;
-                                    }
-                                }
-                            }
-                        }
+                    String serviceTypesStr = clinicServiceTypesStrMap != null ? clinicServiceTypesStrMap.get(clinic.getClinicId()) : "";
+                    if (serviceTypesStr == null) {
+                        serviceTypesStr = "";
                     }
-                    String serviceTypesStr = String.join(",", clinicServiceTypes);
             %>
 
             <details class="clinic-card" data-district="<%= clinic.getDistrict() %>" data-service-types="<%= serviceTypesStr %>">
@@ -164,23 +132,20 @@
                         </tr>
 
                         <%
-                            if (capacities != null) {
-                                for (ServiceCapacityBean cap : capacities) {
-                                    if (cap.getClinicId() == clinic.getClinicId()) {
-                                        String serviceName = "";
-                                        String serviceType = "";
-                                        int durationMins = 0;
+                            List<ServiceCapacityBean> clinicCaps = capacitiesByClinic != null ? capacitiesByClinic.get(clinic.getClinicId()) : null;
 
-                                        if (services != null) {
-                                            for (ServiceBean s : services) {
-                                                if (s.getServiceId() == cap.getServiceId()) {
-                                                    serviceName = s.getName();
-                                                    serviceType = s.getServiceType();
-                                                    durationMins = s.getDurationMins();
-                                                    break;
-                                                }
-                                            }
-                                        }
+                            if (clinicCaps != null) {
+                                for (ServiceCapacityBean cap : clinicCaps) {
+                                    String serviceName = "";
+                                    String serviceType = "";
+                                    int durationMins = 0;
+
+                                    ServiceBean s = serviceById != null ? serviceById.get(cap.getServiceId()) : null;
+                                    if (s != null) {
+                                        serviceName = s.getName();
+                                        serviceType = s.getServiceType();
+                                        durationMins = s.getDurationMins();
+                                    }
                         %>
                         <tr>
                             <td><%= serviceName%></td>
@@ -189,8 +154,7 @@
                             <td><%= cap.getTimeSlot()%></td>
                             <td><%= cap.getQuota()%></td>
                         </tr>
-                        <%         }
-                                }
+                        <%      }
                             }
                         %>
                     </table>
