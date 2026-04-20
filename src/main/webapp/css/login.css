@@ -90,6 +90,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     margin-bottom: 8px;
 }
 
+.register-success {
+    color:#27ae60;
+    font-size:13px;
+    margin-bottom:12px;
+    text-align:center
+}
+
 .login-error {
     color:#c0392b;
     font-size:13px;

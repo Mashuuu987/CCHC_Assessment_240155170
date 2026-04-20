@@ -45,30 +45,9 @@ public class LoginController extends HttpServlet {
             throws ServletException, IOException {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
-        String selectedRole = request.getParameter("loginRole");
 
         if (db.isValidUser(username, password)) {
             UserInfoBean bean = db.getUserByUsername(username);
-
-            if (selectedRole != null && !selectedRole.isEmpty()) {
-                String Role = bean.getRole();
-                boolean success = false;
-
-                if ("PATIENT".equalsIgnoreCase(selectedRole)) {
-                    success = "PATIENT".equalsIgnoreCase(Role);
-                } else if ("STAFF".equalsIgnoreCase(selectedRole)) {
-                    success = "STAFF".equalsIgnoreCase(Role)
-                            || "ADMIN".equalsIgnoreCase(Role);
-                }
-
-                if (!success) {
-                    request.setAttribute("loginError", "Invalid username or password.");
-                    request.setAttribute("selectedRole", selectedRole);
-                    request.setAttribute("enteredUsername", username);
-                    request.getRequestDispatcher("/login-Process/login.jsp").forward(request, response);
-                    return;
-                }
-            }
 
             HttpSession session = request.getSession();
             session.setAttribute("userInfo", bean);
@@ -107,7 +86,6 @@ public class LoginController extends HttpServlet {
             }
         } else {
             request.setAttribute("loginError", "Invalid username or password.");
-            request.setAttribute("selectedRole", selectedRole);
             request.setAttribute("enteredUsername", username);
             request.getRequestDispatcher("/login-Process/login.jsp").forward(request, response);
         }

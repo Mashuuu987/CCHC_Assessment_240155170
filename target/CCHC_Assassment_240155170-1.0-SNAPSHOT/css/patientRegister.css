@@ -22,6 +22,13 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     width: 520px;
 }
 
+.register-error {
+    color:#c0392b;
+    font-size:13px;
+    margin-bottom:12px;
+    text-align:center;
+}
+
 .register-title {
     font-size: 20px;
     font-weight: 600;
