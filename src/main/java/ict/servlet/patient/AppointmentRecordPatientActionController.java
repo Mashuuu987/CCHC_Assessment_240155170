@@ -12,9 +12,11 @@ import ict.bean.ServiceCapacityBean;
 import ict.bean.UserInfoBean;
 import ict.db.AppointmentDB;
 import ict.db.ClinicDB;
+import ict.db.NotificationDB;
 import ict.db.PatientDB;
 import ict.db.ServiceCapacityDB;
 import ict.db.ServiceDB;
+import ict.util.AppointmentNotificationUtil;
 import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -24,6 +26,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -40,6 +43,8 @@ public class AppointmentRecordPatientActionController extends HttpServlet {
     private ClinicDB clinicDb;
     private ServiceDB serviceDb;
     private ServiceCapacityDB capDb;
+    private NotificationDB notifDb;
+    private AppointmentNotificationUtil appointmentNotificationUtil;
 
     @Override
     public void init() {
@@ -52,6 +57,8 @@ public class AppointmentRecordPatientActionController extends HttpServlet {
         clinicDb = new ClinicDB(dbUrl, dbUser, dbPassword);
         serviceDb = new ServiceDB(dbUrl, dbUser, dbPassword);
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
+        notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
+        appointmentNotificationUtil = new AppointmentNotificationUtil(notifDb, clinicDb, serviceDb);
     }
 
     @Override
@@ -72,7 +79,7 @@ public class AppointmentRecordPatientActionController extends HttpServlet {
         int appointmentId;
         try {
             appointmentId = Integer.parseInt(idStr);
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             request.setAttribute("error", "Invalid appointment ID.");
             request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
             return;
@@ -152,7 +159,7 @@ public class AppointmentRecordPatientActionController extends HttpServlet {
                         return;
                     }
                 }
-            } catch (Exception e) {
+            } catch (DateTimeParseException e) {
                 request.setAttribute("error", "Invalid date or timeslot format.");
                 forwardDetail(request, response, appt, patient, newDate, newTimeSlot);
                 return;
@@ -197,6 +204,13 @@ public class AppointmentRecordPatientActionController extends HttpServlet {
             if (ok) {
                 request.setAttribute("success", "Reschedule successful.");
                 appt = apptDb.getAppointmentByAppointmentId(appointmentId);
+                appointmentNotificationUtil.notifyRescheduleRequestedPending(
+                        user.getUserId(),
+                        appt.getClinicId(),
+                        appt.getServiceId(),
+                        appt.getAppointmentId(),
+                        appt.getAppointmentDate(),
+                        appt.getTimeSlot());
                 forwardDetail(request, response, appt, patient, null, null);
             } else {
                 request.setAttribute("error", "Reschedule failed. Please try again.");
@@ -223,6 +237,13 @@ public class AppointmentRecordPatientActionController extends HttpServlet {
             if (ok) {
                 request.setAttribute("success", "Appointment cancelled successfully.");
                 appt = apptDb.getAppointmentByAppointmentId(appointmentId);
+                appointmentNotificationUtil.notifyAppointmentCancelledByPatient(
+                        user.getUserId(),
+                        appt.getClinicId(),
+                        appt.getServiceId(),
+                        appt.getAppointmentId(),
+                        appt.getAppointmentDate(),
+                        appt.getTimeSlot());
             } else {
                 request.setAttribute("error", "Cancel failed. Please try again.");
             }

@@ -23,6 +23,7 @@ import ict.db.NotificationDB;
 import ict.db.PatientDB;
 import ict.db.ServiceCapacityDB;
 import ict.db.ServiceDB;
+import ict.util.AppointmentNotificationUtil;
 import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -43,6 +44,7 @@ public class BookAppointmentController extends HttpServlet {
     private AppointmentDB apptDb;
     private ServiceCapacityDB capDb;
     private NotificationDB notifDb;
+    private AppointmentNotificationUtil appointmentNotificationUtil;
 
     @Override
     public void init() {
@@ -56,6 +58,7 @@ public class BookAppointmentController extends HttpServlet {
         apptDb = new AppointmentDB(dbUrl, dbUser, dbPassword);
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
         notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
+        appointmentNotificationUtil = new AppointmentNotificationUtil(notifDb, clinicDb, serviceDb);
 
         capDb.insertDefaultCapacitiesIfEmpty();
     }
@@ -361,27 +364,8 @@ public class BookAppointmentController extends HttpServlet {
                     request.setAttribute("error", "Failed to create appointment. Please try again.");
                 } else {
                     request.setAttribute("success", "Appointment Requested (ID: " + apptId + "), pending confirmation. You will receive a notification once the appointment is confirmed or if there are any updates.");
-
-                    ClinicBean clinic = clinicDb.getClinicByID(clinicId);
-                    ServiceBean service = serviceDb.getServiceById(serviceId);
-
-                    String clinicName = (clinic != null && clinic.getName() != null && !clinic.getName().isEmpty()) ? clinic.getName() : ("Clinic ID: " + clinicId);
-                    String serviceName = (service != null && service.getName() != null && !service.getName().isEmpty()) ? service.getName() : ("Service ID: " + serviceId);
-
-                    String title = "Appointment request submitted";
-                    StringBuilder msg = new StringBuilder();
-                    msg.append("Clinic: ").append(clinicName)
-                            .append("\nService: ").append(serviceName)
-                            .append("\nAppointment ID: ").append(apptId)
-                            .append("\nDate: ").append(date)
-                            .append("\nTimeslot: ").append(timeSlot)
-                            .append("\nWe have received your appointment and will process it as soon as possible and reply to you via message.");
-
-                    try {
-                        notifDb.createNotification(user.getUserId(), "IMPORTANT", title, msg.toString());
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    appointmentNotificationUtil.notifyAppointmentRequestedPending(
+                            user.getUserId(), clinicId, serviceId, apptId, date, timeSlot);
                 }
             }
 
