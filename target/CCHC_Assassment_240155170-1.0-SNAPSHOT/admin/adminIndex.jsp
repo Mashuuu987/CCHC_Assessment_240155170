@@ -24,19 +24,11 @@
         <%@ include file="/heading.jsp" %>
         <div class="main-container">
             <div class="hero">
-                <h1 class="hero-title">Community Clinic Health Center</h1>
-                <p class="hero-subtitle">A super online service platform for community clinics 
-                    that helps you more easily book outpatient appointments, track waiting/queue status, 
-                    and follow up on health records.</p>
-                <div class="hero-badges">
-                    <span class="hero-badge">Quick online appointments</span>
-                    <span class="hero-badge">Real-time waiting queue</span>
-                    <span class="hero-badge">Appointment and visit records</span>
-                </div>
+                <h1 class="hero-title">Community Clinic Health Center Admin Page</h1>
+                <p class="hero-subtitle">You a super admin!</p>
             </div>
 
-            <h2 class="page-title">Patient feature overview</h2>
-            <p class="page-subtitle">Please choose commonly used patient features. (Some function need to login first)</p>
+            <h2 class="page-title">Admin feature overview</h2>
 
             <div class="feature-grid">
                 <a class="feature-card" href="<%= ctx + "/AdminHome"%>">

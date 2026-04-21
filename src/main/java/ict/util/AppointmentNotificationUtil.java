@@ -42,12 +42,12 @@ public class AppointmentNotificationUtil {
                 ? service.getName() : ("Service ID: " + serviceId);
 
         StringBuilder msg = new StringBuilder();
-        msg.append("Clinic: ").append(clinicName)
+        msg.append("<hr>Clinic: ").append(clinicName)
                 .append("\nService: ").append(serviceName)
                 .append("\nAppointment ID: ").append(apptId)
                 .append("\nDate: ").append(date)
                 .append("\nTimeslot: ").append(timeSlot)
-                .append("\n\n").append(actionLine);
+                .append("\n<hr>").append(actionLine);
         if (reason != null && !reason.isBlank()) {
             msg.append("\nReason: ").append(reason);
         }
@@ -156,11 +156,11 @@ public class AppointmentNotificationUtil {
                 ? service.getName() : ("Service ID: " + serviceId);
 
         StringBuilder msg = new StringBuilder();
-        msg.append("Clinic: ").append(clinicName)
+        msg.append("<hr>Clinic: ").append(clinicName)
                 .append("\nService: ").append(serviceName)
                 .append("\nDate: ").append(date)
                 .append("\nQueue number: ").append(queueNumber)
-                .append("\n\n").append(actionLine);
+                .append("\n<hr>").append(actionLine);
 
         try {
             notifDb.createNotification(userId, type, title, msg.toString());

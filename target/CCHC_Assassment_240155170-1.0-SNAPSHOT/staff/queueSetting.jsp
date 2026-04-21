@@ -29,7 +29,6 @@
                 <div>
                     <p class="queue-kicker">Queue Administration</p>
                     <h1 class="page-title">Enable or disable queue ticket issuing</h1>
-                    <p class="queue-lead">Toggle whether a clinic/service pair can accept same-day queue tickets.</p>
                 </div>
             </div>
 

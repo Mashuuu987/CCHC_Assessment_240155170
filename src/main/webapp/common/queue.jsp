@@ -245,7 +245,7 @@
                                 <tr>
                                     <th>Ticket No.</th>
                                     <th>Status</th>
-                                    <th>Created At</th>
+                                    <th>Take At</th>
                                 </tr>
                             </thead>
                             <tbody>

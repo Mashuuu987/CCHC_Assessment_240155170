@@ -11,7 +11,7 @@
     <head>
         <title>CCHC</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/common.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/index.css">
     </head>
     <body>
@@ -24,57 +24,39 @@
         <%@ include file="/heading.jsp" %>
         <div class="main-container">
             <div class="hero">
-                <h1 class="hero-title">Community Clinic Health Center</h1>
-                <p class="hero-subtitle">A super online service platform for community clinics 
-                    that helps you more easily book outpatient appointments, track waiting/queue status, 
-                    and follow up on health records.</p>
-                <div class="hero-badges">
-                    <span class="hero-badge">Quick online appointments</span>
-                    <span class="hero-badge">Real-time waiting queue</span>
-                    <span class="hero-badge">Appointment and visit records</span>
-                </div>
+                <h1 class="hero-title">Community Clinic Health Center Staff Page</h1>
+                <p class="hero-subtitle">You do a great job!</p>
             </div>
 
-            <h2 class="page-title">Patient feature overview</h2>
-            <p class="page-subtitle">Please choose commonly used patient features. (Some function need to login first)</p>
+            <h2 class="page-title">Staff feature overview</h2>
 
             <div class="feature-grid">
-                <a class="feature-card" href="<%= ctx + "/StaffHome"%>">
-                    <h2 class="feature-card-title">Appointment Service</h2>
-                    <p class="feature-card-text">Schedule appointments for outpatient visits or examinations, and manage future appointments.</p>
-                </a>
 
                 <a class="feature-card" href="<%= ctx + "/Queue"%>">
                     <h2 class="feature-card-title">Waiting Queue</h2>
-                    <p class="feature-card-text">View the current waiting list and your own queue number.</p>
-                </a>
-
-                <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInfomation"%>">
-                    <h2 class="feature-card-title">Clinic and Service Information</h2>
-                    <p class="feature-card-text">Browse the various community clinics, their opening hours, and the services they offer.</p>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/QueueSetting"%>">
                     <h2 class="feature-card-title">Queue Settings</h2>
-                    <p class="feature-card-text">Enable or disable queue ticket issuing for each clinic and service.</p>
-                </a>
-
-                <a class="feature-card notification-card" href="<%= ctx + "/Notification"%>">
-                    <% if (notifUnreadCount != null && notifUnreadCount > 0 && notifBadgeClass != null) { %>
-                    <div class="notification-badge <%= notifBadgeClass %>"><%= notifUnreadCount %></div>
-                    <% }%>
-                    <h2 class="feature-card-title">Notification Center</h2>
-                    <p class="feature-card-text">View appointment reminders and general notifications sent by the system.</p>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/Login"%>">
                     <h2 class="feature-card-title">Appointment and medical records</h2>
-                    <p class="feature-card-text">Viewing past appointments and medical records makes it easier to follow up.</p>
+                </a>
+
+                <a class="feature-card notification-card" href="<%= ctx + "/Notification"%>">
+                    <% if (notifUnreadCount != null && notifUnreadCount > 0 && notifBadgeClass != null) {%>
+                    <div class="notification-badge <%= notifBadgeClass%>"><%= notifUnreadCount%></div>
+                    <% }%>
+                    <h2 class="feature-card-title">Notification Center</h2>
+                </a>
+
+                <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInfomation"%>">
+                    <h2 class="feature-card-title">Clinic and Service Information</h2>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/Settings"%>">
                     <h2 class="feature-card-title">Settings</h2>
-                    <p class="feature-card-text">Manage profile and change your password.</p>
                 </a>
             </div>
 
