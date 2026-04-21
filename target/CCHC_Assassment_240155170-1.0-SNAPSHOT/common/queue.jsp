@@ -95,6 +95,7 @@
             Integer selectedServiceId = (Integer) request.getAttribute("selectedServiceId");
             Integer currentCalledNumber = (Integer) request.getAttribute("currentCalledNumber");
             Integer myTodayEstimatedWaitMinutes = (Integer) request.getAttribute("myTodayEstimatedWaitMinutes");
+            Integer myTodayWaitingAheadCount = (Integer) request.getAttribute("myTodayWaitingAheadCount");
             String today = (String) request.getAttribute("today");
             String error = (String) request.getAttribute("error");
             String success = (String) request.getAttribute("success");
@@ -197,7 +198,10 @@
                         <div><strong>Service:</strong> <%= (myTodayTicketService != null) ? myTodayTicketService.getName() : ("Service ID: " + myTodayTicket.getServiceId())%></div>
                         <div><strong>Status:</strong> <%= myTodayTicket.getStatus()%></div>
                         <div><strong>Ticket date:</strong> <%= myTodayTicket.getQueueDate()%></div>
-                        <div><strong>Estimated wait:</strong> <%= myTodayEstimatedWaitMinutes != null ? myTodayEstimatedWaitMinutes : 0%> minutes</div>
+                        <div><strong>My Estimated wait:</strong> <%= myTodayEstimatedWaitMinutes != null ? myTodayEstimatedWaitMinutes : 0%> minutes</div>
+                        <div><strong>People ahead (WAITING):</strong> <%= myTodayWaitingAheadCount != null ? myTodayWaitingAheadCount : 0%></div>
+                        <div><strong>Now Ticket Estimated wait:</strong> <%= myTodayEstimatedWaitMinutes != null ? myTodayEstimatedWaitMinutes : 0%> minutes</div>
+
                     </div>
                     <% } %>
                     <% } else { %>

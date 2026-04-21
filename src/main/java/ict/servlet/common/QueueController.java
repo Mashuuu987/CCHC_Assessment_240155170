@@ -57,7 +57,7 @@ public class QueueController extends HttpServlet {
         queueSettingDb = new QueueSettingDB(dbUrl, dbUser, dbPassword);
         notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
         apptNotifUtil = new AppointmentNotificationUtil(notifDb, clinicDb, serviceDb);
-        userDb = new UserDB(dbUrl, dbUser,dbPassword);
+        userDb = new UserDB(dbUrl, dbUser, dbPassword);
     }
 
     @Override
@@ -158,6 +158,7 @@ public class QueueController extends HttpServlet {
         QueueTicketBean currentCalledTicket = null;
         int currentCalledNumber = 0;
         int myTodayEstimatedWaitMinutes = 0;
+        int myTodayWaitingAheadCount = 0;
         int estimatedWaitMinutes = 0;
         boolean canJoinQueue = false;
 
@@ -174,7 +175,21 @@ public class QueueController extends HttpServlet {
                 myTodayTicketClinic = clinicDb.getClinicByID(myTodayTicket.getClinicId());
                 myTodayTicketService = serviceDb.getServiceById(myTodayTicket.getServiceId());
                 if (myTodayTicketService != null) {
-                    myTodayEstimatedWaitMinutes = Math.max(myTodayTicketService.getDurationMins(), 1) * Math.max(myTodayTicket.getQueueNumber() - 1, 0);
+                    int dur = Math.max(myTodayTicketService.getDurationMins(), 1);
+
+                    if ("WAITING".equalsIgnoreCase(myTodayTicket.getStatus())) {
+                        myTodayWaitingAheadCount = queueTicketDb.countWaitingBeforeNumber(
+                                myTodayTicket.getClinicId(),
+                                myTodayTicket.getServiceId(),
+                                today,
+                                myTodayTicket.getQueueNumber()
+                        );
+                        myTodayEstimatedWaitMinutes = myTodayWaitingAheadCount * dur;
+                    } else {
+                        myTodayWaitingAheadCount = 0;
+                        myTodayEstimatedWaitMinutes = 0;
+                    }
+
                 }
             }
         }
@@ -214,6 +229,7 @@ public class QueueController extends HttpServlet {
         request.setAttribute("currentCalledTicket", currentCalledTicket);
         request.setAttribute("currentCalledNumber", currentCalledNumber);
         request.setAttribute("myTodayEstimatedWaitMinutes", myTodayEstimatedWaitMinutes);
+        request.setAttribute("myTodayWaitingAheadCount", myTodayWaitingAheadCount);
         request.setAttribute("estimatedWaitMinutes", estimatedWaitMinutes);
         request.setAttribute("canJoinQueue", canJoinQueue);
         request.setAttribute("today", today);
@@ -371,7 +387,7 @@ public class QueueController extends HttpServlet {
             }
 
             boolean updated = queueTicketDb.updateTicketStatus(nextWaiting.getTicketId(), "CALLED");
-            request.setAttribute(updated ? "success" : "error", updated ? "Now calling queue #" + nextWaiting.getQueueNumber() + "." : "Failed to call the next queue number.");      
+            request.setAttribute(updated ? "success" : "error", updated ? "Now calling queue #" + nextWaiting.getQueueNumber() + "." : "Failed to call the next queue number.");
             UserInfoBean targetUser = userDb.getUserByPatientId(nextWaiting.getPatientId());
             apptNotifUtil.notifyQueueCalled(targetUser.getUserId(), clinicId, serviceId, today, nextWaiting.getQueueNumber());
             doGet(request, response);

@@ -20,6 +20,7 @@ import ict.bean.QueueTicketBean;
  * @author amzte
  */
 public class QueueTicketDB {
+
     private String url;
     private String username;
     private String password;
@@ -344,4 +345,28 @@ public class QueueTicketDB {
         }
         return false;
     }
+
+    public int countWaitingBeforeNumber(int clinicId, int serviceId, String queueDate, int queueNumber) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM queueTicket "
+                + "WHERE clinicId = ? AND serviceId = ? AND queueDate = ? "
+                + "AND status = 'WAITING' AND queueNumber < ?";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, queueDate);
+            ps.setInt(4, queueNumber);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
 }
