@@ -22,6 +22,7 @@ ict\db\PatientDB.class
 ict\bean\ServiceBean.class
 ict\db\ServiceDB.class
 ict\servlet\staff\StaffHomeController.class
+ict\servlet\staff\AppointmentRecordsStaffController.class
 ict\servlet\common\LoginController.class
 ict\tag\HeadingTag.class
 ict\bean\ServiceCapacityBean.class

@@ -10,11 +10,13 @@ import ict.bean.AppointmentBean;
 import ict.bean.ClinicBean;
 import ict.bean.PatientProfileBean;
 import ict.bean.ServiceBean;
+import ict.bean.StaffProfileBean;
 import ict.bean.UserInfoBean;
 import ict.db.AppointmentDB;
 import ict.db.ClinicDB;
 import ict.db.PatientDB;
 import ict.db.ServiceDB;
+import ict.db.StaffDB;
 import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -31,6 +33,7 @@ public class AppointmentRecordDetailsController extends HttpServlet {
 
     private AppointmentDB apptDb;
     private PatientDB patientDb;
+    private StaffDB staffDb;
     private ClinicDB clinicDb;
     private ServiceDB serviceDb;
 
@@ -49,47 +52,69 @@ public class AppointmentRecordDetailsController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-        UserInfoBean user = UserCheckUtil.requireRole(request, response, "PATIENT");
+
+        UserInfoBean user = UserCheckUtil.getLoginUser(request);
         if (user == null) {
+            response.sendRedirect(request.getContextPath() + "/Login");
             return;
-        }else{
-            request.setAttribute("isPatient", true);
         }
-        
+
+        boolean isPatient = UserCheckUtil.hasRole(user, "PATIENT");
+        boolean isStaff = UserCheckUtil.hasRole(user, "STAFF");
+
+        if (!isPatient && !isStaff) {
+            response.sendRedirect(request.getContextPath() + "/PublicHome");
+            return;
+        }
+
+        request.setAttribute("isPatient", isPatient);
+        request.setAttribute("isStaff", isStaff);
+
         String idStr = request.getParameter("appointmentId");
-        if(idStr == null || idStr.isEmpty()){
+        if (idStr == null || idStr.isEmpty()) {
             request.setAttribute("error", "Missing appointment ID.");
             request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
             return;
         }
-        
+
         int appointmentId;
-        try{
+        try {
             appointmentId = Integer.parseInt(idStr);
-        }catch(NumberFormatException e){
+        } catch (NumberFormatException e) {
             request.setAttribute("error", "Invalid appointment ID.");
             request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
             return;
         }
-        
+
         AppointmentBean appt = apptDb.getAppointmentByAppointmentId(appointmentId);
         if (appt == null) {
             request.setAttribute("error", "Appointment not found.");
             request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
             return;
         }
-        
+
         PatientProfileBean patient = patientDb.getPatientByUserId(user.getUserId());
-        if (patient == null || appt.getPatientId() != patient.getPatientId()) {
+
+        if (isPatient && patient == null || appt.getPatientId() != patient.getPatientId()) {
             request.setAttribute("error", "You are not allowed to view this appointment.");
             request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
             return;
         }
-        
+        request.setAttribute("patient", patient);
+
+        if (isStaff) {
+            StaffProfileBean staff = staffDb.getStaffByUserId(user.getUserId());
+            if (staff == null || staff.getClinicId() == null || appt.getClinicId() != staff.getClinicId()) {
+                request.setAttribute("error", "You can only view appointments for your clinic.");
+                request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
+                return;
+            }
+            request.setAttribute("staff", staff);
+        }
+
         ClinicBean clinic = clinicDb.getClinicByID(appt.getClinicId());
         ServiceBean service = serviceDb.getServiceById(appt.getServiceId());
-        
+
         request.setAttribute("appointment", appt);
         request.setAttribute("clinic", clinic);
         request.setAttribute("service", service);

@@ -40,7 +40,7 @@
                     <h2 class="feature-card-title">Queue Settings</h2>
                 </a>
 
-                <a class="feature-card" href="<%= ctx + "/Login"%>">
+                <a class="feature-card" href="<%= ctx + "/AppointmentRecordsStaff"%>">
                     <h2 class="feature-card-title">Appointment and medical records</h2>
                 </a>
 

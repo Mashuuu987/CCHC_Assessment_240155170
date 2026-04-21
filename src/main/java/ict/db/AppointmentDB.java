@@ -122,6 +122,32 @@ public class AppointmentDB {
         return bean;
     }
 
+    public List<AppointmentBean> getAppointmentsByClinicId(int clinicId) {
+        List<AppointmentBean> list = new ArrayList<>();
+        String sql = "SELECT * FROM appointment WHERE clinicId = ? ORDER BY appointmentDate DESC, timeSlot DESC";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new AppointmentBean(
+                            rs.getInt("appointmentId"),
+                            rs.getInt("patientId"),
+                            rs.getInt("clinicId"),
+                            rs.getInt("serviceId"),
+                            rs.getString("appointmentDate"),
+                            rs.getString("timeSlot"),
+                            rs.getString("status"),
+                            rs.getString("createdAt")
+                    ));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     // For admin
     public boolean delAppointment(int appointmentId) {
         String sql = "DELETE FROM appointment WHERE appointmentId = ?";
