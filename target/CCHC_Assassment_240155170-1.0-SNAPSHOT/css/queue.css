@@ -1,0 +1,327 @@
+/* Queue system styles */
+
+.queue-page {
+    max-width: 1180px;
+}
+
+.queue-hero {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 22px 24px;
+    margin: 8px 0 22px 0;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #eef4ff 0%, #627bdb 52%, #f7fbff 100%);
+    border: 1px solid #6497ee;
+}
+
+.queue-kicker {
+    margin: 0 0 6px 0;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.78rem;
+    color: #2563eb;
+}
+
+.queue-lead {
+    margin: 8px 0 0 0;
+    max-width: 680px;
+    color: #334155;
+    line-height: 1.6;
+}
+
+.queue-hero-stats {
+    display: grid;
+    gap: 12px;
+    min-width: 160px;
+}
+
+.queue-stat {
+    padding: 12px 14px;
+    border-radius: 12px;
+    background: #ffffff;
+    border: 1px solid #dbe8ff;
+}
+
+.queue-stat-label {
+    display: block;
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #64748b;
+    margin-bottom: 3px;
+}
+
+.queue-stat-value {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #1e3a8a;
+}
+
+.queue-layout {
+    display: grid;
+    grid-template-columns: 1.05fr 1.2fr;
+    gap: 18px;
+}
+
+.queue-panel {
+    background: #ffffff;
+    border: 1px solid #e5e7eb;
+    border-radius: 14px;
+    padding: 20px 22px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+.queue-form {
+    display: grid;
+    gap: 14px;
+}
+
+.queue-field {
+    display: grid;
+    gap: 6px;
+}
+
+.queue-label {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: #111827;
+}
+
+.queue-input {
+    width: 100%;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 10px 11px;
+    font-size: 0.95rem;
+    background: #fff;
+}
+
+.queue-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.16);
+}
+
+.queue-actions {
+    margin-top: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.queue-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: opacity 0.15s ease;
+}
+
+.queue-btn:hover {
+    opacity: 0.95;
+}
+
+.queue-btn:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+}
+
+.queue-btn-primary {
+    background-color: #1982c4;
+    color: #fff;
+}
+
+.queue-btn-danger {
+    background-color: #dc2626;
+    color: #fff;
+}
+
+.queue-btn-success {
+    background-color: #16a34a;
+    color: #fff;
+}
+
+.queue-alert {
+    margin-bottom: 16px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    font-weight: 600;
+}
+
+.queue-alert-error {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.queue-alert-success {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.queue-setting-box {
+    margin-top: 16px;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    color: #334155;
+    line-height: 1.7;
+}
+
+.queue-ticket-card {
+    padding: 14px 16px;
+    border-radius: 12px;
+    background: #f9fafb;
+    border: 1px solid #dbeafe;
+}
+
+.queue-ticket-number {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1d4ed8;
+    margin-bottom: 10px;
+}
+
+.queue-empty {
+    padding: 14px;
+    border-radius: 10px;
+    background: #f9fafb;
+    border: 1px dashed #d1d5db;
+    color: #64748b;
+}
+
+.queue-table-wrap {
+    overflow-x: auto;
+}
+
+.queue-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 640px;
+}
+
+.queue-table th,
+.queue-table td {
+    padding: 11px 10px;
+    border-bottom: 1px solid #e5e7eb;
+    text-align: left;
+    vertical-align: middle;
+}
+
+.queue-table th {
+    font-size: 0.88rem;
+    color: #334155;
+    background: #f8fafc;
+}
+
+.queue-empty-row {
+    text-align: center;
+    color: #64748b;
+    padding: 18px 10px;
+}
+
+.queue-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    padding: 5px 10px;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+}
+
+.status-waiting {
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.status-called {
+    background: #fef3c7;
+    color: #b45309;
+}
+
+.status-skipped {
+    background: #fee2e2;
+    color: #b91c1c;
+}
+
+.status-served {
+    background: #dcfce7;
+    color: #166534;
+}
+
+.status-expired {
+    background: #e5e7eb;
+    color: #475569;
+}
+
+.clinic-list {
+    max-width: 960px;
+    margin: 0 auto;
+}
+
+.clinic-card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 16px 18px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    border: 1px solid #e5e7eb;
+    margin-bottom: 16px;
+}
+
+.clinic-info-name {
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.clinic-info-line {
+    margin-bottom: 2px;
+    color: #374151;
+}
+
+.clinic-info-label {
+    font-weight: 500;
+    margin-right: 4px;
+}
+
+.queue-inline-form {
+    margin: 0;
+}
+
+.queue-section-space {
+    margin-top: 18px;
+}
+
+@media (max-width: 960px) {
+    .queue-hero,
+    .queue-layout {
+        grid-template-columns: 1fr;
+        display: grid;
+    }
+
+    .queue-hero-stats {
+        min-width: 0;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .queue-hero {
+        padding: 18px;
+    }
+
+    .queue-panel {
+        padding: 16px;
+    }
+
+    .queue-hero-stats {
+        grid-template-columns: 1fr;
+    }
+}

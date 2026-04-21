@@ -4,7 +4,6 @@
  */
 package ict.db;
 
-import ict.bean.QueueTicketBean;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,12 +13,13 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+import ict.bean.QueueTicketBean;
+
 /**
  *
  * @author amzte
  */
 public class QueueTicketDB {
-
     private String url;
     private String username;
     private String password;
@@ -88,6 +88,236 @@ public class QueueTicketDB {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public List<QueueTicketBean> getTicketsByClinicServiceDate(int clinicId, int serviceId, String queueDate) {
+        List<QueueTicketBean> list = new ArrayList<>();
+        String sql = "SELECT * FROM queueTicket WHERE clinicId = ? AND serviceId = ? AND queueDate = ? ORDER BY queueNumber ASC";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, queueDate);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                while (rs.next()) {
+                    list.add(new QueueTicketBean(
+                            rs.getInt("ticketId"),
+                            rs.getInt("patientId"),
+                            rs.getInt("clinicId"),
+                            rs.getInt("serviceId"),
+                            rs.getString("queueDate"),
+                            rs.getInt("queueNumber"),
+                            rs.getString("status"),
+                            rs.getString("createdAt")));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
+    public QueueTicketBean getCurrentCalledTicket(int clinicId, int serviceId, String queueDate) {
+        QueueTicketBean bean = null;
+        String sql = "SELECT * FROM queueTicket WHERE clinicId = ? AND serviceId = ? AND queueDate = ? AND status = 'CALLED' ORDER BY queueNumber ASC LIMIT 1";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, queueDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    bean = new QueueTicketBean(
+                            rs.getInt("ticketId"),
+                            rs.getInt("patientId"),
+                            rs.getInt("clinicId"),
+                            rs.getInt("serviceId"),
+                            rs.getString("queueDate"),
+                            rs.getInt("queueNumber"),
+                            rs.getString("status"),
+                            rs.getString("createdAt"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
+    }
+
+    public QueueTicketBean getNextWaitingTicket(int clinicId, int serviceId, String queueDate) {
+        QueueTicketBean bean = null;
+        String sql = "SELECT * FROM queueTicket WHERE clinicId = ? AND serviceId = ? AND queueDate = ? AND status = 'WAITING' ORDER BY queueNumber ASC LIMIT 1";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, queueDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    bean = new QueueTicketBean(
+                            rs.getInt("ticketId"),
+                            rs.getInt("patientId"),
+                            rs.getInt("clinicId"),
+                            rs.getInt("serviceId"),
+                            rs.getString("queueDate"),
+                            rs.getInt("queueNumber"),
+                            rs.getString("status"),
+                            rs.getString("createdAt"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
+    }
+
+    public QueueTicketBean getTicketByPatientClinicServiceDate(int patientId, int clinicId, int serviceId, String queueDate) {
+        QueueTicketBean bean = null;
+        String sql = "SELECT * FROM queueTicket WHERE patientId = ? AND clinicId = ? AND serviceId = ? AND queueDate = ?";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, patientId);
+            ps.setInt(2, clinicId);
+            ps.setInt(3, serviceId);
+            ps.setString(4, queueDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    bean = new QueueTicketBean(
+                            rs.getInt("ticketId"),
+                            rs.getInt("patientId"),
+                            rs.getInt("clinicId"),
+                            rs.getInt("serviceId"),
+                            rs.getString("queueDate"),
+                            rs.getInt("queueNumber"),
+                            rs.getString("status"),
+                            rs.getString("createdAt"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
+    }
+
+    public boolean hasTicketByPatientClinicServiceDate(int patientId, int clinicId, int serviceId, String queueDate) {
+        return getTicketByPatientClinicServiceDate(patientId, clinicId, serviceId, queueDate) != null;
+    }
+
+    public QueueTicketBean getLatestTicketByPatientDate(int patientId, String queueDate) {
+        QueueTicketBean bean = null;
+        String sql = "SELECT * FROM queueTicket WHERE patientId = ? AND queueDate = ? ORDER BY ticketId DESC LIMIT 1";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, patientId);
+            ps.setString(2, queueDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    bean = new QueueTicketBean(
+                            rs.getInt("ticketId"),
+                            rs.getInt("patientId"),
+                            rs.getInt("clinicId"),
+                            rs.getInt("serviceId"),
+                            rs.getString("queueDate"),
+                            rs.getInt("queueNumber"),
+                            rs.getString("status"),
+                            rs.getString("createdAt"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
+    }
+
+    public QueueTicketBean getLatestNonCalledTicketByPatientDate(int patientId, String queueDate) {
+        QueueTicketBean bean = null;
+        String sql = "SELECT * FROM queueTicket WHERE patientId = ? AND queueDate = ? AND status = 'WAITING' ORDER BY ticketId DESC LIMIT 1";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, patientId);
+            ps.setString(2, queueDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    bean = new QueueTicketBean(
+                            rs.getInt("ticketId"),
+                            rs.getInt("patientId"),
+                            rs.getInt("clinicId"),
+                            rs.getInt("serviceId"),
+                            rs.getString("queueDate"),
+                            rs.getInt("queueNumber"),
+                            rs.getString("status"),
+                            rs.getString("createdAt"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return bean;
+    }
+
+    public boolean hasNonCalledTicketByPatientDate(int patientId, String queueDate) {
+        return getLatestNonCalledTicketByPatientDate(patientId, queueDate) != null;
+    }
+
+    public int getNextQueueNumber(int clinicId, int serviceId, String queueDate) {
+        int next = 1;
+        String sql = "SELECT COALESCE(MAX(queueNumber), 0) + 1 AS nextQueueNumber FROM queueTicket WHERE clinicId = ? AND serviceId = ? AND queueDate = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, queueDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    next = rs.getInt("nextQueueNumber");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return next;
+    }
+
+    public int countTicketsByClinicServiceDate(int clinicId, int serviceId, String queueDate) {
+        int count = 0;
+        String sql = "SELECT COUNT(*) FROM queueTicket WHERE clinicId = ? AND serviceId = ? AND queueDate = ? AND status IN ('WAITING','CALLED')";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, queueDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    count = rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    public int createQueueTicket(int patientId, int clinicId, int serviceId, String queueDate, int queueNumber, String status) {
+        int ticketId = -1;
+        String sql = "INSERT INTO queueTicket (patientId, clinicId, serviceId, queueDate, queueNumber, status) VALUES (?, ?, ?, ?, ?, ?)";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setInt(1, patientId);
+            ps.setInt(2, clinicId);
+            ps.setInt(3, serviceId);
+            ps.setString(4, queueDate);
+            ps.setInt(5, queueNumber);
+            ps.setString(6, status);
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        ticketId = rs.getInt(1);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ticketId;
     }
 
     public boolean delTicket(int ticketId) {

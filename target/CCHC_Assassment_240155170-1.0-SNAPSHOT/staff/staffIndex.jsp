@@ -44,7 +44,7 @@
                     <p class="feature-card-text">Schedule appointments for outpatient visits or examinations, and manage future appointments.</p>
                 </a>
 
-                <a class="feature-card" href="<%= ctx + "/Login"%>">
+                <a class="feature-card" href="<%= ctx + "/Queue"%>">
                     <h2 class="feature-card-title">Waiting Queue</h2>
                     <p class="feature-card-text">View the current waiting list and your own queue number.</p>
                 </a>
@@ -52,6 +52,11 @@
                 <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInfomation"%>">
                     <h2 class="feature-card-title">Clinic and Service Information</h2>
                     <p class="feature-card-text">Browse the various community clinics, their opening hours, and the services they offer.</p>
+                </a>
+
+                <a class="feature-card" href="<%= ctx + "/QueueSetting"%>">
+                    <h2 class="feature-card-title">Queue Settings</h2>
+                    <p class="feature-card-text">Enable or disable queue ticket issuing for each clinic and service.</p>
                 </a>
 
                 <a class="feature-card notification-card" href="<%= ctx + "/Notification"%>">

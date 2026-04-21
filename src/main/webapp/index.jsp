@@ -51,7 +51,7 @@
                     <p class="feature-card-text">Schedule appointments for visits or examinations, and manage appointments.</p>
                 </a>
 
-                <a class="feature-card" href="<%= ctx + "/Login"%>">
+                <a class="feature-card" href="<%= isPatient ? ctx + "/Queue" : ctx + "/Login"%>">
                     <h2 class="feature-card-title">Waiting Queue</h2>
                     <p class="feature-card-text">View the current waiting list and your own queue number.</p>
                 </a>

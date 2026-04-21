@@ -13,6 +13,7 @@ import ict.db.ClinicDB;
 import ict.db.NotificationDB;
 import ict.db.PatientDB;
 import ict.db.QueueTicketDB;
+import ict.db.QueueSettingDB;
 import ict.db.ServiceCapacityDB;
 import ict.db.ServiceDB;
 import ict.db.StaffDB;
@@ -36,6 +37,7 @@ public class PublicHomeController extends HttpServlet {
     private ServiceDB serviceDb;
     private AppointmentDB apptDb;
     private QueueTicketDB queueDb;
+    private QueueSettingDB queueSettingDb;
     private NotificationDB notifDb;
     private ServiceCapacityDB capDb;
     private AnnouncementsDB annDb;
@@ -79,6 +81,10 @@ public class PublicHomeController extends HttpServlet {
 
         queueDb = new QueueTicketDB(dbUrl, dbUser, dbPassword);
         queueDb.createQueueTicketTable();
+
+        queueSettingDb = new QueueSettingDB(dbUrl, dbUser, dbPassword);
+        queueSettingDb.createQueueSettingTable();
+        queueSettingDb.insertDefaultSettingsIfEmpty(clinicDb, serviceDb);
 
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
         capDb.createServiceCapacityTable();
