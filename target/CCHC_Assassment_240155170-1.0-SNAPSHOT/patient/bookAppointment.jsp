@@ -6,7 +6,7 @@
 <%@page import="java.time.LocalTime"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.util.Set"%>
-<%@page import="ict.bean.UserInfoBean, ict.bean.ServiceCapacityBean, java.util.List, ict.bean.ClinicBean, ict.bean.ServiceBean, ict.bean.PatientProfileBean"%>
+<%@page import="ict.bean.ServiceCapacityBean, java.util.List, ict.bean.ClinicBean, ict.bean.ServiceBean, ict.bean.PatientProfileBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -19,8 +19,6 @@
     <body>
         <%
             String ctx = request.getContextPath();
-            LocalDate todayLocalDate = LocalDate.now();
-            String minDate = todayLocalDate.toString();
             List<ClinicBean> clinics = (List<ClinicBean>) request.getAttribute("clinics");
             List<ServiceBean> services = (List<ServiceBean>) request.getAttribute("services");
             List<ServiceCapacityBean> capList = (List<ServiceCapacityBean>) request.getAttribute("capacityList");
@@ -29,6 +27,9 @@
             Integer selectedServiceId = (Integer) request.getAttribute("selectedServiceId");
             String selectedDate = (String) request.getAttribute("selectedDate");
             String selectedTimeSlot = (String) request.getAttribute("selectedTimeSlot");
+            ClinicBean selectedClinic = (ClinicBean) request.getAttribute("selectedClinic");
+            ServiceBean selectedService = (ServiceBean) request.getAttribute("selectedService");
+            String minDate = LocalDate.now().toString();
 
             String error = (String) request.getAttribute("error");
             String success = (String) request.getAttribute("success");
@@ -39,26 +40,6 @@
             int currentStep = 1;
             if (stepAttr != null) {
                 currentStep = stepAttr;
-            }
-
-            ClinicBean selectedClinic = null;
-            if (selectedClinicId != null && clinics != null) {
-                for (ClinicBean cb : clinics) {
-                    if (cb.getClinicId() == selectedClinicId) {
-                        selectedClinic = cb;
-                        break;
-                    }
-                }
-            }
-
-            ServiceBean selectedService = null;
-            if (selectedServiceId != null && services != null) {
-                for (ServiceBean sb : services) {
-                    if (sb.getServiceId() == selectedServiceId) {
-                        selectedService = sb;
-                        break;
-                    }
-                }
             }
         %>
 

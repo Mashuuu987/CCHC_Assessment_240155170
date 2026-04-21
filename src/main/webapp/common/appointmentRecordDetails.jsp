@@ -3,6 +3,7 @@
     Created on : 2026/04/16, 18:03:54
     Author     : amzte
 --%>
+<%@page import="java.time.LocalDate"%>
 <%@page import="java.util.List,java.util.Set"%>
 <%@page import="ict.bean.AppointmentBean, ict.bean.PatientProfileBean, ict.bean.ClinicBean, ict.bean.ServiceBean, ict.bean.ServiceCapacityBean, ict.bean.UserInfoBean"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -63,6 +64,7 @@
             String selectedNewTimeSlot = (String) request.getAttribute("selectedNewTimeSlot");
             List<ServiceCapacityBean> capList = (List<ServiceCapacityBean>) request.getAttribute("capacityList");
             Set<String> fullSlots = (Set<String>) request.getAttribute("fullTimeSlots");
+            String minDate = LocalDate.now().toString();
 
             Boolean isPatient = (Boolean) request.getAttribute("isPatient");
         %>
@@ -164,7 +166,7 @@
                         <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
 
                         <label class="status-pill <%= statusClass%>">New Date</label>
-                        <input id="rescheduleDateInput" class="records-filter-input" type="date" name="newDate" value="<%= selectedNewDate != null ? selectedNewDate : ""%>" required />
+                        <input id="rescheduleDateInput" class="records-filter-input" type="date" min="<%= minDate %>" name="newDate" value="<%= selectedNewDate != null ? selectedNewDate : ""%>" required />
                         <button type="submit" class="btn-action btn-reschedule">Load Times</button>
                     </form>
 

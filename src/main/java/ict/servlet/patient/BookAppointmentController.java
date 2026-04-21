@@ -7,6 +7,7 @@ package ict.servlet.patient;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -59,6 +60,30 @@ public class BookAppointmentController extends HttpServlet {
         capDb.insertDefaultCapacitiesIfEmpty();
     }
 
+    private ClinicBean findClinicById(List<ClinicBean> clinics, Integer clinicId) {
+        if (clinics == null || clinicId == null) {
+            return null;
+        }
+        for (ClinicBean clinic : clinics) {
+            if (clinic.getClinicId() == clinicId) {
+                return clinic;
+            }
+        }
+        return null;
+    }
+
+    private ServiceBean findServiceById(List<ServiceBean> services, Integer serviceId) {
+        if (services == null || serviceId == null) {
+            return null;
+        }
+        for (ServiceBean service : services) {
+            if (service.getServiceId() == serviceId) {
+                return service;
+            }
+        }
+        return null;
+    }
+
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -72,6 +97,7 @@ public class BookAppointmentController extends HttpServlet {
 
         request.setAttribute("clinics", clinicDb.getAllClinics());
         request.setAttribute("services", serviceDb.getAllServices());
+        request.setAttribute("currentStep", 1);
 
         request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
     }
@@ -105,8 +131,10 @@ public class BookAppointmentController extends HttpServlet {
             return;
         }
 
-        request.setAttribute("clinics", clinicDb.getAllClinics());
-        request.setAttribute("services", serviceDb.getAllServices());
+        List<ClinicBean> clinicList = clinicDb.getAllClinics();
+        List<ServiceBean> serviceList = serviceDb.getAllServices();
+        request.setAttribute("clinics", clinicList);
+        request.setAttribute("services", serviceList);
 
         String clinicIdStr = request.getParameter("clinicId");
         String serviceIdStr = request.getParameter("serviceId");
@@ -118,10 +146,10 @@ public class BookAppointmentController extends HttpServlet {
         Integer serviceId = null;
         try {
             if (clinicIdStr != null && !clinicIdStr.isEmpty()) {
-                clinicId = Integer.parseInt(clinicIdStr);
+                clinicId = Integer.valueOf(clinicIdStr);
             }
             if (serviceIdStr != null && !serviceIdStr.isEmpty()) {
-                serviceId = Integer.parseInt(serviceIdStr);
+                serviceId = Integer.valueOf(serviceIdStr);
             }
         } catch (NumberFormatException e) {
             request.setAttribute("error", "Invalid clinic or service.");
@@ -132,6 +160,8 @@ public class BookAppointmentController extends HttpServlet {
         request.setAttribute("selectedClinicId", clinicId);
         request.setAttribute("selectedServiceId", serviceId);
         request.setAttribute("selectedDate", date);
+        request.setAttribute("selectedClinic", findClinicById(clinicList, clinicId));
+        request.setAttribute("selectedService", findServiceById(serviceList, serviceId));
 
         // STEP 1:
         if (step == null || "1".equals(step)) {
@@ -151,7 +181,7 @@ public class BookAppointmentController extends HttpServlet {
                     request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
                     return;
                 }
-            } catch (Exception e) {
+            } catch (DateTimeParseException e) {
                 request.setAttribute("error", "Invalid date format.");
                 request.setAttribute("currentStep", 1);
                 request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
@@ -173,6 +203,8 @@ public class BookAppointmentController extends HttpServlet {
             request.setAttribute("capacityList", capList);
             request.setAttribute("fullTimeSlots", fullSlots);
             request.setAttribute("currentStep", 2);
+            request.setAttribute("selectedClinic", findClinicById(clinicList, clinicId));
+            request.setAttribute("selectedService", findServiceById(serviceList, serviceId));
             request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
             return;
         }
@@ -200,6 +232,8 @@ public class BookAppointmentController extends HttpServlet {
 
             request.setAttribute("capacityList", capList);
             request.setAttribute("fullTimeSlots", fullSlots);
+            request.setAttribute("selectedClinic", findClinicById(clinicList, clinicId));
+            request.setAttribute("selectedService", findServiceById(serviceList, serviceId));
 
             if (isPastTimeslotToday(date, timeSlot)) {
                 request.setAttribute("error", "Selected timeslot is already in the past. Please choose a later timeslot.");
@@ -301,6 +335,8 @@ public class BookAppointmentController extends HttpServlet {
                 request.setAttribute("error", "Selected timeslot is full. Please choose another one.");
                 request.setAttribute("currentStep", 2);
                 request.setAttribute("selectedTimeSlot", timeSlot);
+                request.setAttribute("selectedClinic", findClinicById(clinicList, clinicId));
+                request.setAttribute("selectedService", findServiceById(serviceList, serviceId));
                 request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
                 return;
             }
@@ -326,8 +362,8 @@ public class BookAppointmentController extends HttpServlet {
                 } else {
                     request.setAttribute("success", "Appointment Requested (ID: " + apptId + "), pending confirmation. You will receive a notification once the appointment is confirmed or if there are any updates.");
 
-                    ClinicBean clinic = (clinicId != null) ? clinicDb.getClinicByID(clinicId) : null;
-                    ServiceBean service = (serviceId != null) ? serviceDb.getServiceById(serviceId) : null;
+                    ClinicBean clinic = clinicDb.getClinicByID(clinicId);
+                    ServiceBean service = serviceDb.getServiceById(serviceId);
 
                     String clinicName = (clinic != null && clinic.getName() != null && !clinic.getName().isEmpty()) ? clinic.getName() : ("Clinic ID: " + clinicId);
                     String serviceName = (service != null && service.getName() != null && !service.getName().isEmpty()) ? service.getName() : ("Service ID: " + serviceId);
@@ -352,6 +388,8 @@ public class BookAppointmentController extends HttpServlet {
             request.setAttribute("selectedTimeSlot", timeSlot);
             request.setAttribute("patient", patient);
             request.setAttribute("currentStep", 3);
+            request.setAttribute("selectedClinic", findClinicById(clinicList, clinicId));
+            request.setAttribute("selectedService", findServiceById(serviceList, serviceId));
             request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
             return;
         }
