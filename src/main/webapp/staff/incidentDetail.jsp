@@ -43,8 +43,6 @@
                 </div>
 
                 <div class="incd-actions">
-                    <a class="btn-details" href="<%= ctx%>/Incident">Back</a>
-
                     <% if (canClose != null && canClose) {%>
                     <form method="post" action="<%= ctx%>/IncidentDetail" style="display:inline;"
                           onsubmit="return confirm('Close this incident?');">
@@ -53,6 +51,7 @@
                         <button type="submit" class="btn-danger">Close</button>
                     </form>
                     <% } %>
+                    <a class="btn-details" href="<%= ctx%>/Incident">Back</a>
                 </div>
             </div>
 
