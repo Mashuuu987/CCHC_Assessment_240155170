@@ -1,0 +1,88 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2026/04/23, 2:52:55
+    Author     : amzte
+*/
+
+/* incidentDetail.css */
+
+.incd-wrap{
+    max-width: 1100px;
+    margin: 26px auto;
+    padding: 0 16px;
+}
+
+.incd-header{
+    display:flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.incd-title{
+    margin: 0;
+    font-size: 26px;
+}
+
+.incd-sub{
+    margin: 6px 0 0 0;
+    color: #6b7280;
+    font-size: 13px;
+}
+
+.incd-actions{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+}
+
+.incd-card{
+    background:#fff;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 16px;
+}
+
+.incd-grid{
+    display:grid;
+    grid-template-columns: 160px 1fr;
+    gap: 10px 16px;
+}
+
+.incd-label{
+    font-weight: 700;
+    color:#374151;
+}
+
+.incd-value{
+    color:#111827;
+}
+
+.incd-desc{
+    margin-top: 14px;
+    border-top: 1px solid #e5e7eb;
+    padding-top: 14px;
+}
+
+.incd-desc-title{
+    font-weight: 700;
+    margin-bottom: 6px;
+    color:#374151;
+}
+
+.incd-desc-body{
+    color:#111827;
+    line-height: 1.6;
+    white-space: pre-wrap;
+}
+
+@media (max-width: 720px){
+    .incd-grid{
+        grid-template-columns: 1fr;
+    }
+}
