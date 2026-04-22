@@ -69,7 +69,7 @@ public class AppointmentRecordPatientActionController extends HttpServlet {
         UserInfoBean user = UserCheckUtil.requireRole(request, response, "PATIENT");
         if (user == null) {
             return;
-        }else{
+        } else {
             request.setAttribute("isPatient", true);
         }
 
@@ -201,7 +201,18 @@ public class AppointmentRecordPatientActionController extends HttpServlet {
             }
 
             boolean ok = apptDb.rescheduleAppointment(appointmentId, newDate, newTimeSlot);
-            if (ok) {
+            if (!ok) {
+                request.setAttribute("error", "Update appointment detail fail.");
+                forwardDetail(request, response, appt, patient, newDate, newTimeSlot);
+                return;
+            }
+            boolean ok2 = apptDb.updateAppointmentStatus(appointmentId, "REQUESTED");
+            if (!ok2) {
+                request.setAttribute("error", "Update appointment status fail.");
+                forwardDetail(request, response, appt, patient, newDate, newTimeSlot);
+                return;
+            }
+            if (ok && ok2) {
                 request.setAttribute("success", "Reschedule successful.");
                 appt = apptDb.getAppointmentByAppointmentId(appointmentId);
                 appointmentNotificationUtil.notifyRescheduleRequestedPending(
@@ -260,13 +271,13 @@ public class AppointmentRecordPatientActionController extends HttpServlet {
     }
 
     private boolean isModifiableOnlyBeforeOneDay(String appointmentDate) {
-    try {
-        LocalDate apptDate = LocalDate.parse(appointmentDate);
-        return LocalDate.now().isBefore(apptDate.minusDays(1));
-    } catch (Exception e) {
-        return false;
+        try {
+            LocalDate apptDate = LocalDate.parse(appointmentDate);
+            return LocalDate.now().isBefore(apptDate.minusDays(1));
+        } catch (Exception e) {
+            return false;
+        }
     }
-}
 
     private void forwardDetail(HttpServletRequest request, HttpServletResponse response,
             AppointmentBean appt, PatientProfileBean patient, String selectedNewDate, String selectedNewTimeSlot)

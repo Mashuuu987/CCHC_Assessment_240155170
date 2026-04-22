@@ -78,7 +78,7 @@ public class PatientDB {
             String emergencyContact) {
         int patientId = -1;
         String sql = "INSERT INTO patient_profile "
-            + "(userId, hkid_id, firstName, lastName, gender, dob, phone, email, address, "
+                + "(userId, hkid_id, firstName, lastName, gender, dob, phone, email, address, "
                 + " emergencyContactFullName, emergencyContact) "
                 + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -107,8 +107,8 @@ public class PatientDB {
         }
         return patientId;
     }
-    
-       public void insertDefaultPatientIfEmpty() {
+
+    public void insertDefaultPatientIfEmpty() {
         String countSql = "SELECT COUNT(*) FROM patient_profile";
         try (Connection c = getConnection(); PreparedStatement psCount = c.prepareStatement(countSql); ResultSet rs = psCount.executeQuery()) {
 
@@ -219,6 +219,21 @@ public class PatientDB {
         return bean;
     }
 
+    public Integer getUserIdByPatientId(int patientId) {
+        String sql = "SELECT userId FROM patient_profile WHERE patientId = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, patientId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("userId");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public List<PatientProfileBean> getPatientsByName(String name) {
         List<PatientProfileBean> list = new ArrayList<>();
         String sql = "SELECT * FROM patient_profile WHERE firstName LIKE ? OR lastName LIKE ?";
@@ -253,8 +268,8 @@ public class PatientDB {
         }
         return list;
     }
-    
-       public PatientProfileBean getPatientByHKIdOrID(String HKIDorID) {
+
+    public PatientProfileBean getPatientByHKIdOrID(String HKIDorID) {
         PatientProfileBean bean = null;
         String sql = "SELECT * FROM patient_profile WHERE hkid_id = ?";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {

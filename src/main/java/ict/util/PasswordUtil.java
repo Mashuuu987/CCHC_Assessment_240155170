@@ -14,7 +14,7 @@ import java.security.SecureRandom;
  */
 public class PasswordUtil {
 
-    // 產生隨機 salt（16 bytes），並回傳十六進位字串
+    // create random salt（16 bytes），return hex
     private static String generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
@@ -22,7 +22,7 @@ public class PasswordUtil {
         return bytesToHex(salt);
     }
 
-    // byte[] -> hex 字串
+    // byte[] -> hex
     private static String bytesToHex(byte[] bytes) {
         StringBuilder sb = new StringBuilder();
         for (byte b : bytes) {
@@ -31,7 +31,7 @@ public class PasswordUtil {
         return sb.toString();
     }
 
-    // 使用 SHA-256 計算 hash
+    // use SHA-256 calculate hash
     private static String sha256(String input) {
         try {
             MessageDigest md = MessageDigest.getInstance("SHA-256");
@@ -42,14 +42,14 @@ public class PasswordUtil {
         }
     }
 
-    // 註冊/改密碼用：明文密碼 -> "salt:hash"
+    // for register and change password, password -> "salt:hash"
     public static String hashPassword(String plainPassword) {
         String salt = generateSalt();
         String hash = sha256(salt + plainPassword);
         return salt + ":" + hash;
     }
 
-    // 登入/驗證用：用輸入的密碼對比 DB 裡的 "salt:hash"
+    // for login and check, use input password to check DB -> "salt:hash"
     public static boolean verifyPassword(String plainPassword, String storedValue) {
         if (storedValue == null || !storedValue.contains(":")) {
             return false;

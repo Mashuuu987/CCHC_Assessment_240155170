@@ -47,6 +47,7 @@ public class AppointmentRecordDetailsController extends HttpServlet {
         patientDb = new PatientDB(dbUrl, dbUser, dbPassword);
         clinicDb = new ClinicDB(dbUrl, dbUser, dbPassword);
         serviceDb = new ServiceDB(dbUrl, dbUser, dbPassword);
+        staffDb = new StaffDB(dbUrl, dbUser, dbPassword);
     }
 
     @Override
@@ -61,6 +62,7 @@ public class AppointmentRecordDetailsController extends HttpServlet {
 
         boolean isPatient = UserCheckUtil.hasRole(user, "PATIENT");
         boolean isStaff = UserCheckUtil.hasRole(user, "STAFF");
+        PatientProfileBean patient = null;
 
         if (!isPatient && !isStaff) {
             response.sendRedirect(request.getContextPath() + "/PublicHome");
@@ -93,12 +95,13 @@ public class AppointmentRecordDetailsController extends HttpServlet {
             return;
         }
 
-        PatientProfileBean patient = patientDb.getPatientByUserId(user.getUserId());
-
-        if (isPatient && patient == null || appt.getPatientId() != patient.getPatientId()) {
-            request.setAttribute("error", "You are not allowed to view this appointment.");
-            request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
-            return;
+        if (isPatient) {
+            patient = patientDb.getPatientByUserId(user.getUserId());
+            if (isPatient && (patient == null || appt.getPatientId() != patient.getPatientId())) {
+                request.setAttribute("error", "You are not allowed to view this appointment.");
+                request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
+                return;
+            }
         }
         request.setAttribute("patient", patient);
 
@@ -109,7 +112,7 @@ public class AppointmentRecordDetailsController extends HttpServlet {
                 request.getRequestDispatcher("/common/appointmentRecordDetails.jsp").forward(request, response);
                 return;
             }
-            request.setAttribute("staff", staff);
+            patient = patientDb.getPatientById(appt.getPatientId());
         }
 
         ClinicBean clinic = clinicDb.getClinicByID(appt.getClinicId());
