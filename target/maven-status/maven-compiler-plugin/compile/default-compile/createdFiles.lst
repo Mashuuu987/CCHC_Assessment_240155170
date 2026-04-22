@@ -23,6 +23,7 @@ ict\servlet\patient\PatientHomeController.class
 ict\bean\IncidentLogBean.class
 ict\bean\UserInfoBean.class
 ict\servlet\common\SettingsController.class
+ict\servlet\staff\IncidentController.class
 ict\servlet\staff\QueueSettingController.class
 ict\servlet\common\NotificationController.class
 ict\servlet\patient\PatientRegisterController.class

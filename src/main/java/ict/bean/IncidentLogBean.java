@@ -16,22 +16,27 @@ public class IncidentLogBean implements Serializable {
     private int staffId;
     private int clinicId;
     private Integer serviceId;
+    private String title;
     private String description;
     private String severity;
     private String status;
+    private String occurred;
     private String createdAt;
 
     public IncidentLogBean() {
     }
 
-    public IncidentLogBean(int incidentId, int staffId, int clinicId, Integer serviceId, String description, String severity, String status, String createdAt) {
+    public IncidentLogBean(int incidentId, int staffId, int clinicId, Integer serviceId, String title, String description,
+            String severity, String status, String occurred, String createdAt) {
         this.incidentId = incidentId;
         this.staffId = staffId;
         this.clinicId = clinicId;
         this.serviceId = serviceId;
+        this.title = title;
         this.description = description;
         this.severity = severity;
         this.status = status;
+        this.occurred = occurred;
         this.createdAt = createdAt;
     }
 
@@ -67,6 +72,14 @@ public class IncidentLogBean implements Serializable {
         this.serviceId = serviceId;
     }
 
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -91,6 +104,14 @@ public class IncidentLogBean implements Serializable {
         this.status = status;
     }
 
+    public String getOccurred() {
+        return occurred;
+    }
+
+    public void setOccurred(String occurred) {
+        this.occurred = occurred;
+    }
+    
     public String getCreatedAt() {
         return createdAt;
     }

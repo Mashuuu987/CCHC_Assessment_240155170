@@ -11,7 +11,7 @@
     <head>
         <title>CCHC</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" href="<%= request.getContextPath() %>/css/common.css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/common.css">
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/index.css">
     </head>
     <body>
@@ -31,37 +31,32 @@
             <h2 class="page-title">Admin feature overview</h2>
 
             <div class="feature-grid">
-                <a class="feature-card" href="<%= ctx + "/AdminHome"%>">
-                    <h2 class="feature-card-title">Appointment Service</h2>
-                    <p class="feature-card-text">Schedule appointments for outpatient visits or examinations, and manage future appointments.</p>
-                </a>
 
                 <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInfomation"%>">
                     <h2 class="feature-card-title">Clinic and Service Information</h2>
-                    <p class="feature-card-text">Browse the various community clinics, their opening hours, and the services they offer.</p>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/QueueSetting"%>">
                     <h2 class="feature-card-title">Queue Settings</h2>
-                    <p class="feature-card-text">Enable or disable queue ticket issuing for each clinic and service.</p>
+                </a>
+
+                <a class="feature-card" href="<%= ctx + "/Incident"%>">
+                    <h2 class="feature-card-title">Incident Log</h2>
                 </a>
 
                 <a class="feature-card notification-card" href="<%= ctx + "/Notification"%>">
-                    <% if (notifUnreadCount != null && notifUnreadCount > 0 && notifBadgeClass != null) { %>
-                    <div class="notification-badge <%= notifBadgeClass %>"><%= notifUnreadCount %></div>
+                    <% if (notifUnreadCount != null && notifUnreadCount > 0 && notifBadgeClass != null) {%>
+                    <div class="notification-badge <%= notifBadgeClass%>"><%= notifUnreadCount%></div>
                     <% }%>
                     <h2 class="feature-card-title">Notification Center</h2>
-                    <p class="feature-card-text">View appointment reminders and general notifications sent by the system.</p>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/Login"%>">
                     <h2 class="feature-card-title">Appointment and medical records</h2>
-                    <p class="feature-card-text">Viewing past appointments and medical records makes it easier to follow up.</p>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/Settings"%>">
                     <h2 class="feature-card-title">Settings</h2>
-                    <p class="feature-card-text">Manage profile and change your password.</p>
                 </a>
             </div>
 
