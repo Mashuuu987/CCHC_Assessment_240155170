@@ -44,6 +44,10 @@
                     <h2 class="feature-card-title">Appointment and medical records</h2>
                 </a>
 
+                <a class="feature-card" href="<%= ctx + "/Incident"%>">
+                    <h2 class="feature-card-title">Incident Log</h2>
+                </a>
+
                 <a class="feature-card notification-card" href="<%= ctx + "/Notification"%>">
                     <% if (notifUnreadCount != null && notifUnreadCount > 0 && notifBadgeClass != null) {%>
                     <div class="notification-badge <%= notifBadgeClass%>"><%= notifUnreadCount%></div>
