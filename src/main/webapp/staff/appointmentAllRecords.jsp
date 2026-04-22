@@ -74,7 +74,7 @@
         %>
 
         <div class="records-wrap">
-            <h2 class="records-title">My Appointment Records</h2>
+            <h2 class="records-title">Clinic Appointment Records</h2>
 
             <div class="records-search-row">
                 <input id="apptIdFilter" class="appt-filter records-filter-input" type="text" placeholder="Search ID..." />
@@ -85,7 +85,7 @@
                     <option value="CONFIRMED">Confirmed</option>
                     <option value="COMPLETED">Completed</option>
                     <option value="NO_SHOW">No Show</option>
-                    <option value="CANCELLED_BY_PATIENT">Cancelled by Me</option>
+                    <option value="CANCELLED_BY_PATIENT">Cancelled by Patient</option>
                     <option value="CANCELLED_BY_CLINIC">Cancelled by Clinic</option>
                 </select>
                 <button type="button" class="records-filter-reset" onclick="resetAppointmentFilter()">Reset</button>
