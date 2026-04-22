@@ -10,6 +10,7 @@ import ict.bean.UserInfoBean;
 import ict.db.AnnouncementsDB;
 import ict.db.AppointmentDB;
 import ict.db.ClinicDB;
+import ict.db.IncidentLogDB;
 import ict.db.NotificationDB;
 import ict.db.PatientDB;
 import ict.db.QueueTicketDB;
@@ -41,6 +42,7 @@ public class PublicHomeController extends HttpServlet {
     private NotificationDB notifDb;
     private ServiceCapacityDB capDb;
     private AnnouncementsDB annDb;
+    private IncidentLogDB incDb;
 
     @Override
     public void init() {
@@ -89,6 +91,10 @@ public class PublicHomeController extends HttpServlet {
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
         capDb.createServiceCapacityTable();
         capDb.insertDefaultCapacitiesIfEmpty();
+        
+        incDb = new IncidentLogDB(dbUrl, dbUser, dbPassword);
+        incDb.createIncidentLogTable();
+        incDb.insertDefaultIncidentIfEmpty();
     }
 
     @Override
