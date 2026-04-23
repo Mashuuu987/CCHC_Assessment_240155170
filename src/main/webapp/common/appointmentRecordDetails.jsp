@@ -105,6 +105,9 @@
                     <div class="detail-label">Appointment ID</div>
                     <div class="detail-value"><%= appointment.getAppointmentId()%></div>
 
+                    <div class="detail-label">Patient ID</div>
+                    <div class="detail-value"><%= patient != null ? patient.getPatientId() : ""%></div>
+
                     <div class="detail-label">Patient Name</div>
                     <div class="detail-value">
                         <%= patient != null ? patient.getFirstName() + " " + patient.getLastName() : ""%>
@@ -233,7 +236,7 @@
                                 </label>
                             </div>
                             <%   }
-                                    }%>
+                                }%>
                         </div>
 
                         <button id="confirmRescheduleButton" type="submit" class="btn-action btn-reschedule" <%= selectedNewDate != null ? "" : "disabled"%>>Confirm Reschedule</button>

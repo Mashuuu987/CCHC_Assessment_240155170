@@ -115,8 +115,9 @@ public class AppointmentRecordDetailsController extends HttpServlet {
                 return;
             }
             patient = patientDb.getPatientById(appt.getPatientId());
+        } else if (isAdmin) {
+            patient = patientDb.getPatientById(appt.getPatientId());
         }
-
         ClinicBean clinic = clinicDb.getClinicByID(appt.getClinicId());
         ServiceBean service = serviceDb.getServiceById(appt.getServiceId());
 
