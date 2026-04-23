@@ -155,8 +155,44 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
 }
 
+.view-only { display: inline; }
+.edit-only { display: none; }
+
+.edit-mode .view-only { display: none; }
+.edit-mode .edit-only { display: inline; }
+
+.detail-grid .view-only { display: block; }
+.detail-grid .edit-only { display: none; }
+.edit-mode .detail-grid .edit-only { display: block; }
+
+.actions-view{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.actions-edit{
+    display: none;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: flex-start;
+}
+.edit-mode .actions-view{ display:none; }
+.edit-mode .actions-edit{ display:flex; }
+
+.edit-two-col{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 6px;
+}
+
+
 @media (max-width: 720px){
     .detail-grid{
+        grid-template-columns: 1fr;
+    }
+    .edit-two-col{
         grid-template-columns: 1fr;
     }
 }
