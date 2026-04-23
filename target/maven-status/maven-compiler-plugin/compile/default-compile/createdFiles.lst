@@ -14,6 +14,7 @@ ict\servlet\staff\StaffHomeController.class
 ict\servlet\common\LoginController.class
 ict\bean\NotificationBean.class
 ict\servlet\common\QueueController.class
+ict\servlet\admin\AdminUserDetailController.class
 ict\util\UserCheckUtil.class
 ict\db\IncidentLogDB.class
 ict\db\QueueTicketDB.class

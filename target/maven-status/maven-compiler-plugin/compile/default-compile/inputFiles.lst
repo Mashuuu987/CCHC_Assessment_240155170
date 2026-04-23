@@ -2,8 +2,8 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\patient\BookAppointmentController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\AnnouncementsBean.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\PatientProfileBean.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\admin\AdminUserDetailController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\IncidentLogDB.java
-C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\AppointmentRecordStaffActionController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\IncidentController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\QueueSettingController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\QueueController.java
@@ -13,6 +13,7 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\admin\AdminHomeController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\patient\AppointmentRecordsPatientController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\PatientDB.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\admin\AdminUserListController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\ClinicBean.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\NotificationController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\ServiceBean.java
@@ -32,7 +33,8 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\AppointmentDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\AppointmentRecordDetailsController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\PublicHomeController.java
-C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\AppointmentRecordsStaffController.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\AppointmentRecordsStaffAdminController.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\AppointmentRecordStaffAdminActionController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\patient\PatientRegisterController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\ServiceDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\IncidentDetailController.java
