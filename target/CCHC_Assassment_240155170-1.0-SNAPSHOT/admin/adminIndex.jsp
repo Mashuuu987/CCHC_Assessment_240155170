@@ -32,8 +32,8 @@
 
             <div class="feature-grid">
 
-                <a class="feature-card" href="<%= ctx + "/Login"%>">
-                    <h2 class="feature-card-title">Appointment and medical records</h2>
+                <a class="feature-card" href="<%= ctx + "/AppointmentRecordsStaffAdmin"%>">
+                    <h2 class="feature-card-title">All Clinic Appointment Records</h2>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/QueueSetting"%>">
@@ -43,9 +43,9 @@
                 <a class="feature-card" href="<%= ctx + "/Incident"%>">
                     <h2 class="feature-card-title">Incident Log</h2>
                 </a>
-
-                <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInfomation"%>">
-                    <h2 class="feature-card-title">Clinic and Service Information</h2>
+                    
+                <a class="feature-card" href="<%= ctx + "/AdminUserList"%>">
+                    <h2 class="feature-card-title">User List</h2>
                 </a>
 
                 <a class="feature-card notification-card" href="<%= ctx + "/Notification"%>">

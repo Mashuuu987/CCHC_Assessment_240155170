@@ -68,6 +68,7 @@
 
             Boolean isPatient = (Boolean) request.getAttribute("isPatient");
             Boolean isStaff = (Boolean) request.getAttribute("isStaff");
+            Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
         %>
         <div class="detail-wrap">
             <h2>Appointment Detail</h2>
@@ -155,31 +156,31 @@
                     <a class="btn-action btn-back" href="<%= request.getContextPath()%>/AppointmentRecordsPatient">Back</a>
                 </div>
 
-                <% } else if (isStaff != null && isStaff) {%>
+                <% } else if (isStaff != null && isStaff || isAdmin != null && isAdmin) {%>
 
-                <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordStaffAction" class="inline-form"
+                <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordStaffAdminAction" class="inline-form"
                       onsubmit="return confirm('Are you sure you want to confirm this appointment?');">
                     <input type="hidden" name="action" value="confirm" />
                     <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
                     <button type="submit" class="btn-action btn-reschedule">Confirm</button>
                 </form>
 
-                <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordStaffAction" class="inline-form"
+                <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordStaffAdminAction" class="inline-form"
                       onsubmit="return confirm('Are you sure you want to mark complete with this appointment?');">
                     <input type="hidden" name="action" value="complete" />
                     <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
                     <button type="submit" class="btn-action btn-reschedule">Completed</button>
                 </form>
 
-                <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordStaffAction" class="inline-form"
+                <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordStaffAdminAction" class="inline-form"
                       onsubmit="return confirm('Are you sure you want to mark no show with this appointment?');">
                     <input type="hidden" name="action" value="noShow" />
                     <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />
                     <button type="submit" class="btn-action btn-cancel">No Show</button>
                 </form>
-                <a class="btn-action btn-back" href="<%= request.getContextPath()%>/AppointmentRecordsStaff">Back</a>
+                <a class="btn-action btn-back" href="<%= request.getContextPath()%>/AppointmentRecordsStaffAdmin">Back</a>
             </div>
-            <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordStaffAction" class="inline-form cancel-panel"
+            <form method="post" action="<%= request.getContextPath()%>/AppointmentRecordStaffAdminAction" class="inline-form cancel-panel"
                   onsubmit="return confirm('Are you sure you want to cancel this appointment?');">
                 <input type="hidden" name="action" value="cancelByClinic" />
                 <input type="hidden" name="appointmentId" value="<%= appointment.getAppointmentId()%>" />

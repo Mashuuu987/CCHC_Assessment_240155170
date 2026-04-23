@@ -61,6 +61,29 @@ public class AppointmentDB {
         }
     }
 
+    public List<AppointmentBean> getAllAppointments() {
+        List<AppointmentBean> list = new ArrayList<>();
+        String sql = "SELECT * FROM appointment ORDER BY createdAt DESC";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
+
+            while (rs.next()) {
+                AppointmentBean a = new AppointmentBean();
+                a.setAppointmentId(rs.getInt("appointmentId"));
+                a.setPatientId(rs.getInt("patientId"));
+                a.setClinicId(rs.getInt("clinicId"));
+                a.setServiceId(rs.getInt("serviceId"));
+                a.setAppointmentDate(rs.getString("appointmentDate"));
+                a.setTimeSlot(rs.getString("timeSlot"));
+                a.setStatus(rs.getString("status"));
+                a.setCreatedAt(rs.getString("createdAt"));
+                list.add(a);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public List<AppointmentBean> getAppointmentsByPatientId(int patientId) {
         List<AppointmentBean> list = new ArrayList<>();
         String sql = "SELECT * FROM appointment WHERE patientId = ? ORDER BY appointmentDate, timeSlot";

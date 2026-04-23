@@ -248,6 +248,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
   display: inline-block;
 }
 
+.records-search-form{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    width:100%;
+}
 
 @media (max-width: 900px){
     .records-filter-input, .records-filter-select{

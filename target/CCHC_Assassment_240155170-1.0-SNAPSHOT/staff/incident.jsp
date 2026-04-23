@@ -92,7 +92,7 @@
             <% }%>
 
             <div class="records-search-row">
-                <form method="get" action="<%= ctx%>/Incident" style="display:flex; flex-wrap:wrap; gap:8px; width:100%;">
+                <form method="get" action="<%= ctx%>/Incident" class="records-search-form">
                     <% if (isAdmin != null && isAdmin) { %>
                     <select class="records-filter-select" name="clinicId">
                         <option value="">All clinics</option>

@@ -62,15 +62,17 @@ public class AppointmentRecordDetailsController extends HttpServlet {
 
         boolean isPatient = UserCheckUtil.hasRole(user, "PATIENT");
         boolean isStaff = UserCheckUtil.hasRole(user, "STAFF");
+        boolean isAdmin = UserCheckUtil.hasRole(user, "ADMIN");
         PatientProfileBean patient = null;
 
-        if (!isPatient && !isStaff) {
+        if (!isPatient && !isStaff && !isAdmin) {
             response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
 
         request.setAttribute("isPatient", isPatient);
         request.setAttribute("isStaff", isStaff);
+        request.setAttribute("isAdmin", isAdmin);
 
         String idStr = request.getParameter("appointmentId");
         if (idStr == null || idStr.isEmpty()) {

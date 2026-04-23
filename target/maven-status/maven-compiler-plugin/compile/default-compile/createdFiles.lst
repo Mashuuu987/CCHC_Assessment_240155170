@@ -2,6 +2,7 @@ ict\servlet\common\ClinicAndServiceInfomationController.class
 ict\bean\AppointmentBean.class
 ict\bean\ClinicBean.class
 ict\db\UserDB.class
+ict\servlet\staff\AppointmentRecordStaffAdminActionController.class
 ict\db\AnnouncementsDB.class
 ict\util\AppointmentNotificationUtil.class
 ict\servlet\PublicHomeController.class
@@ -22,6 +23,7 @@ ict\db\ClinicDB.class
 ict\servlet\patient\PatientHomeController.class
 ict\bean\IncidentLogBean.class
 ict\bean\UserInfoBean.class
+ict\servlet\staff\AppointmentRecordsStaffAdminController.class
 ict\servlet\common\SettingsController.class
 ict\servlet\staff\IncidentController.class
 ict\servlet\staff\QueueSettingController.class
@@ -33,12 +35,11 @@ ict\servlet\patient\BookAppointmentController.class
 ict\servlet\staff\IncidentDetailController.class
 ict\servlet\staff\CreateIncidentController.class
 ict\db\ServiceCapacityDB.class
+ict\servlet\admin\AdminUserListController.class
 ict\util\PasswordUtil.class
 ict\servlet\patient\AppointmentRecordPatientActionController.class
 ict\db\PatientDB.class
-ict\servlet\staff\AppointmentRecordStaffActionController.class
 ict\bean\ServiceBean.class
-ict\servlet\staff\AppointmentRecordsStaffController.class
 ict\tag\HeadingTag.class
 ict\bean\ServiceCapacityBean.class
 ict\servlet\common\AnnouncementsController.class
