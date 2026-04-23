@@ -32,8 +32,8 @@
 
             <div class="feature-grid">
 
-                <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInfomation"%>">
-                    <h2 class="feature-card-title">Clinic and Service Information</h2>
+                <a class="feature-card" href="<%= ctx + "/Login"%>">
+                    <h2 class="feature-card-title">Appointment and medical records</h2>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/QueueSetting"%>">
@@ -44,15 +44,15 @@
                     <h2 class="feature-card-title">Incident Log</h2>
                 </a>
 
+                <a class="feature-card" href="<%= ctx + "/ClinicAndServiceInfomation"%>">
+                    <h2 class="feature-card-title">Clinic and Service Information</h2>
+                </a>
+
                 <a class="feature-card notification-card" href="<%= ctx + "/Notification"%>">
                     <% if (notifUnreadCount != null && notifUnreadCount > 0 && notifBadgeClass != null) {%>
                     <div class="notification-badge <%= notifBadgeClass%>"><%= notifUnreadCount%></div>
                     <% }%>
                     <h2 class="feature-card-title">Notification Center</h2>
-                </a>
-
-                <a class="feature-card" href="<%= ctx + "/Login"%>">
-                    <h2 class="feature-card-title">Appointment and medical records</h2>
                 </a>
 
                 <a class="feature-card" href="<%= ctx + "/Settings"%>">

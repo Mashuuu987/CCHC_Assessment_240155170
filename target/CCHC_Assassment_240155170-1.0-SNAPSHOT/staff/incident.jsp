@@ -206,17 +206,19 @@
                         <td><span class="inc-pill st-<%= st.toLowerCase()%>"><%= st%></span></td>
 
                         <td>
-                            <a class="btn-details"
-                               href="<%= ctx%>/IncidentDetail?incidentId=<%= r.get("incidentId")%>">Detail</a>
+                            <div class="action-cell">
+                                <a class="btn-details"
+                                   href="<%= ctx%>/IncidentDetail?incidentId=<%= r.get("incidentId")%>">Detail</a>
 
-                            <% if (isAdmin != null && isAdmin && "OPEN".equalsIgnoreCase(st)) {%>
-                            <form method="post" action="<%= ctx%>/Incident" style="display:inline;"
-                                  onsubmit="return confirm('Close this incident?');">
-                                <input type="hidden" name="action" value="close">
-                                <input type="hidden" name="incidentId" value="<%= r.get("incidentId")%>">
-                                <button class="btn-danger" type="submit">Close</button>
-                            </form>
-                            <% } %>
+                                <% if (isAdmin != null && isAdmin && "OPEN".equalsIgnoreCase(st)) {%>
+                                <form method="post" action="<%= ctx%>/Incident" style="display:inline;"
+                                      onsubmit="return confirm('Close this incident?');">
+                                    <input type="hidden" name="action" value="close">
+                                    <input type="hidden" name="incidentId" value="<%= r.get("incidentId")%>">
+                                    <button class="btn-danger" type="submit">Close</button>
+                                </form>
+                                <% } %>
+                            </div>
                         </td>
                     </tr>
                     <%     }

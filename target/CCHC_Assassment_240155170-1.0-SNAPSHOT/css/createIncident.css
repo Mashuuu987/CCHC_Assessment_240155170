@@ -1,0 +1,111 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2026/04/23, 3:12:47
+    Author     : amzte
+*/
+.cr-wrap{
+    max-width: 900px;
+    margin: 26px auto;
+    padding: 0 16px;
+}
+
+.cr-head{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-end;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.cr-title{
+    margin: 0;
+    font-size: 26px;
+}
+
+.cr-sub{
+    margin: 6px 0 0 0;
+    color:#6b7280;
+    font-size: 13px;
+}
+
+.cr-card{
+    background:#fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.cr-form{
+    display:grid;
+    gap: 12px;
+}
+
+.cr-row{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.cr-field{
+    display:grid;
+    gap: 6px;
+}
+
+.cr-label{
+    font-weight: 700;
+    color:#374151;
+    font-size: 13px;
+}
+
+.cr-readonly{
+    padding: 10px 12px;
+    border-radius: 8px;
+    background:#f9fafb;
+    border: 1px solid #e5e7eb;
+    color:#111827;
+    font-size: 13px;
+}
+
+.cr-hint{
+    font-size: 12px;
+    color:#6b7280;
+}
+
+.cr-textarea{
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    resize: vertical;
+    outline: none;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.cr-textarea:focus{
+    border-color:#007bff;
+    box-shadow: 0 0 0 2px rgba(59,130,246,0.1);
+}
+
+.cr-actions{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cr-actions-bottom{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items:center;
+    margin-top: 6px;
+}
+
+@media (max-width: 720px){
+    .cr-row{
+        grid-template-columns: 1fr;
+    }
+}

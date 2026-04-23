@@ -31,6 +31,7 @@ ict\db\QueueSettingDB.class
 ict\db\NotificationDB.class
 ict\servlet\patient\BookAppointmentController.class
 ict\servlet\staff\IncidentDetailController.class
+ict\servlet\staff\CreateIncidentController.class
 ict\db\ServiceCapacityDB.class
 ict\util\PasswordUtil.class
 ict\servlet\patient\AppointmentRecordPatientActionController.class
