@@ -156,4 +156,53 @@ public class AnnouncementsDB {
                 rs.getString("updatedAt")
         );
     }
+
+    public AnnouncementsBean getAnnouncementById(int announcementId) {
+        String sql = "SELECT * FROM announcement WHERE announcementId = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, announcementId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return mapBean(rs);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public boolean updateAnnouncement(AnnouncementsBean a) {
+        String sql = "UPDATE announcement SET title = ?, content = ?, type = ?, status = ?, publishTime = ? "
+                + "WHERE announcementId = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setString(1, a.getTitle());
+            ps.setString(2, a.getContent());
+            ps.setString(3, a.getType());
+            ps.setString(4, a.getStatus());
+
+            if (a.getPublishTime() == null || a.getPublishTime().isBlank()) {
+                ps.setNull(5, Types.TIMESTAMP);
+            } else {
+                ps.setString(5, a.getPublishTime());
+            }
+
+            ps.setInt(6, a.getAnnouncementId());
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    public boolean deleteAnnouncement(int announcementId) {
+        String sql = "DELETE FROM announcement WHERE announcementId = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, announcementId);
+            return ps.executeUpdate() > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }

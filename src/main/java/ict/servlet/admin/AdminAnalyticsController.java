@@ -4,11 +4,6 @@
  */
 package ict.servlet.admin;
 
-/**
- *
- * @author amzte
- */
-
 import ict.bean.ClinicBean;
 import ict.bean.ServiceBean;
 import ict.bean.UserInfoBean;
@@ -29,6 +24,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+/**
+ *
+ * @author amzte
+ */
+
 
 @WebServlet(name="AdminAnalyticsController", urlPatterns={"/AdminAnalytics"})
 public class AdminAnalyticsController extends HttpServlet {
