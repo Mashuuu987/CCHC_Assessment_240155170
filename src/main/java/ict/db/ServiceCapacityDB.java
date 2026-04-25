@@ -178,7 +178,7 @@ public class ServiceCapacityDB {
         }
         return list;
     }
-    
+
     public List<ServiceCapacityBean> getAllServiceCapacity() {
         List<ServiceCapacityBean> list = new ArrayList<>();
         String sql = "SELECT * FROM service_capacity";
@@ -200,5 +200,17 @@ public class ServiceCapacityDB {
             e.printStackTrace();
         }
         return list;
+    }
+
+    public boolean deleteCapacity(int capacityId) {
+        String sql = "DELETE FROM service_capacity WHERE capacityId = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, capacityId);
+            int rows = ps.executeUpdate();
+            return rows > 0;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 }

@@ -39,7 +39,7 @@ public class AnnouncementsDB {
         }
         return DriverManager.getConnection(url, username, password);
     }
-    
+
     public void createAnnouncementTable() {
         String sql = "CREATE TABLE IF NOT EXISTS announcement ("
                 + "announcementId INT AUTO_INCREMENT, "
@@ -58,8 +58,8 @@ public class AnnouncementsDB {
             e.printStackTrace();
         }
     }
-    
-     public int createAnnouncement(String title,String content,String type,String status,String publishTime) {
+
+    public int createAnnouncement(String title, String content, String type, String status, String publishTime) {
 
         int announcementId = -1;
         String sql = "INSERT INTO announcement (title, content, type, status, publishTime) "
@@ -69,13 +69,13 @@ public class AnnouncementsDB {
             ps.setString(2, content);
             ps.setString(3, type);
             ps.setString(4, status);
-            
+
             if (publishTime == null || publishTime.isEmpty()) {
                 ps.setNull(5, Types.TIMESTAMP);
             } else {
                 ps.setString(5, publishTime);
             }
-            
+
             int rows = ps.executeUpdate();
             if (rows > 0) {
                 try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -89,8 +89,8 @@ public class AnnouncementsDB {
         }
         return announcementId;
     }
-     
-     public void insertDefaultAnnouncementsIfEmpty() {
+
+    public void insertDefaultAnnouncementsIfEmpty() {
         String countSql = "SELECT COUNT(*) FROM announcement";
         try (Connection c = getConnection(); PreparedStatement psCount = c.prepareStatement(countSql); ResultSet rs = psCount.executeQuery()) {
 
@@ -110,16 +110,15 @@ public class AnnouncementsDB {
             e.printStackTrace();
         }
     }
-     
-     public List<AnnouncementsBean> getLatestVisibleAnnouncements(int limit) {
+
+    public List<AnnouncementsBean> getLatestVisibleAnnouncements(int limit) {
         List<AnnouncementsBean> list = new ArrayList<>();
         String sql = "SELECT * FROM announcement "
                 + "WHERE status = 'PUBLISHED' "
                 + "AND (publishTime IS NULL OR publishTime <= NOW()) "
                 + "ORDER BY publishTime DESC, announcementId DESC "
                 + "LIMIT ?";
-        try (Connection c = getConnection();
-             PreparedStatement ps = c.prepareStatement(sql)) {
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setInt(1, limit);
             try (ResultSet rs = ps.executeQuery()) {
                 while (rs.next()) {
@@ -131,13 +130,11 @@ public class AnnouncementsDB {
         }
         return list;
     }
-     
-     public List<AnnouncementsBean> getAllAnnouncementsForAdmin() {
+
+    public List<AnnouncementsBean> getAllAnnouncementsForAdmin() {
         List<AnnouncementsBean> list = new ArrayList<>();
         String sql = "SELECT * FROM announcement ORDER BY createdAt DESC, announcementId DESC";
-        try (Connection c = getConnection();
-             PreparedStatement ps = c.prepareStatement(sql);
-             ResultSet rs = ps.executeQuery()) {
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql); ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 list.add(mapBean(rs));
             }

@@ -284,4 +284,24 @@ public class AppointmentDB {
         }
         return -1;
     }
+
+    public int countActiveFutureAppointmentsByClinicServiceTimeSlot(int clinicId, int serviceId, String timeSlot) {
+        String sql = "SELECT COUNT(*) FROM appointment "
+                + "WHERE clinicId = ? AND serviceId = ? AND timeSlot = ? "
+                + "AND appointmentDate >= CURDATE() "
+                + "AND status NOT IN ('CANCELLED_BY_PATIENT','CANCELLED_BY_CLINIC')";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, timeSlot);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }

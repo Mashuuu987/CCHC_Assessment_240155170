@@ -155,15 +155,29 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.1);
 }
 
-.view-only { display: inline; }
-.edit-only { display: none; }
+.view-only {
+    display: inline;
+}
+.edit-only {
+    display: none;
+}
 
-.edit-mode .view-only { display: none; }
-.edit-mode .edit-only { display: inline; }
+.edit-mode .view-only {
+    display: none;
+}
+.edit-mode .edit-only {
+    display: inline;
+}
 
-.detail-grid .view-only { display: block; }
-.detail-grid .edit-only { display: none; }
-.edit-mode .detail-grid .edit-only { display: block; }
+.detail-grid .view-only {
+    display: block;
+}
+.detail-grid .edit-only {
+    display: none;
+}
+.edit-mode .detail-grid .edit-only {
+    display: block;
+}
 
 .actions-view{
     display: flex;
@@ -177,8 +191,12 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     flex-wrap: wrap;
     align-items: flex-start;
 }
-.edit-mode .actions-view{ display:none; }
-.edit-mode .actions-edit{ display:flex; }
+.edit-mode .actions-view{
+    display:none;
+}
+.edit-mode .actions-edit{
+    display:flex;
+}
 
 .edit-two-col{
     display: grid;
@@ -187,6 +205,124 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     margin-top: 6px;
 }
 
+.records-filter-input,
+.records-filter-select{
+    flex: 1;
+    min-width: 120px;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.records-filter-input:focus,
+.records-filter-select:focus{
+    outline:none;
+    border-color:#007bff;
+    box-shadow: 0 0 0 2px rgba(59,130,246,0.1);
+}
+
+.records-filter-reset{
+    padding: 8px 16px;
+    background:#007bff;
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    transition: background 0.2s;
+}
+.records-filter-reset:hover{
+    background:#2563eb;
+}
+
+.records-table{
+    width:100%;
+    border-collapse: collapse;
+    background:#fff;
+    border-radius:8px;
+    overflow:hidden;
+}
+
+.records-table th,
+.records-table td{
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 13px;
+    vertical-align: top;
+}
+
+.records-table th{
+    text-align:left;
+    background:#f9fafb;
+    color:#374151;
+}
+
+.empty{
+    color:#6b7280;
+    background:#fff;
+    border-radius:8px;
+    padding:16px;
+}
+
+.action-cell{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap;
+    white-space: nowrap;
+}
+
+.action-cell form{
+    margin: 0;
+    display: inline-flex;
+}
+
+.action-cell a,
+.action-cell button{
+    display: inline-block;
+}
+
+.btn-details{
+    display: inline-block;
+    padding: 6px 12px;
+    background: #3b82f6;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    transition: background 0.2s;
+}
+
+.btn-details:hover{
+    background: #2563eb;
+}
+
+.btn-danger{
+    display:inline-block;
+    padding: 8px 16px;
+    background:#dc2626;
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+}
+.btn-danger:hover{
+    background:#b91c1c;
+}
+
+@media (max-width: 900px){
+    .records-filter-input,
+    .records-filter-select{
+        min-width: 160px;
+        flex: 1 1 160px;
+    }
+}
 
 @media (max-width: 720px){
     .detail-grid{
@@ -196,4 +332,3 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
         grid-template-columns: 1fr;
     }
 }
-
