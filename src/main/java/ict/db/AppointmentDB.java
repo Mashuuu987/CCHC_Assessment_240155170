@@ -304,4 +304,21 @@ public class AppointmentDB {
         }
         return 0;
     }
+
+    public int countActiveAppointmentsByPatientId(int patientId) {
+        String sql = "SELECT COUNT(*) FROM appointment "
+                + "WHERE patientId = ? AND status IN ('REQUESTED','CONFIRMED')";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, patientId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

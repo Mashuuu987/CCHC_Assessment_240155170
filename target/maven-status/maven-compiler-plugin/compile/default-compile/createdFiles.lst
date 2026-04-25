@@ -32,6 +32,7 @@ ict\servlet\staff\AppointmentRecordsStaffAdminController.class
 ict\servlet\common\SettingsController.class
 ict\servlet\staff\IncidentController.class
 ict\servlet\staff\QueueSettingController.class
+ict\servlet\admin\AdminPolicySettingsController.class
 ict\servlet\common\NotificationController.class
 ict\servlet\patient\PatientRegisterController.class
 ict\db\QueueSettingDB.class
@@ -42,6 +43,7 @@ ict\servlet\staff\CreateIncidentController.class
 ict\db\ServiceCapacityDB.class
 ict\servlet\admin\AdminUserListController.class
 ict\util\PasswordUtil.class
+ict\db\PolicyDB.class
 ict\servlet\patient\AppointmentRecordPatientActionController.class
 ict\db\PatientDB.class
 ict\bean\ServiceBean.class
