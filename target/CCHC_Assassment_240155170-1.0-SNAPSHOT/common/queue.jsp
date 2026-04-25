@@ -268,18 +268,24 @@
                 </div>
             </div>
 
+
             <div class="queue-panel queue-section-space">
                 <h2 class="section-title">Available queue rules</h2>
                 <div class="clinic-list">
-                    <% if (clinics
-                                != null) {
+                    <% if (clinics != null) {
                             for (ClinicBean clinic : clinics) {
+
                                 boolean clinicHasOpen = false;
                                 boolean clinicHasAny = false;
+
                                 if (queueSettings != null) {
                                     for (QueueSettingBean setting : queueSettings) {
                                         if (setting.getClinicId() == clinic.getClinicId()) {
-                                            clinicHasAny = true;
+
+                                            if (setting.isAllowIssueTicket()) {
+                                                clinicHasAny = true;
+                                            }
+
                                             if (setting.isEnabled() && setting.isAllowIssueTicket()) {
                                                 clinicHasOpen = true;
                                             }
@@ -287,25 +293,46 @@
                                     }
                                 }
                     %>
+
                     <div class="clinic-card">
                         <div class="clinic-info-name"><%= clinic.getName()%></div>
+
                         <% if (queueSettings != null) {
                                 for (QueueSettingBean setting : queueSettings) {
-                                    if (setting.getClinicId() == clinic.getClinicId()) {
+                                    if (setting.getClinicId() == clinic.getClinicId()
+                                            && setting.isAllowIssueTicket()) {
                         %>
-                        <div class="clinic-info-line"><%= setting.getServiceName()%> (<%= setting.getDurationMins()%> mins)</div>
+                        <div class="clinic-info-line">
+                            <%= setting.getServiceName()%> (<%= setting.getDurationMins()%> mins)
+                        </div>
                         <%         }
                                 }
-                            }%>
-                        <div class="clinic-info-line"><span class="clinic-info-label">Open:</span> <span><%= clinic.getOpenTime()%> - <%= clinic.getCloseTime()%></span></div>
-                        <div class="clinic-info-line"><span class="clinic-info-label">Closed:</span> <span><%= clinic.getCloseDay()%></span></div>
-                        <div class="clinic-info-line"><span class="clinic-info-label">Queue:</span> <span><%= (clinicHasAny && clinicHasOpen) ? "OPEN" : "CLOSED"%></span></div>
+                            }
+                        %>
+
+                        <div class="clinic-info-line">
+                            <span class="clinic-info-label">Open:</span>
+                            <span><%= clinic.getOpenTime()%> - <%= clinic.getCloseTime()%></span>
+                        </div>
+
+                        <div class="clinic-info-line">
+                            <span class="clinic-info-label">Closed:</span>
+                            <span><%= clinic.getCloseDay()%></span>
+                        </div>
+
+                        <div class="clinic-info-line">
+                            <span class="clinic-info-label">Queue:</span>
+                            <span><%= (clinicHasAny && clinicHasOpen) ? "OPEN" : "CLOSED"%></span>
+                        </div>
                     </div>
+
                     <%     }
-                        } %>
+                        }
+                    %>
                 </div>
             </div>
         </div>
+
 
         <div id="queueSettingData" style="display:none;">
             <% if (queueSettings
@@ -326,7 +353,7 @@
                   data-queue-open="<%= queueOpen%>"
                   data-max-per-day="<%= maxPerDay%>"></span>
             <%     }
-                }%>
+                    }%>
         </div>
     </body>
 </html>

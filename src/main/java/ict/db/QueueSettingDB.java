@@ -37,7 +37,7 @@ public class QueueSettingDB {
                 + "settingId INT AUTO_INCREMENT, "
                 + "clinicId INT NOT NULL, "
                 + "serviceId INT NOT NULL, "
-                + "allowIssueTicket BOOLEAN NOT NULL DEFAULT TRUE, "
+                + "allowIssueTicket BOOLEAN NOT NULL DEFAULT FALSE, "
                 + "enabled BOOLEAN NOT NULL DEFAULT TRUE, "
                 + "maxTicketsPerDay INT NOT NULL DEFAULT 0, "
                 + "PRIMARY KEY (settingId), "
@@ -213,7 +213,7 @@ public class QueueSettingDB {
     public void ensureSettingsForNewClinic(int clinicId) {
         String sql
                 = "INSERT INTO queue_setting (clinicId, serviceId, allowIssueTicket, enabled, maxTicketsPerDay) "
-                + "SELECT ?, s.serviceId, TRUE, TRUE, 0 FROM service s "
+                + "SELECT ?, s.serviceId, FALSE, TRUE, 0 FROM service s "
                 + "ON DUPLICATE KEY UPDATE settingId = settingId";
 
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -227,7 +227,7 @@ public class QueueSettingDB {
     public void ensureSettingsForNewService(int serviceId) {
         String sql
                 = "INSERT INTO queue_setting (clinicId, serviceId, allowIssueTicket, enabled, maxTicketsPerDay) "
-                + "SELECT c.clinicId, ?, TRUE, TRUE, 0 FROM clinic c "
+                + "SELECT c.clinicId, ?, FALSE, TRUE, 0 FROM clinic c "
                 + "ON DUPLICATE KEY UPDATE settingId = settingId";
 
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
