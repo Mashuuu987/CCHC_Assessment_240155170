@@ -20,7 +20,7 @@
         <meta charset="UTF-8">
         <title>Incident Log</title>
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/common.css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/incident.css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/incident-userList-clinicList.css">
     </head>
 
     <body>

@@ -15,7 +15,7 @@
         <meta charset="UTF-8">
         <title>User List</title>
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/common.css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/userList.css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/incident-userList-clinicList.css">
     </head>
     <body>
         <%@ include file="/heading.jsp" %>

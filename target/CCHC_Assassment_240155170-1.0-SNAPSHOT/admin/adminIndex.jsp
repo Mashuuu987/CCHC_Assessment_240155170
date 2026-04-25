@@ -43,9 +43,13 @@
                 <a class="feature-card" href="<%= ctx + "/Incident"%>">
                     <h2 class="feature-card-title">Incident Log</h2>
                 </a>
-                    
+
                 <a class="feature-card" href="<%= ctx + "/AdminUserList"%>">
                     <h2 class="feature-card-title">User List</h2>
+                </a>
+
+                <a class="feature-card" href="<%= ctx + "/AdminClinicList"%>">
+                    <h2 class="feature-card-title">Clinic List</h2>
                 </a>
 
                 <a class="feature-card notification-card" href="<%= ctx + "/Notification"%>">
