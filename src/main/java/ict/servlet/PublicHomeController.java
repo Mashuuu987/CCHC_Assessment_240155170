@@ -13,6 +13,7 @@ import ict.db.ClinicDB;
 import ict.db.IncidentLogDB;
 import ict.db.NotificationDB;
 import ict.db.PatientDB;
+import ict.db.PolicyDB;
 import ict.db.QueueTicketDB;
 import ict.db.QueueSettingDB;
 import ict.db.ServiceCapacityDB;
@@ -43,6 +44,7 @@ public class PublicHomeController extends HttpServlet {
     private ServiceCapacityDB capDb;
     private AnnouncementsDB annDb;
     private IncidentLogDB incDb;
+    private PolicyDB policyDb;
 
     @Override
     public void init() {
@@ -91,10 +93,14 @@ public class PublicHomeController extends HttpServlet {
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
         capDb.createServiceCapacityTable();
         capDb.insertDefaultCapacitiesIfEmpty();
-        
+
         incDb = new IncidentLogDB(dbUrl, dbUser, dbPassword);
         incDb.createIncidentLogTable();
         incDb.insertDefaultIncidentIfEmpty();
+
+        policyDb = new PolicyDB(dbUrl, dbUser, dbPassword);
+        policyDb.ensureDefaults();
+
     }
 
     @Override

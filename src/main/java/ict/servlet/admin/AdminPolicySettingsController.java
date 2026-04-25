@@ -22,7 +22,6 @@ import java.io.IOException;
 public class AdminPolicySettingsController extends HttpServlet {
 
     private PolicyDB policyDb;
-    private static final String KEY_MAX_ACTIVE = "MAX_ACTIVE_APPOINTMENTS";
 
     @Override
     public void init() {
@@ -31,9 +30,8 @@ public class AdminPolicySettingsController extends HttpServlet {
         String dbPassword = getServletContext().getInitParameter("dbPassword");
 
         policyDb = new PolicyDB(dbUrl, dbUser, dbPassword);
-        policyDb.createPolicyTable();
+        policyDb.ensureDefaults();
 
-        policyDb.insertDefaultIfMissing(KEY_MAX_ACTIVE, "3");
     }
 
     private Integer parseIntOrNull(String s) {
@@ -63,10 +61,7 @@ public class AdminPolicySettingsController extends HttpServlet {
             return;
         }
 
-        Integer maxActive = policyDb.getPolicyInt(KEY_MAX_ACTIVE);
-        if (maxActive == null) {
-            maxActive = 3;
-        }
+        int maxActive = policyDb.getMaxActiveAppointments();
 
         request.setAttribute("maxActiveAppointments", maxActive);
 
@@ -111,7 +106,7 @@ public class AdminPolicySettingsController extends HttpServlet {
             return;
         }
 
-        boolean ok = policyDb.upsertPolicyValue(KEY_MAX_ACTIVE, String.valueOf(maxActive));
+        boolean ok = policyDb.setMaxActiveAppointments(maxActive);
         request.getSession().setAttribute(ok ? "success" : "error",
                 ok ? "Policy updated successfully." : "Failed to update policy.");
 

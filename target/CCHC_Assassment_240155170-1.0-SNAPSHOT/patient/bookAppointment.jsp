@@ -74,7 +74,7 @@
                 <button type="button" class="btn-back" onclick="window.location='<%= ctx%>/PatientHome'">Back to homepage</button>
             </div>
             <% }%>
-
+<% if (success == null) { %>
             <%-- Step 1: clinic / service / date --%>
             <% if (currentStep == 1) { %>
             <form method="post" action="<%= ctx%>/BookAppointment" class="bookAppointment-form">
@@ -147,6 +147,7 @@
                 </div>
                 <% } %>
             </div>
+            <% } %>
             <% } %>
             <% } %>
 

@@ -6,6 +6,7 @@ package ict.db;
 
 import java.sql.*;
 import java.util.Optional;
+
 /**
  *
  * @author amzte
@@ -16,6 +17,9 @@ public class PolicyDB {
     private final String username;
     private final String password;
 
+    private static final String KEY_MAX_ACTIVE = "MAX_ACTIVE_APPOINTMENTS";
+    private static final String DEFAULT_MAX_ACTIVE = "3";
+
     public PolicyDB(String url, String username, String password) {
         this.url = url;
         this.username = username;
@@ -23,7 +27,10 @@ public class PolicyDB {
     }
 
     private Connection getConnection() throws SQLException {
-        try { Class.forName("com.mysql.cj.jdbc.Driver"); } catch (ClassNotFoundException e) { }
+        try {
+            Class.forName("com.mysql.cj.jdbc.Driver");
+        } catch (ClassNotFoundException e) {
+        }
         return DriverManager.getConnection(url, username, password);
     }
 
@@ -45,8 +52,8 @@ public class PolicyDB {
 
     public void insertDefaultIfMissing(String key, String value) {
         String sql = "INSERT INTO system_policy(policyKey, policyValue) "
-                   + "SELECT ?, ? WHERE NOT EXISTS "
-                   + "(SELECT 1 FROM system_policy WHERE policyKey = ?)";
+                + "SELECT ?, ? WHERE NOT EXISTS "
+                + "(SELECT 1 FROM system_policy WHERE policyKey = ?)";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, key);
             ps.setString(2, value);
@@ -62,7 +69,9 @@ public class PolicyDB {
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, key);
             try (ResultSet rs = ps.executeQuery()) {
-                if (rs.next()) return Optional.ofNullable(rs.getString(1));
+                if (rs.next()) {
+                    return Optional.ofNullable(rs.getString(1));
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -72,13 +81,17 @@ public class PolicyDB {
 
     public Integer getPolicyInt(String key) {
         return getPolicyValue(key).map(v -> {
-            try { return Integer.parseInt(v.trim()); } catch (Exception e) { return null; }
+            try {
+                return Integer.parseInt(v.trim());
+            } catch (Exception e) {
+                return null;
+            }
         }).orElse(null);
     }
 
     public boolean upsertPolicyValue(String key, String value) {
         String sql = "INSERT INTO system_policy(policyKey, policyValue) VALUES(?, ?) "
-                   + "ON DUPLICATE KEY UPDATE policyValue = VALUES(policyValue)";
+                + "ON DUPLICATE KEY UPDATE policyValue = VALUES(policyValue)";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
             ps.setString(1, key);
             ps.setString(2, value);
@@ -88,4 +101,22 @@ public class PolicyDB {
         }
         return false;
     }
+
+    public void ensureDefaults() {
+        createPolicyTable();
+        insertDefaultIfMissing(KEY_MAX_ACTIVE, DEFAULT_MAX_ACTIVE);
+    }
+
+    public int getMaxActiveAppointments() {
+        Integer v = getPolicyInt(KEY_MAX_ACTIVE);
+        if (v == null) {
+            return Integer.parseInt(DEFAULT_MAX_ACTIVE);
+        }
+        return v;
+    }
+
+    public boolean setMaxActiveAppointments(int value) {
+        return upsertPolicyValue(KEY_MAX_ACTIVE, String.valueOf(value));
+    }
+
 }

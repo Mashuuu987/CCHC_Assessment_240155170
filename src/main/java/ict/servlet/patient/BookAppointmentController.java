@@ -21,6 +21,7 @@ import ict.db.AppointmentDB;
 import ict.db.ClinicDB;
 import ict.db.NotificationDB;
 import ict.db.PatientDB;
+import ict.db.PolicyDB;
 import ict.db.ServiceCapacityDB;
 import ict.db.ServiceDB;
 import ict.util.AppointmentNotificationUtil;
@@ -45,6 +46,7 @@ public class BookAppointmentController extends HttpServlet {
     private ServiceCapacityDB capDb;
     private NotificationDB notifDb;
     private AppointmentNotificationUtil appointmentNotificationUtil;
+    private PolicyDB policyDb;
 
     @Override
     public void init() {
@@ -59,7 +61,8 @@ public class BookAppointmentController extends HttpServlet {
         capDb = new ServiceCapacityDB(dbUrl, dbUser, dbPassword);
         notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
         appointmentNotificationUtil = new AppointmentNotificationUtil(notifDb, clinicDb, serviceDb);
-
+        policyDb = new PolicyDB(dbUrl, dbUser, dbPassword);
+        policyDb.ensureDefaults();
         capDb.insertDefaultCapacitiesIfEmpty();
     }
 
@@ -359,25 +362,39 @@ public class BookAppointmentController extends HttpServlet {
                 request.setAttribute("error", "You already have an appointment for this slot (ID: "
                         + existingApptId + "). Please do not submit appointments repeatedly.");
             } else {
+
+                int maxActive = policyDb.getMaxActiveAppointments();
+                int activeCount = apptDb.countActiveAppointmentsByPatientId(patient.getPatientId());
+
+                if (activeCount >= maxActive) {
+                    request.setAttribute("error",
+                            "Booking blocked: you already have " + activeCount
+                            + " active appointments (max " + maxActive + ").");
+
+                    request.setAttribute("selectedClinicId", clinicId);
+                    request.setAttribute("selectedServiceId", serviceId);
+                    request.setAttribute("selectedDate", date);
+                    request.setAttribute("selectedTimeSlot", timeSlot);
+                    request.setAttribute("selectedClinic", findClinicById(clinicList, clinicId));
+                    request.setAttribute("selectedService", findServiceById(serviceList, serviceId));
+                    request.setAttribute("patient", patient);
+                    request.setAttribute("currentStep", 3);
+
+                    request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
+                    return; 
+                }
+
                 int apptId = apptDb.createAppointment(patient.getPatientId(), clinicId, serviceId, date, timeSlot, "REQUESTED");
                 if (apptId <= 0) {
                     request.setAttribute("error", "Failed to create appointment. Please try again.");
                 } else {
-                    request.setAttribute("success", "Appointment Requested (ID: " + apptId + "), pending confirmation. You will receive a notification once the appointment is confirmed or if there are any updates.");
+                    request.setAttribute("success", "Appointment Requested (ID: " + apptId
+                            + "), pending confirmation. You will receive a notification once the appointment is confirmed or if there are any updates.");
                     appointmentNotificationUtil.notifyAppointmentRequestedPending(
                             user.getUserId(), clinicId, serviceId, apptId, date, timeSlot);
                 }
             }
-
-            request.setAttribute("selectedTimeSlot", timeSlot);
-            request.setAttribute("patient", patient);
-            request.setAttribute("currentStep", 3);
-            request.setAttribute("selectedClinic", findClinicById(clinicList, clinicId));
-            request.setAttribute("selectedService", findServiceById(serviceList, serviceId));
             request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
-            return;
         }
-
-        request.getRequestDispatcher("/patient/bookAppointment.jsp").forward(request, response);
     }
 }
