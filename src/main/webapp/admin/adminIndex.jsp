@@ -32,6 +32,10 @@
 
             <div class="feature-grid">
 
+                <a class="feature-card" href="<%= ctx + "/AdminDashboard"%>">
+                    <h2 class="feature-card-title">Dashboard</h2>
+                </a>
+                    
                 <a class="feature-card" href="<%= ctx + "/AppointmentRecordsStaffAdmin"%>">
                     <h2 class="feature-card-title">All Clinic Appointment Records</h2>
                 </a>

@@ -18,3 +18,23 @@ body {
     margin: 40px auto;
     padding: 0 20px 40px 20px;
 }
+
+.btn-action {
+    padding: 10px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-reschedule {
+    background: #007bff;
+    color: #fff;
+}
+
+.btn-back {
+    background: #6b7280;
+    color: #fff;
+}

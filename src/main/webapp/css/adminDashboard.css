@@ -1,0 +1,86 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2026/04/25, 17:08:11
+    Author     : amzte
+*/
+
+.dash-wrap{
+  max-width: 1100px;
+  margin: 26px auto;
+  padding: 0 16px;
+}
+
+.dash-head{
+  display:flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.dash-title{
+  margin: 0;
+  font-size: 28px;
+}
+
+.dash-sub{
+  margin: 6px 0 0 0;
+  color:#6b7280;
+  font-size: 13px;
+}
+
+.dash-actions{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.dash-grid{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.dash-card{
+  display:block;
+  background:#fff;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  padding: 16px;
+  text-decoration:none;
+  color:#111827;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  transition: transform 0.12s ease, box-shadow 0.12s ease, border-color 0.12s ease;
+}
+
+.dash-card:hover{
+  transform: translateY(-2px);
+  border-color:#93c5fd;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+.dash-card-title{
+  font-size: 18px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.dash-card-desc{
+  color:#374151;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.dash-list{
+  margin: 8px 0 0 18px;
+  padding: 0;
+  color:#374151;
+  font-size: 13px;
+}
+
+@media (max-width: 820px){
+  .dash-grid{ grid-template-columns: 1fr; }
+}
