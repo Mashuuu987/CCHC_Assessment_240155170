@@ -255,6 +255,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
     width:100%;
 }
 
+.inc-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+
 @media (max-width: 900px){
     .records-filter-input, .records-filter-select{
         min-width: 160px;

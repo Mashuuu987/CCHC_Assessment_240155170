@@ -44,6 +44,7 @@ ict\servlet\staff\CreateIncidentController.class
 ict\db\ServiceCapacityDB.class
 ict\servlet\admin\AdminUserListController.class
 ict\util\PasswordUtil.class
+ict\servlet\admin\AdminClinicCreateController.class
 ict\db\PolicyDB.class
 ict\servlet\patient\AppointmentRecordPatientActionController.class
 ict\db\PatientDB.class

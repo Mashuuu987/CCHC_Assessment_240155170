@@ -55,6 +55,11 @@
                     <h1 class="inc-title">Clinic List</h1>
                     <p class="inc-lead">View and edit clinics.</p>
                 </div>
+
+                <div class="inc-actions">
+                    <a class="create-incident-btn" href="<%= ctx%>/AdminClinicCreate">Create Clinic</a>
+                    <a class="create-incident-btn" href="<%= ctx%>/AdminServiceCreate">Create Service</a>
+                </div>
             </div>
 
             <% if (error != null) {%>
