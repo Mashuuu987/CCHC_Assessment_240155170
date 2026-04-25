@@ -56,9 +56,7 @@ public class ServiceDB {
 
     public void insertDefaultServicesIfEmpty() {
         String countSql = "SELECT COUNT(*) FROM service";
-        try (Connection c = getConnection();
-             PreparedStatement psCount = c.prepareStatement(countSql);
-             ResultSet rs = psCount.executeQuery()) {
+        try (Connection c = getConnection(); PreparedStatement psCount = c.prepareStatement(countSql); ResultSet rs = psCount.executeQuery()) {
 
             int count = 0;
             if (rs.next()) {
@@ -128,7 +126,7 @@ public class ServiceDB {
         }
         return bean;
     }
-    
+
     public boolean delService(int serviceId) {
         String sql = "DELETE FROM service WHERE serviceId = ?";
         try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
@@ -155,5 +153,28 @@ public class ServiceDB {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public int createService(String name, String description, String serviceType, int durationMins) {
+        int serviceId = -1;
+        String sql = "INSERT INTO service (name, description, serviceType, durationMins) VALUES (?, ?, ?, ?)";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
+            ps.setString(1, name);
+            ps.setString(2, description);
+            ps.setString(3, serviceType);
+            ps.setInt(4, durationMins);
+
+            int rows = ps.executeUpdate();
+            if (rows > 0) {
+                try (ResultSet rs = ps.getGeneratedKeys()) {
+                    if (rs.next()) {
+                        serviceId = rs.getInt(1);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return serviceId;
     }
 }

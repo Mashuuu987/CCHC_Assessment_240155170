@@ -57,6 +57,7 @@ ict\bean\AnnouncementsBean.class
 ict\db\AppointmentDB.class
 ict\servlet\common\ChangePasswordController.class
 ict\bean\PatientProfileBean.class
+ict\servlet\admin\AdminServiceCreateController.class
 ict\servlet\common\ProfileController.class
 ict\db\StaffDB.class
 ict\servlet\patient\AppointmentRecordsPatientController.class

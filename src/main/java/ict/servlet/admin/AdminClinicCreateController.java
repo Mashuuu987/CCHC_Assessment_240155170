@@ -6,6 +6,8 @@ package ict.servlet.admin;
 
 import ict.bean.UserInfoBean;
 import ict.db.ClinicDB;
+import ict.db.QueueSettingDB;
+import ict.db.ServiceDB;
 import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -16,11 +18,12 @@ import java.io.IOException;
  *
  * @author amzte
  */
-
 @WebServlet(name = "AdminClinicCreateController", urlPatterns = {"/AdminClinicCreate"})
 public class AdminClinicCreateController extends HttpServlet {
 
     private ClinicDB clinicDb;
+    private ServiceDB serviceDb;
+    private QueueSettingDB queueSettingDb;
 
     @Override
     public void init() {
@@ -28,7 +31,9 @@ public class AdminClinicCreateController extends HttpServlet {
         String dbUser = getServletContext().getInitParameter("dbUser");
         String dbPassword = getServletContext().getInitParameter("dbPassword");
         clinicDb = new ClinicDB(dbUrl, dbUser, dbPassword);
-        clinicDb.createClinicTable();
+        serviceDb = new ServiceDB(dbUrl, dbUser, dbPassword);
+        queueSettingDb = new QueueSettingDB(dbUrl, dbUser, dbPassword);
+
     }
 
     private String normOrNull(String s) {
@@ -97,9 +102,17 @@ public class AdminClinicCreateController extends HttpServlet {
         }
 
         int newId = clinicDb.createClinic(name, district, address, openTime, closeTime, closeDay);
-        request.getSession().setAttribute(newId > 0 ? "success" : "error",
-                newId > 0 ? ("Clinic created (ID: " + newId + ").") : "Failed to create clinic.");
+
+        if (newId > 0) {
+            queueSettingDb.ensureSettingsForNewClinic(newId);
+            request.getSession().setAttribute("success",
+                    "Clinic created (ID: " + newId + "). Queue settings initialized.");
+        } else {
+            request.getSession().setAttribute("error", "Failed to create clinic.");
+        }
 
         response.sendRedirect(request.getContextPath() + "/AdminClinicList");
+        return;
+
     }
 }

@@ -10,8 +10,9 @@
     <head>
         <meta charset="UTF-8">
         <title>Create Clinic</title>
+
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/common.css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/adminCreateUser.css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/adminClinicCreate-adminServiceCreate.css">
     </head>
     <body>
         <%@ include file="/heading.jsp" %>
@@ -25,7 +26,6 @@
             <div class="cr-head">
                 <div>
                     <h1 class="cr-title">Create Clinic</h1>
-                    <p class="cr-sub">Add a new clinic record.</p>
                 </div>
                 <div class="cr-actions">
                     <a class="btn-action btn-back" href="<%= ctx%>/AdminClinicList">Back</a>
@@ -37,7 +37,8 @@
             <% }%>
 
             <div class="cr-card">
-                <form method="post" action="<%= ctx%>/AdminClinicCreate" onsubmit="return confirm('Create this clinic?');">
+                <form method="post" action="<%= ctx%>/AdminClinicCreate"
+                      onsubmit="return confirm('Create this clinic?');">
 
                     <div class="cr-row">
                         <div class="cr-field" style="flex:1;">
@@ -83,7 +84,6 @@
 
                     <div class="cr-actions-bottom">
                         <button type="submit" class="records-filter-reset">Create</button>
-                        <a class="btn-action btn-back" href="<%= ctx%>/AdminClinicList">Cancel</a>
                     </div>
                 </form>
             </div>
@@ -91,4 +91,3 @@
 
     </body>
 </html>
-``

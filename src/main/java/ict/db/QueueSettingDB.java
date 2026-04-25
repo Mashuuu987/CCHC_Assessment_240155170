@@ -14,7 +14,6 @@ import java.util.List;
 
 public class QueueSettingDB {
 
-
     private String url;
     private String username;
     private String password;
@@ -55,9 +54,7 @@ public class QueueSettingDB {
 
     public void insertDefaultSettingsIfEmpty(ClinicDB clinicDb, ServiceDB serviceDb) {
         String countSql = "SELECT COUNT(*) FROM queue_setting";
-        try (Connection c = getConnection();
-                PreparedStatement psCount = c.prepareStatement(countSql);
-                ResultSet rs = psCount.executeQuery()) {
+        try (Connection c = getConnection(); PreparedStatement psCount = c.prepareStatement(countSql); ResultSet rs = psCount.executeQuery()) {
 
             int count = 0;
             if (rs.next()) {
@@ -211,5 +208,33 @@ public class QueueSettingDB {
             e.printStackTrace();
         }
         return false;
+    }
+
+    public void ensureSettingsForNewClinic(int clinicId) {
+        String sql
+                = "INSERT INTO queue_setting (clinicId, serviceId, allowIssueTicket, enabled, maxTicketsPerDay) "
+                + "SELECT ?, s.serviceId, TRUE, TRUE, 0 FROM service s "
+                + "ON DUPLICATE KEY UPDATE settingId = settingId";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ensureSettingsForNewService(int serviceId) {
+        String sql
+                = "INSERT INTO queue_setting (clinicId, serviceId, allowIssueTicket, enabled, maxTicketsPerDay) "
+                + "SELECT c.clinicId, ?, TRUE, TRUE, 0 FROM clinic c "
+                + "ON DUPLICATE KEY UPDATE settingId = settingId";
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, serviceId);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
