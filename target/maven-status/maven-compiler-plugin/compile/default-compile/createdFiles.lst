@@ -29,6 +29,7 @@ ict\servlet\admin\AdminDashboardController.class
 ict\bean\UserInfoBean.class
 ict\servlet\admin\AdminClinicListController.class
 ict\servlet\staff\AppointmentRecordsStaffAdminController.class
+ict\util\IncidentNotificationUtil.class
 ict\servlet\common\SettingsController.class
 ict\servlet\staff\IncidentController.class
 ict\servlet\staff\QueueSettingController.class

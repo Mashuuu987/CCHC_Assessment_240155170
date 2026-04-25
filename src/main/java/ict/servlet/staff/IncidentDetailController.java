@@ -11,8 +11,10 @@ import ict.bean.StaffProfileBean;
 import ict.bean.UserInfoBean;
 import ict.db.ClinicDB;
 import ict.db.IncidentLogDB;
+import ict.db.NotificationDB;
 import ict.db.ServiceDB;
 import ict.db.StaffDB;
+import ict.util.IncidentNotificationUtil;
 import ict.util.UserCheckUtil;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -33,6 +35,8 @@ public class IncidentDetailController extends HttpServlet {
     private StaffDB staffDb;
     private ClinicDB clinicDb;
     private ServiceDB serviceDb;
+    private NotificationDB notifDb;
+    private IncidentNotificationUtil incidentNotificationUtil;
 
     @Override
     public void init() {
@@ -44,6 +48,8 @@ public class IncidentDetailController extends HttpServlet {
         staffDb = new StaffDB(dbUrl, dbUser, dbPassword);
         clinicDb = new ClinicDB(dbUrl, dbUser, dbPassword);
         serviceDb = new ServiceDB(dbUrl, dbUser, dbPassword);
+        notifDb = new NotificationDB(dbUrl, dbUser, dbPassword);
+        incidentNotificationUtil = new IncidentNotificationUtil(notifDb);
     }
 
     private Integer parseIntOrNull(String s) {
@@ -159,11 +165,25 @@ public class IncidentDetailController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/Incident");
             return;
         }
+        IncidentLogBean incident = incidentDb.getIncidentById(incidentId);
 
+        if (incident == null) {
+            request.getSession().setAttribute("error", "Incident not found.");
+            response.sendRedirect(request.getContextPath() + "/IncidentList");
+            return;
+        }
+        int staffId = incident.getStaffId();
         boolean ok = incidentDb.closeIncident(incidentId);
 
         request.getSession().setAttribute(ok ? "success" : "error", ok ? "Incident closed." : "Failed to close incident.");
-
+        if (ok) {
+            StaffProfileBean staff = staffDb.getStaffById(staffId);
+            if (staff != null) {
+                int staffUserId = staff.getUserId();
+                String remark = request.getParameter("remark");
+                incidentNotificationUtil.notifyIncidentClosedByAdmin(staffUserId, incidentId, remark);
+            }
+        }
         response.sendRedirect(request.getContextPath() + "/IncidentDetail?incidentId=" + incidentId);
     }
 }
