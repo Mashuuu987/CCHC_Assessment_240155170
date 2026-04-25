@@ -8,11 +8,9 @@ import ict.bean.ClinicBean;
 import ict.bean.UserInfoBean;
 import ict.db.ClinicDB;
 import ict.util.UserCheckUtil;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
-
 import java.io.IOException;
 import java.util.*;
 
@@ -44,6 +42,10 @@ public class AdminClinicListController extends HttpServlet {
         }
     }
 
+    private String ns(String s) {
+        return s == null ? "" : s;
+    }
+
     private boolean containsIgnoreCase(String text, String kw) {
         if (kw == null || kw.isBlank()) {
             return true;
@@ -69,30 +71,20 @@ public class AdminClinicListController extends HttpServlet {
             response.sendRedirect(request.getContextPath() + "/PublicHome");
             return;
         }
-        request.setAttribute("isAdmin", true);
 
         Integer fClinicId = parseIntOrNull(request.getParameter("clinicId"));
-        String fName = request.getParameter("name");
-        String fDistrict = request.getParameter("district");
-        String fKeyword = request.getParameter("keyword");
-
-        if (fName == null) {
-            fName = "";
-        }
-        if (fDistrict == null) {
-            fDistrict = "";
-        }
-        if (fKeyword == null) {
-            fKeyword = "";
-        }
+        String fName = ns(request.getParameter("name")).trim();
+        String fDistrict = ns(request.getParameter("district")).trim();
+        String fCloseDay = ns(request.getParameter("closeDay")).trim();
+        String fKeyword = ns(request.getParameter("keyword")).trim();
 
         request.setAttribute("filterClinicId", fClinicId);
         request.setAttribute("filterName", fName);
         request.setAttribute("filterDistrict", fDistrict);
+        request.setAttribute("filterCloseDay", fCloseDay);
         request.setAttribute("filterKeyword", fKeyword);
 
         List<ClinicBean> clinics = clinicDb.getAllClinics();
-
         List<Map<String, Object>> viewRows = new ArrayList<>();
 
         if (clinics != null) {
@@ -107,25 +99,29 @@ public class AdminClinicListController extends HttpServlet {
                 if (!containsIgnoreCase(c.getDistrict(), fDistrict)) {
                     continue;
                 }
+                if (!fCloseDay.isBlank() && !containsIgnoreCase(c.getCloseDay(), fCloseDay)) {
+                    continue;
+                }
 
-                String combined = (c.getName() == null ? "" : c.getName()) + " "
-                        + (c.getDistrict() == null ? "" : c.getDistrict()) + " "
-                        + (c.getAddress() == null ? "" : c.getAddress());
+                String combined = ns(c.getName()) + " " + ns(c.getDistrict()) + " " + ns(c.getAddress());
                 if (!containsIgnoreCase(combined, fKeyword)) {
                     continue;
                 }
 
                 Map<String, Object> row = new HashMap<>();
                 row.put("clinicId", c.getClinicId());
-                row.put("name", c.getName());
-                row.put("district", c.getDistrict());
-                row.put("address", c.getAddress());
+                row.put("name", ns(c.getName()));
+                row.put("district", ns(c.getDistrict()));
+                row.put("address", ns(c.getAddress()));
+                row.put("openTime", ns(c.getOpenTime()));
+                row.put("closeTime", ns(c.getCloseTime()));
+                row.put("closeDay", ns(c.getCloseDay()));
                 viewRows.add(row);
             }
         }
 
         request.setAttribute("viewRows", viewRows);
-        request.setAttribute("colCount", 5);
+        request.setAttribute("colCount", 8);
 
         HttpSession session = request.getSession(false);
         if (session != null) {

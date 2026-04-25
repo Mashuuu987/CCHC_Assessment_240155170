@@ -68,6 +68,5 @@ public class ServiceCapacityBean implements Serializable {
     public void setQuota(int quota) {
         this.quota = quota;
     }
-    
-    
+
 }

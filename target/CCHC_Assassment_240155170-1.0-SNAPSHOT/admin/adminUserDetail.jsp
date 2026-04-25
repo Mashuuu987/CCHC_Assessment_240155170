@@ -18,7 +18,7 @@
         <title>User Detail</title>
 
         <link rel="stylesheet" href="<%= request.getContextPath()%>/css/common.css">
-        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/adminUserDetail.css">
+        <link rel="stylesheet" href="<%= request.getContextPath()%>/css/adminUserDetail-adminClinicDetail.css">
 
         <script>
             function enterEditMode() {

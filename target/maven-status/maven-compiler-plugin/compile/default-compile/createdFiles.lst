@@ -1,5 +1,6 @@
 ict\servlet\common\ClinicAndServiceInfomationController.class
 ict\bean\AppointmentBean.class
+ict\servlet\admin\AdminClinicDetailController.class
 ict\bean\ClinicBean.class
 ict\db\UserDB.class
 ict\servlet\staff\AppointmentRecordStaffAdminActionController.class
