@@ -48,10 +48,10 @@
                           onsubmit="return confirm('Close this incident?');">
                         <input type="hidden" name="action" value="close">
                         <input type="hidden" name="incidentId" value="<%= incident != null ? incident.getIncidentId() : ""%>">
-                        <button type="submit" class="btn-danger">Close</button>
+                        <button type="submit" class="btn-action btn-reschedule">Close</button>
                     </form>
                     <% } %>
-                    <a class="btn-details" href="<%= ctx%>/Incident">Back</a>
+                    <a class="btn-action btn-back" href="<%= ctx%>/Incident">Back</a>
                 </div>
             </div>
 

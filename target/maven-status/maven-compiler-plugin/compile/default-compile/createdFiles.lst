@@ -48,6 +48,7 @@ ict\servlet\patient\AppointmentRecordPatientActionController.class
 ict\db\PatientDB.class
 ict\bean\ServiceBean.class
 ict\tag\HeadingTag.class
+ict\servlet\admin\AdminAnalyticsController.class
 ict\bean\ServiceCapacityBean.class
 ict\servlet\common\AnnouncementsController.class
 ict\bean\AnnouncementsBean.class

@@ -6,7 +6,9 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\IncidentLogDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\IncidentController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\QueueSettingController.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\admin\AdminClinicDetailController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\QueueController.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\admin\AdminPolicySettingsController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\QueueTicketDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\util\AppointmentNotificationUtil.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\ServiceCapacityBean.java
@@ -21,6 +23,7 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\StaffHomeController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\ClinicDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\LoginController.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\admin\AdminAnalyticsController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\ChangePasswordController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\SettingsController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\UserDB.java
@@ -41,10 +44,12 @@ C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\jav
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\staff\IncidentDetailController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\util\PasswordUtil.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\UserInfoBean.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\admin\AdminDashboardController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\QueueSettingDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\util\UserCheckUtil.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\QueueSettingBean.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\bean\NotificationBean.java
+C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\PolicyDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\common\AnnouncementsController.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\db\AnnouncementsDB.java
 C:\Users\amzte\Documents\NetBeansProjects\CCHC_Assessment_240155170\src\main\java\ict\servlet\admin\AdminCreateUserController.java

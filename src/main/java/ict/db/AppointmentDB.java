@@ -321,4 +321,120 @@ public class AppointmentDB {
         return 0;
     }
 
+    public int countBookedByClinicServiceBetween(int clinicId, int serviceId, String startDate, String endDate) {
+        String sql = "SELECT COUNT(*) FROM appointment "
+                + "WHERE clinicId = ? AND serviceId = ? "
+                + "AND appointmentDate >= ? AND appointmentDate <= ? "
+                + "AND status NOT IN ('CANCELLED_BY_PATIENT','CANCELLED_BY_CLINIC')";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, startDate);
+            ps.setString(4, endDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countNoShowByClinicServiceBetween(int clinicId, int serviceId, String startDate, String endDate) {
+        String sql = "SELECT COUNT(*) FROM appointment "
+                + "WHERE clinicId = ? AND serviceId = ? "
+                + "AND appointmentDate >= ? AND appointmentDate <= ? "
+                + "AND status = 'NO_SHOW'";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            ps.setString(3, startDate);
+            ps.setString(4, endDate);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countBookedBetween(Integer clinicId, Integer serviceId, String startDate, String endDate) {
+        StringBuilder sql = new StringBuilder(
+                "SELECT COUNT(*) FROM appointment "
+                + "WHERE appointmentDate >= ? AND appointmentDate <= ? "
+                + "AND status NOT IN ('CANCELLED_BY_PATIENT','CANCELLED_BY_CLINIC')"
+        );
+
+        if (clinicId != null) {
+            sql.append(" AND clinicId = ?");
+        }
+        if (serviceId != null) {
+            sql.append(" AND serviceId = ?");
+        }
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql.toString())) {
+            int i = 1;
+            ps.setString(i++, startDate);
+            ps.setString(i++, endDate);
+
+            if (clinicId != null) {
+                ps.setInt(i++, clinicId);
+            }
+            if (serviceId != null) {
+                ps.setInt(i++, serviceId);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
+    public int countNoShowBetween(Integer clinicId, Integer serviceId, String startDate, String endDate) {
+        StringBuilder sql = new StringBuilder(
+                "SELECT COUNT(*) FROM appointment "
+                + "WHERE appointmentDate >= ? AND appointmentDate <= ? "
+                + "AND status = 'NO_SHOW'"
+        );
+
+        if (clinicId != null) {
+            sql.append(" AND clinicId = ?");
+        }
+        if (serviceId != null) {
+            sql.append(" AND serviceId = ?");
+        }
+
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql.toString())) {
+            int i = 1;
+            ps.setString(i++, startDate);
+            ps.setString(i++, endDate);
+
+            if (clinicId != null) {
+                ps.setInt(i++, clinicId);
+            }
+            if (serviceId != null) {
+                ps.setInt(i++, serviceId);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
+
 }

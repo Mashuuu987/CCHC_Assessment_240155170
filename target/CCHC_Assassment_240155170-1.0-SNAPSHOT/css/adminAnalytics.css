@@ -1,0 +1,218 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2026/04/25, 18:42:36
+    Author     : amzte
+*/
+
+.an-wrap{
+    max-width: 1100px;
+    margin: 26px auto;
+    padding: 0 16px;
+}
+
+.an-head{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-end;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.an-title{
+    margin:0;
+    font-size: 28px;
+}
+.an-sub{
+    margin:6px 0 0 0;
+    color:#6b7280;
+    font-size: 13px;
+}
+
+.an-actions{
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+}
+.an-btn-back{
+    padding: 8px 14px;
+    background:#6b7280;
+    color:#fff;
+    border-radius: 8px;
+    text-decoration:none;
+    font-weight:700;
+    font-size: 13px;
+}
+.an-btn-back:hover{
+    background:#4b5563;
+}
+
+.an-alert{
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0 14px 0;
+}
+.an-alert-error{
+    background:#fee2e2;
+    color:#991b1b;
+}
+
+.an-card{
+    background:#fff;
+    border-radius: 12px;
+    padding: 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    margin-bottom: 14px;
+}
+
+.an-form{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items:flex-end;
+}
+
+.an-field{
+    flex: 1 1 220px;
+    display:grid;
+    gap:6px;
+}
+.an-field-btn{
+    flex: 0 0 auto;
+}
+
+.an-label{
+    font-weight:800;
+    font-size:13px;
+    color:#374151;
+}
+.an-input, .an-select{
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    font-size: 13px;
+    box-sizing:border-box;
+}
+.an-input:focus, .an-select:focus{
+    outline:none;
+    border-color:#007bff;
+    box-shadow: 0 0 0 2px rgba(59,130,246,0.12);
+}
+
+.an-btn-primary{
+    padding: 10px 16px;
+    background:#007bff;
+    color:#fff;
+    border:none;
+    border-radius: 8px;
+    cursor:pointer;
+    font-weight:800;
+    font-size: 13px;
+}
+.an-btn-primary:hover{
+    background:#2563eb;
+}
+
+.an-grid{
+    display:grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 14px;
+}
+
+.an-metric{
+    background:#fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+.an-metric-title{
+    font-weight:900;
+    color:#374151;
+}
+.an-metric-value{
+    font-size: 30px;
+    font-weight:900;
+    margin-top: 6px;
+}
+.an-metric-desc{
+    margin-top: 8px;
+    color:#6b7280;
+    font-size: 13px;
+    line-height:1.5;
+}
+
+.an-table-card{
+    background:#fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.an-table-title{
+    margin:0 0 10px 0;
+    font-size: 18px;
+}
+
+.an-table{
+    width:100%;
+    border-collapse: collapse;
+    overflow:hidden;
+    border-radius: 10px;
+}
+.an-table th, .an-table td{
+    padding: 10px 12px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 13px;
+    text-align:left;
+}
+.an-table th{
+    background:#f9fafb;
+    color:#374151;
+}
+
+.an-detail-title{
+    font-weight: 800;
+    color: #374151;
+    margin: 6px 0 8px 0;
+    font-size: 13px;
+}
+
+.an-detail-empty{
+    color:#6b7280;
+    font-size: 13px;
+    padding: 6px 0;
+}
+
+.an-detail-list{
+    margin: 0;
+    padding-left: 18px;
+    color:#374151;
+    font-size: 13px;
+    line-height: 1.6;
+}
+
+.an-detail-list li{
+    margin: 2px 0;
+}
+
+.an-total-row td {
+    font-weight: 800;
+}
+.an-detail-row td {
+    color:#374151;
+}
+.an-detail-row:nth-child(even) td {
+    background:#fafafa;
+}
+
+@media (max-width: 860px){
+    .an-grid{
+        grid-template-columns: 1fr;
+    }
+    .an-field{
+        flex: 1 1 100%;
+    }
+}

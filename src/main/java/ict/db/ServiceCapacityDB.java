@@ -213,4 +213,20 @@ public class ServiceCapacityDB {
         }
         return false;
     }
+
+    public int sumDailyQuota(int clinicId, int serviceId) {
+        String sql = "SELECT COALESCE(SUM(quota),0) FROM service_capacity WHERE clinicId = ? AND serviceId = ?";
+        try (Connection c = getConnection(); PreparedStatement ps = c.prepareStatement(sql)) {
+            ps.setInt(1, clinicId);
+            ps.setInt(2, serviceId);
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return 0;
+    }
 }
