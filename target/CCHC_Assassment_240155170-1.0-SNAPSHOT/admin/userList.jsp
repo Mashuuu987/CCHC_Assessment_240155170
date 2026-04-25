@@ -22,6 +22,8 @@
 
         <%
             String ctx = request.getContextPath();
+            String error = (String) request.getSession().getAttribute("error");
+            String success = (String) request.getSession().getAttribute("success");
 
             Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
 
@@ -55,7 +57,15 @@
                 <div>
                     <h1 class="inc-title">User List</h1>
                 </div>
+                <a class="create-incident-btn" href="<%= ctx%>/AdminCreateUser">Create User</a>
             </div>
+
+            <% if (error != null) {%>
+            <div class="inc-alert inc-alert-error"><%= error%></div>
+            <% } %>
+            <% if (success != null) {%>
+            <div class="inc-alert inc-alert-success"><%= success%></div>
+            <% }%>
 
             <div class="records-search-row">
                 <form method="get" action="<%= ctx%>/AdminUserList" class="records-search-form">

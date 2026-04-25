@@ -1,0 +1,151 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : 2026/04/24, 3:49:08
+    Author     : amzte
+*/
+
+.inc-alert{
+    padding: 12px;
+    border-radius: 8px;
+    margin: 10px 0 14px 0;
+}
+.inc-alert-error{
+    background:#fee2e2;
+    color:#991b1b;
+}
+.inc-alert-success{
+    background:#dcfce7;
+    color:#166534;
+}
+
+.cr-wrap{
+    max-width: 950px;
+    margin: 26px auto;
+    padding: 0 16px;
+}
+
+.cr-head{
+    display:flex;
+    justify-content: space-between;
+    align-items:flex-end;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.cr-title{
+    margin: 0;
+    font-size: 26px;
+}
+
+.cr-actions{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.cr-card{
+    background:#fff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+}
+
+.cr-row{
+    display:flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-bottom: 12px;
+}
+
+.cr-field{
+    display:grid;
+    gap: 6px;
+    flex: 1 1 220px;
+}
+
+.cr-label{
+    font-weight: 700;
+    color:#374151;
+    font-size: 13px;
+}
+
+.profile-box{
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.sec-title{
+    margin: 0 0 10px 0;
+    font-size: 18px;
+}
+
+.cr-hint{
+    font-size: 12px;
+    color:#6b7280;
+}
+
+.cr-actions-bottom{
+    display:flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items:center;
+    margin-top: 12px;
+}
+
+.records-filter-input,
+.records-filter-select{
+    width: 100%;
+    min-width: 120px;
+    padding: 8px;
+    border: 1px solid #d1d5db;
+    border-radius: 4px;
+    font-size: 13px;
+    box-sizing: border-box;
+}
+
+.records-filter-input:focus,
+.records-filter-select:focus{
+    outline:none;
+    border-color:#007bff;
+    box-shadow: 0 0 0 2px rgba(59,130,246,0.1);
+}
+
+.records-filter-reset{
+    padding: 8px 16px;
+    background:#007bff;
+    color:#fff;
+    border:none;
+    border-radius:4px;
+    font-size:13px;
+    font-weight:500;
+    cursor:pointer;
+    transition: background 0.2s;
+}
+.records-filter-reset:hover{
+    background:#2563eb;
+}
+
+.btn-action{
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 13px;
+    text-decoration: none;
+    display: inline-block;
+}
+.btn-back{
+    background:#6b7280;
+    color:#fff;
+}
+.btn-back:hover{
+    background:#4b5563;
+}
+
+.inc-alert{
+    padding: 12px;
+}

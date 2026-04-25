@@ -4,6 +4,7 @@ ict\bean\ClinicBean.class
 ict\db\UserDB.class
 ict\servlet\staff\AppointmentRecordStaffAdminActionController.class
 ict\db\AnnouncementsDB.class
+ict\servlet\admin\AdminCreateUserController.class
 ict\util\AppointmentNotificationUtil.class
 ict\servlet\PublicHomeController.class
 ict\servlet\admin\AdminHomeController.class
