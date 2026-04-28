@@ -1,5 +1,5 @@
 <%-- 
-    Document   : Announcements
+    Document   : announcements
     Created on : 2026/04/16, 3:37:18
     Author     : amzte
 --%>
