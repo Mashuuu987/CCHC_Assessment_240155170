@@ -1,5 +1,5 @@
 <%-- 
-    Document   : ClinicAndServiceInfomation
+    Document   : clinicAndServiceInfomation
     Created on : 2026/04/16, 2:22:51
     Author     : amzte
 --%>
