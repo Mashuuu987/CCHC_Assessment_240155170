@@ -42,37 +42,37 @@
 
                 <form method="post" action="<%= request.getContextPath()%>/PatientRegister">
                     <div class="field-group">
-                        <label class="field-label" for="username">Username</label>
+                        <label class="field-label" for="username">Username*</label>
                         <input class="field-input" type="text" id="username" name="username"  value="<%= rUsername != null ? rUsername : ""%>"required>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="password">Password</label>
-                        <input class="field-input" type="password" id="password" name="password" required>
+                        <label class="field-label" for="password">Password*</label>
+                        <input class="field-input" type="password" id="password" name="password" placeholder="at least 6" required>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="confirmPassword">Confirm password</label>
+                        <label class="field-label" for="confirmPassword">Confirm password*</label>
                         <input class="field-input" type="password" id="confirmPassword" name="confirmPassword" required>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="hkid">HKID / ID number</label>
+                        <label class="field-label" for="hkid">HKID / ID number*</label>
                         <input class="field-input" type="text" id="hkid" name="hkid" value="<%= rHkid != null ? rHkid : ""%>" required>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="firstName">First name</label>
+                        <label class="field-label" for="firstName">First name*</label>
                         <input class="field-input" type="text" id="firstName" name="firstName" value="<%= rFirstName != null ? rFirstName : ""%>" required>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="lastName">Last name</label>
+                        <label class="field-label" for="lastName">Last name*</label>
                         <input class="field-input" type="text" id="lastName" name="lastName" value="<%= rLastName != null ? rLastName : ""%>" required>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="gender">Gender</label>
+                        <label class="field-label" for="gender">Gender*</label>
                         <select class="field-input" id="gender" name="gender" required>
                             <option value="">-- Please select --</option>
                             <option value="M" <%= "M".equals(rGender) ? "selected" : ""%> >Male</option>
@@ -81,12 +81,12 @@
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="dob">Date of birth</label>
+                        <label class="field-label" for="dob">Date of birth*</label>
                         <input class="field-input" type="date" id="dob" name="dob" value="<%= rDob != null ? rDob : ""%>" required>
                     </div>
 
                     <div class="field-group">
-                        <label class="field-label" for="phone">Phone</label>
+                        <label class="field-label" for="phone">Phone*</label>
                         <input class="field-input" type="text" id="phone" name="phone" value="<%= rPhone != null ? rPhone : ""%>" required>
                     </div>
 
