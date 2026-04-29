@@ -91,6 +91,7 @@
                     <table class="queue-table">
                         <thead>
                             <tr>
+                                <th>ID</th>
                                 <th>Clinic</th>
                                 <th>Service</th>
                                 <th>Hours</th>
@@ -102,12 +103,13 @@
                         </thead>
                         <tbody>
                             <% if (queueSettings == null || queueSettings.isEmpty()) { %>
-                            <tr><td colspan="7" class="queue-empty-row">No queue setting found.</td></tr>
+                            <tr><td colspan="8" class="queue-empty-row">No queue setting found.</td></tr>
                             <% } else {
                                 for (QueueSettingBean setting : queueSettings) {
                                     boolean accept = setting.isEnabled() && setting.isAllowIssueTicket();
                             %>
                             <tr>
+                                <td><%= setting.getClinicId()%></td>
                                 <td><%= setting.getClinicName()%></td>
                                 <td><%= setting.getServiceName()%> (<%= setting.getServiceType()%>)</td>
                                 <td><%= setting.getClinicOpenTime()%> - <%= setting.getClinicCloseTime()%></td>
