@@ -8,6 +8,9 @@ import ict.bean.ServiceBean;
 import ict.db.ClinicDB;
 import ict.db.NotificationDB;
 import ict.db.ServiceDB;
+/*
+    Appointment and Queue Notification also in here.
+*/
 
 public class AppointmentNotificationUtil {
 

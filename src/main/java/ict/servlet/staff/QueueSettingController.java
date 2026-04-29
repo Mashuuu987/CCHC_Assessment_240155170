@@ -117,6 +117,7 @@ public class QueueSettingController extends HttpServlet {
                 request.setAttribute("error", "No clinic is linked to this staff account.");
                 request.setAttribute("queueSettings", java.util.Collections.emptyList());
                 request.setAttribute("isAdmin", false);
+                request.setAttribute("isStaff", true);
                 request.setAttribute("staffClinicId", null);
                 request.getRequestDispatcher("/staff/queueSetting.jsp").forward(request, response);
                 return;
@@ -160,6 +161,7 @@ public class QueueSettingController extends HttpServlet {
 
         request.setAttribute("queueSettings", filtered);
         request.setAttribute("isAdmin", isAdmin);
+        request.setAttribute("isStaff", false);
         request.setAttribute("staffClinicId", staffClinicId);
 
         request.setAttribute("clinics", clinicDb.getAllClinics());

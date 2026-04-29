@@ -207,6 +207,7 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css
 
 .queue-table-wrap {
     overflow-x: auto;
+    margin-top:12px;
 }
 
 .queue-table {

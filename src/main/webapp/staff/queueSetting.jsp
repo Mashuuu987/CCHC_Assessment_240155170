@@ -24,6 +24,9 @@
             String fClinic = (String) request.getAttribute("fClinic");
             String fService = (String) request.getAttribute("fService");
             String fStatus = (String) request.getAttribute("fStatus");
+
+            Boolean isAdmin = (Boolean) request.getAttribute("isAdmin");
+            Boolean isStaff = (Boolean) request.getAttribute("isStaff");
             if (fClinic == null) {
                 fClinic = "";
             }
@@ -47,20 +50,20 @@
             <div class="queue-panel">
                 <h2 class="section-title">Queue settings</h2>
                 <form class="queue-filter-bar" method="get" action="<%= ctx%>/QueueSetting">
+                    <% if (isAdmin) {%>
                     <div class="queue-field field-small">
                         <label class="queue-label">Clinic ID</label>
                         <input class="queue-input" type="number" name="fClinicId"
                                value="<%= (fClinicId != null) ? fClinicId : ""%>"
                                placeholder="e.g. 1">
                     </div>
-
                     <div class="queue-field">
                         <label class="queue-label">Clinic keyword</label>
                         <input class="queue-input" type="text" name="fClinic"
                                value="<%= fClinic%>"
                                placeholder="e.g. Sha Tin">
                     </div>
-
+                    <% }%>
                     <div class="queue-field">
                         <label class="queue-label">Service keyword</label>
                         <input class="queue-input" type="text" name="fService"
@@ -84,7 +87,7 @@
                     </div>
                 </form>
 
-                <div class="queue-table-wrap" style="margin-top:12px;">
+                <div class="queue-table-wrap">
                     <table class="queue-table">
                         <thead>
                             <tr>
@@ -133,7 +136,7 @@
                                 </td>
                             </tr>
                             <%     }
-                    }%>
+                                }%>
                         </tbody>
                     </table>
                 </div>
